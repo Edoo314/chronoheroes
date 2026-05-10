@@ -38,8 +38,9 @@ export default function HomePage() {
         <div style={{ display: 'inline-block', fontSize: 11, letterSpacing: '.14em', textTransform: 'uppercase', color: '#b8860b', marginBottom: 24, padding: '4px 14px', border: '0.5px solid #b8860b33', borderRadius: 99 }}>
           Votre miroir dans l Histoire
         </div>
-        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#f0ede6', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 24 }}>
-          Ceux qui ont fait l Histoire au jour le jour
+        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#f0ede6', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 24, textTransform: 'uppercase' }}>
+          Ceux qui ont fait<br />
+          <span style={{ color: '#b8860b' }}>l Histoire</span> au jour le jour
         </h1>
         <p style={{ fontSize: 17, color: '#9e9b93', lineHeight: 1.75, marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}>
           Chaque jour, decouvrez des evenements qui ont fait l histoire dans votre perspective personnelle.
@@ -60,11 +61,26 @@ export default function HomePage() {
           <p style={{ fontSize: 12, color: '#444441', textAlign: 'center', marginTop: 14 }}>Gratuit - sans compte - 20 secondes</p>
         </form>
       </section>
-      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', borderTop: '0.5px solid #2a2926', borderBottom: '0.5px solid #2a2926' }}>
-        {[{n:'538+',l:'evenements dates'},{n:'176',l:'personnages'},{n:'0 jour',l:'precision'}].map((s,i) => (
-          <div key={i} style={{ padding: '28px 20px', textAlign: 'center', borderRight: i < 2 ? '0.5px solid #2a2926' : 'none' }}>
+      <section style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', borderTop: '0.5px solid #2a2926', borderBottom: '0.5px solid #2a2926' }}>
+        {[{n:'537+',l:'evenements dates au jour'},{n:'176',l:'personnages historiques'}].map((s,i) => (
+          <div key={i} style={{ padding: '28px 20px', textAlign: 'center', borderRight: i < 1 ? '0.5px solid #2a2926' : 'none' }}>
             <div style={{ fontSize: 26, fontWeight: 600, color: '#f0ede6', marginBottom: 5 }}>{s.n}</div>
             <div style={{ fontSize: 12, color: '#6b6a65' }}>{s.l}</div>
+          </div>
+        ))}
+      </section>
+      <section style={{ maxWidth: 680, margin: '0 auto', padding: '64px 32px' }}>
+        {[
+          {n:'01', t:'Votre vie en jours', p:'ChronoHeroes calcule votre nombre exact de jours de vie. C est cette unite qui permet la comparaison precise avec chaque heros de notre base.'},
+          {n:'02', t:'Le matching au jour pres', p:'Chaque personnage possede sa date de naissance exacte. On calcule son age en jours au moment de son exploit, et on le compare au votre. L ecart s affiche sur chaque carte.'},
+          {n:'03', t:'L Histoire en perspective', p:'L objectif n est pas de vous comparer a ces heros. C est de sentir que l Histoire est faite de vies humaines qui ont toutes traverse l age que vous avez aujourd hui.'},
+        ].map((s,i) => (
+          <div key={i} style={{ display: 'flex', gap: 20, paddingBottom: 28, borderBottom: i < 2 ? '0.5px solid #2a2926' : 'none', marginBottom: 28 }}>
+            <div style={{ fontSize: 11, color: '#444441', width: 24, paddingTop: 4, flexShrink: 0 }}>{s.n}</div>
+            <div>
+              <div style={{ fontSize: 16, fontWeight: 500, color: '#f0ede6', marginBottom: 8 }}>{s.t}</div>
+              <div style={{ fontSize: 14, color: '#6b6a65', lineHeight: 1.75 }}>{s.p}</div>
+            </div>
           </div>
         ))}
       </section>
