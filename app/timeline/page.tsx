@@ -35,13 +35,13 @@ export default function TimelinePage() {
     let d = today.getDate() - birth.getDate()
     if (d < 0) { m -= 1; d += new Date(today.getFullYear(), today.getMonth(), 0).getDate() }
     if (m < 0) { y -= 1; m += 12 }
-    setAgeLabel(`${y} ans, ${m} mois et ${d} jour${d > 1 ? 's' : ''}`)
+    setAgeLabel(y + ' ans, ' + m + ' mois et ' + d + ' jour' + (d > 1 ? 's' : ''))
   }, [])
   useEffect(() => {
     if (!userDays) return
     setLoading(true)
     setError('')
-    const url = `/api/match?days=${userDays}&window=60${cat ? `&category=${cat}` : ''}&limit=20`
+    const url = '/api/match?days=' + userDays + '&window=60' + (cat ? '&category=' + cat : '') + '&limit=20'
     fetch(url).then(r => r.json()).then(d => {
       if (d.error) { setError(d.error); setLoading(false); return }
       setEvents(d.events ?? [])
@@ -49,41 +49,48 @@ export default function TimelinePage() {
     }).catch(() => { setError('Erreur de connexion'); setLoading(false) })
   }, [userDays, cat])
   return (
-    <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 24px', borderBottom: '0.5px solid #e8e6e0', background: '#fff' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => router.push('/')}>
-          <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#b8860b' }} />
-          <span style={{ fontSize: 15, fontWeight: 500, color: '#1a1916' }}>ChronoHeroes</span>
+    <main style={{ minHeight: '100vh', background: '#0f0e0c', fontFamily: 'sans-serif' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px', borderBottom: '0.5px solid #2a2926' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
+            <circle cx="14" cy="14" r="3" fill="#b8860b"/>
+            <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+            <line x1="14" y1="20" x2="14" y2="26" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+            <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+            <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <span style={{ fontSize: 16, fontWeight: 600, color: '#f0ede6' }}>ChronoHeroes</span>
         </div>
-        <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '5px 12px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
+        <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #2a2926', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
           Retour
         </button>
       </nav>
-      <div style={{ maxWidth: 600, margin: '0 auto', padding: '0 24px 60px' }}>
-        <div style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 22px', margin: '24px 0', textAlign: 'center' }}>
-          <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 4 }}>{prenom}</div>
-          <div style={{ fontSize: 32, fontWeight: 500, color: '#1a1916', letterSpacing: '-.5px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
-          <div style={{ fontSize: 13, color: '#a8a79f', marginTop: 4 }}>{ageLabel} de vie</div>
+      <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 24px 80px' }}>
+        <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 14, padding: '22px 24px', margin: '28px 0 20px', textAlign: 'center' }}>
+          <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 6 }}>{prenom}</div>
+          <div style={{ fontSize: 36, fontWeight: 700, color: '#f0ede6', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
+          <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
           {CATEGORIES.map(c => (
-            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 12px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#1a1916' : 'transparent', color: cat === c.slug ? '#fff' : '#6b6a65', border: cat === c.slug ? '0.5px solid #1a1916' : '0.5px solid #e8e6e0' }}>
+            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#b8860b' : 'transparent', color: cat === c.slug ? '#0f0e0c' : '#6b6a65', border: cat === c.slug ? '0.5px solid #b8860b' : '0.5px solid #2a2926', fontWeight: cat === c.slug ? 600 : 400 }}>
               {c.label}
             </button>
           ))}
         </div>
-        {loading && <div style={{ textAlign: 'center', padding: '40px 0', color: '#a8a79f', fontSize: 13 }}>Recherche de vos heros...</div>}
-        {error && <div style={{ background: '#FCEBEB', border: '0.5px solid #F09595', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#A32D2D' }}>{error}</div>}
+        {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#444441', fontSize: 13 }}>Recherche de vos heros...</div>}
+        {error && <div style={{ background: '#1a0000', border: '0.5px solid #E24B4A', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#E24B4A' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
-          <div style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 12, padding: '32px', textAlign: 'center' }}>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 8 }}>Aucun heros trouve.</div>
-            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '6px 14px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>Voir tout</button>
+          <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun heros trouve dans cette categorie.</div>
+            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>Voir tout</button>
           </div>
         )}
         {!loading && events.map(event => <EventCard key={event.event_id} event={event} />)}
         {!loading && events.length > 0 && (
-          <div style={{ textAlign: 'center', marginTop: 8 }}>
-            <button onClick={() => { const url = `/api/match?days=${userDays}&window=120${cat ? `&category=${cat}` : ''}&limit=40`; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '8px 20px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
+          <div style={{ textAlign: 'center', marginTop: 12 }}>
+            <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>
               Voir plus de heros
             </button>
           </div>
