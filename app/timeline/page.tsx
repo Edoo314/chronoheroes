@@ -48,8 +48,8 @@ export default function TimelinePage() {
     }).catch(() => { setError('Erreur de connexion'); setLoading(false) })
   }, [userDays, cat])
   return (
-    <main style={{ minHeight: '100vh', background: '#0f0e0c', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px', borderBottom: '0.5px solid #2a2926' }}>
+    <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
           <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
@@ -59,16 +59,19 @@ export default function TimelinePage() {
             <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
             <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          <span style={{ fontSize: 16, fontWeight: 600, color: '#f0ede6' }}>ChronoHeroes</span>
+          <span style={{ fontSize: 16, fontWeight: 600, color: '#1a1916' }}>ChronoHeroes</span>
         </div>
-        <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #2a2926', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
-          Retour
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ça marche</span>
+          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
+            Retour
+          </button>
+        </div>
       </nav>
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 14, padding: '22px 24px', margin: '28px 0 8px', textAlign: 'center' }}>
-          <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 6 }}>{prenom}</div>
-          <div style={{ fontSize: 36, fontWeight: 700, color: '#f0ede6', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
+        <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '22px 24px', margin: '28px 0 8px', textAlign: 'center' }}>
+          <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>{prenom}</div>
+          <div style={{ fontSize: 36, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
         </div>
         <div style={{ textAlign: 'center', marginBottom: 20 }}>
@@ -78,23 +81,23 @@ export default function TimelinePage() {
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
           {CATEGORIES.map(c => (
-            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#b8860b' : 'transparent', color: cat === c.slug ? '#0f0e0c' : '#6b6a65', border: cat === c.slug ? '0.5px solid #b8860b' : '0.5px solid #2a2926', fontWeight: cat === c.slug ? 600 : 400 }}>
+            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#1a1916' : 'transparent', color: cat === c.slug ? '#ffffff' : '#6b6a65', border: cat === c.slug ? '0.5px solid #1a1916' : '0.5px solid #e8e6e0', fontWeight: cat === c.slug ? 600 : 400 }}>
               {c.label}
             </button>
           ))}
         </div>
-        {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#444441', fontSize: 13 }}>Recherche en cours...</div>}
-        {error && <div style={{ background: '#1a0000', border: '0.5px solid #E24B4A', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#E24B4A' }}>{error}</div>}
+        {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#a8a79f', fontSize: 13 }}>Recherche en cours...</div>}
+        {error && <div style={{ background: '#fef3e2', border: '0.5px solid #b8860b', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#b8860b' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
-          <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun evenement trouve dans cette categorie.</div>
-            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>Voir tout</button>
+          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun événement trouvé dans cette catégorie.</div>
+            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>Voir tout</button>
           </div>
         )}
         {!loading && events.map(event => <EventCard key={event.event_id} event={event} />)}
         {!loading && events.length > 0 && (
           <div style={{ textAlign: 'center', marginTop: 12 }}>
-            <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>
+            <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
               Voir plus
             </button>
           </div>
