@@ -19,7 +19,7 @@ export default function HomePage() {
     if (year < 1900) { setError("Meme Jeanne Calment n'est nee qu'en 1875... Verifiez !"); return }
     if (birthDate > today) { setError("Vous n'etes pas encore ne ! Revenez le " + birthDate.toLocaleDateString('fr-FR')); return }
     const { userDays } = computeUserDays(birthdate)
-    if (userDays > 44000) { setError("Même Jeanne Calment n'a vécu que 122 ans. Vérifiez votre date !"); return }
+    if (userDays > 44000) { setError("Meme Jeanne Calment n'a vecu que 122 ans. Verifiez votre date !"); return }
     setError('')
     localStorage.setItem('ch_prenom', prenom.trim())
     localStorage.setItem('ch_birthdate', birthdate)
@@ -41,17 +41,26 @@ export default function HomePage() {
           </svg>
           <span style={{ fontSize: 17, fontWeight: 600, color: '#f0ede6', letterSpacing: '-.2px' }}>ChronoHeroes</span>
         </div>
-        <span style={{ fontSize: 13, color: '#6b6a65' }}>L Histoire au jour le jour</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ca marche</span>
+          <button onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', background: 'transparent', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '6px 16px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
+            Commencer
+          </button>
+        </div>
       </nav>
       <section style={{ maxWidth: 680, margin: '0 auto', padding: '80px 32px 72px', textAlign: 'center' }}>
         <div style={{ display: 'inline-block', fontSize: 11, letterSpacing: '.14em', textTransform: 'uppercase', color: '#b8860b', marginBottom: 24, padding: '4px 14px', border: '0.5px solid #b8860b33', borderRadius: 99 }}>
           Votre miroir dans l Histoire
         </div>
         <h1 style={{ fontSize: 44, fontWeight: 700, color: '#f0ede6', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 24 }}>
-          CEUX QUI ONT FAIT L'HISTOIRE<br /><span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
-        </h1><p style={{ fontSize: 17, color: '#9e9b93', lineHeight: 1.75, marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}>
-          Chaque jour, découvrez des événements qui ont fait l'histoire dans votre perspective personnelle.
-        </p><form onSubmit={validateAndSubmit} style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 16, padding: '28px 28px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
+          CEUX QUI ONT FAIT L'HISTOIRE<br />
+          <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
+        </h1>
+        <p style={{ fontSize: 17, color: '#9e9b93', lineHeight: 1.75, marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}>
+          Chaque jour, decouvrez des evenements qui ont fait l histoire dans votre perspective personnelle.
+        </p>
+        <div id="form-section">
+        <form onSubmit={validateAndSubmit} style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 16, padding: '28px 28px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
           <div style={{ marginBottom: 14 }}>
             <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Prenom</label>
             <input type="text" placeholder="Sophie" value={prenom} onChange={e => setPrenom(e.target.value)} style={{ width: '100%', padding: '11px 14px', fontSize: 15, background: '#0f0e0c', border: '0.5px solid #2e2d29', borderRadius: 8, outline: 'none', color: '#f0ede6', fontFamily: 'sans-serif', boxSizing: 'border-box' }} />
@@ -70,6 +79,7 @@ export default function HomePage() {
           </button>
           <p style={{ fontSize: 12, color: '#444441', textAlign: 'center', marginTop: 14 }}>Gratuit - sans compte - 20 secondes</p>
         </form>
+        </div>
       </section>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', borderTop: '0.5px solid #2a2926', borderBottom: '0.5px solid #2a2926' }}>
         {[{n:'537+',l:'evenements dates au jour'},{n:'176',l:'personnages historiques'}].map((s,i) => (
@@ -81,7 +91,7 @@ export default function HomePage() {
       </section>
       <footer style={{ borderTop: '0.5px solid #2a2926', padding: '24px 32px', display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#444441' }}>
         <span style={{ color: '#6b6a65', fontWeight: 500 }}>ChronoHeroes</span>
-        <span>L Histoire au jour le jour</span>
+        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ca marche</span>
       </footer>
     </main>
   )
