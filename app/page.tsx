@@ -47,14 +47,11 @@ export default function HomePage() {
         <div style={{ display: 'inline-block', fontSize: 11, letterSpacing: '.14em', textTransform: 'uppercase', color: '#b8860b', marginBottom: 24, padding: '4px 14px', border: '0.5px solid #b8860b33', borderRadius: 99 }}>
           Votre miroir dans l Histoire
         </div>
-        <h1 style={{ fontSize: 52, fontWeight: 700, color: '#f0ede6', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 24 }}>
-          CEUX QUI ONT FAIT<br />
-          <span style={{ color: '#b8860b' }}>L'HISTOIRE</span> AU JOUR LE JOUR
-        </h1>
-        <p style={{ fontSize: 17, color: '#9e9b93', lineHeight: 1.75, marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}>
-          Chaque jour, decouvrez des evenements qui ont fait l histoire dans votre perspective personnelle.
-        </p>
-        <form onSubmit={validateAndSubmit} style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 16, padding: '28px 28px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
+        <h1 style={{ fontSize: 44, fontWeight: 700, color: '#f0ede6', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 24 }}>
+          CEUX QUI ONT FAIT L'HISTOIRE<br /><span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
+        </h1><p style={{ fontSize: 17, color: '#9e9b93', lineHeight: 1.75, marginBottom: 48, maxWidth: 480, margin: '0 auto 48px' }}>
+          Chaque jour, découvrez des événements qui ont fait l'histoire dans votre perspective personnelle.
+        </p><form onSubmit={validateAndSubmit} style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 16, padding: '28px 28px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
           <div style={{ marginBottom: 14 }}>
             <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Prenom</label>
             <input type="text" placeholder="Sophie" value={prenom} onChange={e => setPrenom(e.target.value)} style={{ width: '100%', padding: '11px 14px', fontSize: 15, background: '#0f0e0c', border: '0.5px solid #2e2d29', borderRadius: 8, outline: 'none', color: '#f0ede6', fontFamily: 'sans-serif', boxSizing: 'border-box' }} />
