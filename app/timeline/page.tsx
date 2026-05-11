@@ -1,7 +1,7 @@
 ﻿'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { MatchEvent, getCategoryStyle } from '@/lib/supabase'
+import { MatchEvent } from '@/lib/supabase'
 import EventCard from '@/components/EventCard'
 const CATEGORIES = [
   { slug: null, label: 'Tous' },
@@ -10,7 +10,6 @@ const CATEGORIES = [
   { slug: 'sport', label: 'Sport' },
   { slug: 'pouvoir', label: 'Politique' },
   { slug: 'exploration', label: 'Exploration' },
-  { slug: 'guerre', label: 'Guerre' },
 ]
 export default function TimelinePage() {
   const router = useRouter()
@@ -67,10 +66,15 @@ export default function TimelinePage() {
         </button>
       </nav>
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 14, padding: '22px 24px', margin: '28px 0 20px', textAlign: 'center' }}>
+        <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 14, padding: '22px 24px', margin: '28px 0 8px', textAlign: 'center' }}>
           <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 6 }}>{prenom}</div>
           <div style={{ fontSize: 36, fontWeight: 700, color: '#f0ede6', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
+        </div>
+        <div style={{ textAlign: 'center', marginBottom: 20 }}>
+          <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
+            Que faisaient-ils à votre âge ?
+          </span>
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
           {CATEGORIES.map(c => (
@@ -79,11 +83,11 @@ export default function TimelinePage() {
             </button>
           ))}
         </div>
-        {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#444441', fontSize: 13 }}>Recherche de vos heros...</div>}
+        {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#444441', fontSize: 13 }}>Recherche en cours...</div>}
         {error && <div style={{ background: '#1a0000', border: '0.5px solid #E24B4A', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#E24B4A' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
           <div style={{ background: '#1a1916', border: '0.5px solid #2e2d29', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun heros trouve dans cette categorie.</div>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun evenement trouve dans cette categorie.</div>
             <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>Voir tout</button>
           </div>
         )}
@@ -91,7 +95,7 @@ export default function TimelinePage() {
         {!loading && events.length > 0 && (
           <div style={{ textAlign: 'center', marginTop: 12 }}>
             <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #2a2926', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#f0ede6', fontFamily: 'sans-serif' }}>
-              Voir plus de heros
+              Voir plus
             </button>
           </div>
         )}
