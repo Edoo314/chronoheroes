@@ -29,9 +29,9 @@ export default function HomePage() {
 
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', borderBottom: '0.5px solid #e8e6e0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', position: 'sticky', top: 0, background: '#ffffff', zIndex: 100 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
+          <svg width="30" height="30" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
             <circle cx="14" cy="14" r="3" fill="#b8860b"/>
             <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
@@ -42,8 +42,17 @@ export default function HomePage() {
           <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>Comment ça marche</span>
-          <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
+          <span
+            onClick={() => router.push('/about')}
+            style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', display: 'var(--show-about, inline)' }}
+            className="hide-mobile"
+          >
+            Comment ça marche
+          </span>
+          <span
+            onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}
+          >
             Mon Histoire
           </span>
         </div>

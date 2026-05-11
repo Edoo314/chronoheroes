@@ -49,9 +49,9 @@ export default function TimelinePage() {
   }, [userDays, cat])
   return (
     <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff' }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
-          <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
             <circle cx="14" cy="14" r="3" fill="#b8860b"/>
             <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
@@ -59,7 +59,7 @@ export default function TimelinePage() {
             <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
             <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          <span style={{ fontSize: 16, fontWeight: 600, color: '#1a1916' }}>ChronoHeroes</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ça marche</span>
@@ -68,20 +68,20 @@ export default function TimelinePage() {
           </button>
         </div>
       </nav>
-      <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '22px 24px', margin: '28px 0 8px', textAlign: 'center' }}>
+      <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 16px 80px' }}>
+        <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', margin: '24px 0 8px', textAlign: 'center' }}>
           <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>{prenom}</div>
-          <div style={{ fontSize: 36, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
+          <div style={{ fontSize: 34, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
         </div>
-        <div style={{ textAlign: 'center', marginBottom: 20 }}>
+        <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
             Que faisaient-ils à votre âge ?
           </span>
         </div>
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           {CATEGORIES.map(c => (
-            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#1a1916' : 'transparent', color: cat === c.slug ? '#ffffff' : '#6b6a65', border: cat === c.slug ? '0.5px solid #1a1916' : '0.5px solid #e8e6e0', fontWeight: cat === c.slug ? 600 : 400 }}>
+            <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#1a1916' : 'transparent', color: cat === c.slug ? '#ffffff' : '#6b6a65', border: cat === c.slug ? '0.5px solid #1a1916' : '0.5px solid #d0cec8', fontWeight: cat === c.slug ? 600 : 400 }}>
               {c.label}
             </button>
           ))}
