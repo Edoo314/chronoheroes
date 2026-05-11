@@ -1,5 +1,5 @@
 ﻿'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { computeUserDays } from '@/lib/supabase'
 
@@ -8,6 +8,14 @@ export default function HomePage() {
   const [prenom, setPrenom] = useState('')
   const [birthdate, setBirthdate] = useState('')
   const [error, setError] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 600)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -29,7 +37,7 @@ export default function HomePage() {
 
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', position: 'sticky', top: 0, background: '#ffffff', zIndex: 100 }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
           <svg width="30" height="30" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
@@ -42,17 +50,12 @@ export default function HomePage() {
           <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span
-            onClick={() => router.push('/about')}
-            style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', display: 'var(--show-about, inline)' }}
-            className="hide-mobile"
-          >
-            Comment ça marche
-          </span>
-          <span
-            onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })}
-            style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}
-          >
+          {!isMobile && (
+            <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+              Comment ça marche
+            </span>
+          )}
+          <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
             Mon Histoire
           </span>
         </div>
@@ -61,11 +64,11 @@ export default function HomePage() {
         <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginBottom: 24, padding: '5px 16px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
           Votre miroir dans l'Histoire
         </div>
-        <h1 style={{ fontSize: 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: '-1.5px', marginBottom: 20 }}>
+        <h1 style={{ fontSize: isMobile ? 30 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: '-1px', marginBottom: 20 }}>
           CEUX QUI ONT FAIT L'HISTOIRE<br />
           <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
         </h1>
-        <p style={{ fontSize: 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 48px' }}>
+        <p style={{ fontSize: isMobile ? 15 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 48px' }}>
           Chaque jour, découvrez des événements qui ont fait l'Histoire, avec une perspective personnelle.
         </p>
         <div id="form-section">
@@ -90,10 +93,10 @@ export default function HomePage() {
           </form>
         </div>
       </section>
-      <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 8 }}>
+      <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 12 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
+        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ça marche</span>
         <span>© 2026 · <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
-        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer' }}>Comment ça marche</span>
       </footer>
     </main>
   )
