@@ -12,26 +12,32 @@ headers = {
     "Prefer": "return=minimal"
 }
 
-def get_persons():
-    r = requests.get(SUPABASE_URL + "/rest/v1/persons?select=id,name,wikipedia_slug&limit=200", headers=headers)
+def get_persons_without_image():
+    r = requests.get(SUPABASE_URL + "/rest/v1/persons?select=id,name,wikipedia_slug&image_url=is.null&limit=200", headers=headers)
     return r.json()
 
-def get_wikipedia_image(slug, name):
-    if not slug:
-        return None
-    slug_encoded = quote(slug, safe='')
-    for lang in ['en', 'fr']:
-        try:
-            url = "https://" + lang + ".wikipedia.org/api/rest_v1/page/summary/" + slug_encoded
-            r = requests.get(url, timeout=8, headers={"User-Agent": "ChronoHeroes/1.0"})
-            if r.status_code == 200:
-                data = r.json()
-                img = data.get("thumbnail", {}).get("source")
-                if img:
-                    img = img.replace("/100px-", "/300px-").replace("/150px-", "/300px-").replace("/200px-", "/300px-")
-                    return img
-        except:
-            continue
+def get_image(slug, name):
+    attempts = []
+    if slug:
+        attempts.append(quote(slug, safe=''))
+    attempts.append(quote(name.replace(' ', '_'), safe=''))
+    name_simple = name.split('(')[0].strip().replace(' ', '_')
+    if name_simple != name.replace(' ', '_'):
+        attempts.append(quote(name_simple, safe=''))
+
+    for attempt in attempts:
+        for lang in ['fr', 'en']:
+            try:
+                url = "https://" + lang + ".wikipedia.org/api/rest_v1/page/summary/" + attempt
+                r = requests.get(url, timeout=8, headers={"User-Agent": "ChronoHeroes/1.0"})
+                if r.status_code == 200:
+                    data = r.json()
+                    img = data.get("thumbnail", {}).get("source")
+                    if img:
+                        img = img.replace("/100px-", "/300px-").replace("/150px-", "/300px-").replace("/200px-", "/300px-")
+                        return img
+            except:
+                continue
     return None
 
 def update_image(person_id, image_url):
@@ -42,23 +48,23 @@ def update_image(person_id, image_url):
     )
     return r.status_code
 
-persons = get_persons()
-print("Personnages: " + str(len(persons)))
+persons = get_persons_without_image()
+print("Personnages sans image: " + str(len(persons)))
 
 ok = 0
 ko = 0
 for p in persons:
     slug = p.get("wikipedia_slug") or ""
     name = p.get("name") or ""
-    img = get_wikipedia_image(slug, name)
+    img = get_image(slug, name)
     if img:
         status = update_image(p["id"], img)
-        print("OK  " + name + " (status: " + str(status) + ")")
+        print("OK  " + name)
         ok += 1
     else:
         print("--  " + name)
         ko += 1
-    time.sleep(0.5)
+    time.sleep(0.3)
 
 print("")
-print("Termine: " + str(ok) + " images / " + str(ko) + " sans image")
+print("Termine: " + str(ok) + " nouvelles images / " + str(ko) + " toujours sans image")
