@@ -142,7 +142,7 @@ export default function TimelinePage() {
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous êtes inscrit !</div>
-                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez vos héros chaque matin.</div>
+                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les événements de l'Histoire alignés avec vous.</div>
               </div>
             ) : (
               <>
