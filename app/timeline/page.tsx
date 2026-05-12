@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { MatchEvent } from '@/lib/supabase'
 import EventCard from '@/components/EventCard'
+
 const CATEGORIES = [
   { slug: null, label: 'Tous' },
   { slug: 'arts', label: 'Arts' },
@@ -11,21 +12,27 @@ const CATEGORIES = [
   { slug: 'pouvoir', label: 'Politique' },
   { slug: 'exploration', label: 'Exploration' },
 ]
+
 export default function TimelinePage() {
   const router = useRouter()
   const [prenom, setPrenom] = useState('')
   const [userDays, setUserDays] = useState(0)
+  const [birthdate, setBirthdate] = useState('')
   const [ageLabel, setAgeLabel] = useState('')
   const [events, setEvents] = useState<MatchEvent[]>([])
   const [loading, setLoading] = useState(true)
   const [cat, setCat] = useState<string | null>(null)
   const [error, setError] = useState('')
+  const [email, setEmail] = useState('')
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
+
   useEffect(() => {
     const p = localStorage.getItem('ch_prenom')
     const bd = localStorage.getItem('ch_birthdate')
     const ud = localStorage.getItem('ch_userdays')
     if (!p || !bd || !ud) { router.push('/'); return }
     setPrenom(p)
+    setBirthdate(bd)
     setUserDays(Number(ud))
     const birth = new Date(bd)
     const today = new Date()
@@ -36,6 +43,7 @@ export default function TimelinePage() {
     if (m < 0) { y -= 1; m += 12 }
     setAgeLabel(y + ' ans, ' + m + ' mois et ' + d + ' jour' + (d > 1 ? 's' : ''))
   }, [])
+
   useEffect(() => {
     if (!userDays) return
     setLoading(true)
@@ -47,6 +55,25 @@ export default function TimelinePage() {
       setLoading(false)
     }).catch(() => { setError('Erreur de connexion'); setLoading(false) })
   }, [userDays, cat])
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email) return
+    setSubscribeStatus('loading')
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, prenom, birthdate, userDays })
+      })
+      const data = await res.json()
+      if (data.success) setSubscribeStatus('done')
+      else setSubscribeStatus('error')
+    } catch {
+      setSubscribeStatus('error')
+    }
+  }
+
   return (
     <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -68,17 +95,20 @@ export default function TimelinePage() {
           </button>
         </div>
       </nav>
+
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 16px 80px' }}>
         <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', margin: '24px 0 8px', textAlign: 'center' }}>
           <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>{prenom}</div>
           <div style={{ fontSize: 34, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
         </div>
+
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
             Que faisaient-ils à votre âge ?
           </span>
         </div>
+
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           {CATEGORIES.map(c => (
             <button key={String(c.slug)} onClick={() => setCat(c.slug)} style={{ padding: '5px 13px', fontSize: 12, borderRadius: 99, cursor: 'pointer', fontFamily: 'sans-serif', background: cat === c.slug ? '#1a1916' : 'transparent', color: cat === c.slug ? '#ffffff' : '#6b6a65', border: cat === c.slug ? '0.5px solid #1a1916' : '0.5px solid #d0cec8', fontWeight: cat === c.slug ? 600 : 400 }}>
@@ -86,6 +116,7 @@ export default function TimelinePage() {
             </button>
           ))}
         </div>
+
         {loading && <div style={{ textAlign: 'center', padding: '60px 0', color: '#a8a79f', fontSize: 13 }}>Recherche en cours...</div>}
         {error && <div style={{ background: '#fef3e2', border: '0.5px solid #b8860b', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#b8860b' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
@@ -94,12 +125,47 @@ export default function TimelinePage() {
             <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>Voir tout</button>
           </div>
         )}
+
         {!loading && events.map(event => <EventCard key={event.event_id} event={event} />)}
+
         {!loading && events.length > 0 && (
-          <div style={{ textAlign: 'center', marginTop: 12 }}>
+          <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 32 }}>
             <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
               Voir plus
             </button>
+          </div>
+        )}
+
+        {!loading && (
+          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginTop: 8 }}>
+            {subscribeStatus === 'done' ? (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous êtes inscrit !</div>
+                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez vos héros chaque matin.</div>
+              </div>
+            ) : (
+              <>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>Recevoir mes héros chaque matin</div>
+                <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
+                  Chaque jour, un email avec les personnages historiques les plus proches de votre âge exact.
+                </div>
+                <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <input
+                    type="email"
+                    placeholder="votre@email.com"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }}
+                  />
+                  <button type="submit" disabled={subscribeStatus === 'loading'} style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                    {subscribeStatus === 'loading' ? '...' : "S'inscrire"}
+                  </button>
+                </form>
+                {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Réessayez.</div>}
+                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit · Sans spam · Désinscription en un clic</div>
+              </>
+            )}
           </div>
         )}
       </div>
