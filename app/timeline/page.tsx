@@ -25,6 +25,7 @@ export default function TimelinePage() {
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [subscribeStatus, setSubscribeStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     const p = localStorage.getItem('ch_prenom')
@@ -74,6 +75,17 @@ export default function TimelinePage() {
     }
   }
 
+  function handleShare() {
+    const shareUrl = 'https://chronoheroes.vercel.app?prenom=' + encodeURIComponent(prenom) + '&birth=' + birthdate
+    const shareText = prenom + ' a ' + ageLabel + ' de vie. Decouvrez sa perspective historique sur ChronoHeroes : ' + shareUrl
+    if (navigator.share) {
+      navigator.share({ title: 'Ma perspective historique', text: shareText, url: shareUrl })
+    } else {
+      navigator.clipboard.writeText(shareText)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2500)
+    }
+  }
   return (
     <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -89,7 +101,7 @@ export default function TimelinePage() {
           <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ça marche</span>
+          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ca marche</span>
           <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
             Retour
           </button>
@@ -105,7 +117,7 @@ export default function TimelinePage() {
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
-            Que faisaient-ils à votre âge ?
+            Que faisaient-ils a votre age ?
           </span>
         </div>
 
@@ -121,7 +133,7 @@ export default function TimelinePage() {
         {error && <div style={{ background: '#fef3e2', border: '0.5px solid #b8860b', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#b8860b' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun événement trouvé dans cette catégorie.</div>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun evenement trouve dans cette categorie.</div>
             <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>Voir tout</button>
           </div>
         )}
@@ -129,9 +141,21 @@ export default function TimelinePage() {
         {!loading && events.map(event => <EventCard key={event.event_id} event={event} />)}
 
         {!loading && events.length > 0 && (
-          <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 32 }}>
+          <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 20 }}>
             <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
               Voir plus
+            </button>
+          </div>
+        )}
+
+        {!loading && (
+          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 12, textAlign: 'center' }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Partager ma perspective</div>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
+              Invitez quelqu'un a decouvrir votre perspective historique personnelle.
+            </div>
+            <button onClick={handleShare} style={{ padding: '10px 24px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
+              {copied ? 'Lien copie !' : 'Partager ma perspective'}
             </button>
           </div>
         )}
@@ -141,29 +165,23 @@ export default function TimelinePage() {
             {subscribeStatus === 'done' ? (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous êtes inscrit !</div>
-                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les événements de l'Histoire alignés avec vous.</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous etes inscrit !</div>
+                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les evenements de l'Histoire alignes avec vous.</div>
               </div>
             ) : (
               <>
-                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>Recevoir mes héros chaque matin</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>Recevoir mes heros par email</div>
                 <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
-                  Chaque jour, un email avec les personnages historiques les plus proches de votre âge exact.
+                  Un email uniquement quand une coincidence exacte est detectee avec votre age.
                 </div>
                 <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <input
-                    type="email"
-                    placeholder="votre@email.com"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }}
-                  />
+                  <input type="email" placeholder="votre@email.com" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
                   <button type="submit" disabled={subscribeStatus === 'loading'} style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
                     {subscribeStatus === 'loading' ? '...' : "S'inscrire"}
                   </button>
                 </form>
-                {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Réessayez.</div>}
-                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit · Sans spam · Désinscription en un clic</div>
+                {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Reessayez.</div>}
+                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit · Sans spam · Desinscription en un clic</div>
               </>
             )}
           </div>
