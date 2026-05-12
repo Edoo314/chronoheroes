@@ -27,8 +27,15 @@ export function computeUserDays(birthdate: string) {
   if (m < 0) { y -= 1; m += 12 }
   return { userDays, ageLabel: y + ' ans, ' + m + ' mois et ' + d + ' jour' + (d > 1 ? 's' : ''), years: y, months: m, days: d }
 }
+export function getMatchWindow(userDays: number): number {
+  const years = userDays / 365.25
+  if (years >= 60) return 120
+  if (years >= 50) return 90
+  return 60
+}
 export async function fetchMatchEvents(params: { userDays: number; window?: number; category?: string; limit?: number }) {
-  const { userDays, window = 30, category, limit = 20 } = params
+  const { userDays, category, limit = 20 } = params
+  const window = params.window ?? getMatchWindow(userDays)
   const { data, error } = await supabase.rpc('match_events', { p_user_days: userDays, p_window: window, p_category: category ?? null, p_period: null, p_geo: null, p_limit: limit })
   if (error) throw new Error(error.message)
   return (data ?? []) as MatchEvent[]
