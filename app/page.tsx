@@ -17,6 +17,19 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const p = params.get('prenom')
+    const b = params.get('birth')
+    if (p && b) {
+      const { userDays } = computeUserDays(b)
+      localStorage.setItem('ch_prenom', p)
+      localStorage.setItem('ch_birthdate', b)
+      localStorage.setItem('ch_userdays', String(userDays))
+      router.push('/timeline')
+    }
+  }, [])
+
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!prenom.trim()) { setError("Merci d'entrer votre prénom."); return }
