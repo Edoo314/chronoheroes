@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { computeUserDays } from '@/lib/supabase'
@@ -32,15 +32,15 @@ export default function HomePage() {
 
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!prenom.trim()) { setError("Merci d'entrer votre prÃ©nom."); return }
+    if (!prenom.trim()) { setError("Merci d'entrer votre prénom."); return }
     if (!birthdate) { setError("Merci d'entrer votre date de naissance."); return }
     const year = parseInt(birthdate.split('-')[0])
     const today = new Date()
     const birthDate = new Date(birthdate)
-    if (year < 1900) { setError("MÃªme Jeanne Calment n'est nÃ©e qu'en 1875... VÃ©rifiez !"); return }
-    if (birthDate > today) { setError("Vous n'Ãªtes pas encore nÃ© ! Revenez le " + birthDate.toLocaleDateString('fr-FR')); return }
+    if (year < 1900) { setError("Même Jeanne Calment n'est née qu'en 1875... Vérifiez !"); return }
+    if (birthDate > today) { setError("Vous n'êtes pas encore né ! Revenez le " + birthDate.toLocaleDateString('fr-FR')); return }
     const { userDays } = computeUserDays(birthdate)
-    if (userDays > 44000) { setError("MÃªme Jeanne Calment n'a vÃ©cu que 122 ans. VÃ©rifiez votre date !"); return }
+    if (userDays > 44000) { setError("Même Jeanne Calment n'a vécu que 122 ans. Vérifiez votre date !"); return }
     setError('')
     localStorage.setItem('ch_prenom', prenom.trim())
     localStorage.setItem('ch_birthdate', birthdate)
@@ -65,7 +65,7 @@ export default function HomePage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           {!isMobile && (
             <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-              Comment Ã§a marche
+              Comment ça marche
             </span>
           )}
           <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
@@ -82,12 +82,12 @@ export default function HomePage() {
           <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
         </h1>
         <p style={{ fontSize: isMobile ? 15 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 48px' }}>
-          Chaque jour, dÃ©couvrez des Ã©vÃ©nements qui ont fait l'Histoire, avec une perspective personnelle.
+          Chaque jour, découvrez des événements qui ont fait l'Histoire, avec une perspective personnelle.
         </p>
         <div id="form-section">
           <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '28px 24px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
             <div style={{ marginBottom: 14 }}>
-              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>PrÃ©nom</label>
+              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Prénom</label>
               <input type="text" placeholder="Sophie" value={prenom} onChange={e => setPrenom(e.target.value)} style={{ width: '100%', padding: '11px 14px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }} />
             </div>
             <div style={{ marginBottom: 22 }}>
@@ -100,16 +100,16 @@ export default function HomePage() {
               </div>
             )}
             <button type="submit" style={{ width: '100%', padding: '13px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
-              DÃ©couvrir mes hÃ©ros du jour
+              Découvrir mes héros du jour
             </button>
-            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 14 }}>Gratuit Â· sans compte</p>
+            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 14 }}>Gratuit · sans compte</p>
           </form>
         </div>
       </section>
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 12 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
-        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment Ã§a marche</span>
-        <span>Â© 2026 Â· <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
+        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ça marche</span>
+        <span>© 2026 · <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
       </footer>
     </main>
   )

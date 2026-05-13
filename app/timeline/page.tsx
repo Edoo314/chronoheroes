@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { MatchEvent } from '@/lib/supabase'
@@ -76,7 +76,7 @@ export default function TimelinePage() {
   }
 
   function handleShare() {
-    const shareUrl = 'https://chronoheroes.vercel.app?prenom=' + encodeURIComponent(prenom) + '&birth=' + birthdate
+    const shareUrl = 'https://chronoheroes.com?prenom=' + encodeURIComponent(prenom) + '&birth=' + birthdate
     const shareText = prenom + ' a ' + ageLabel + ' de vie. Decouvrez sa perspective historique sur ChronoHeroes : ' + shareUrl
     if (navigator.share) {
       navigator.share({ title: 'Ma perspective historique', text: shareText, url: shareUrl })
@@ -117,7 +117,7 @@ export default function TimelinePage() {
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
-            Que faisaient-ils Ã  votre Ã¢ge ?
+            Que faisaient-ils à votre âge ?
           </span>
         </div>
 
@@ -164,7 +164,7 @@ export default function TimelinePage() {
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginTop: 8 }}>
             {subscribeStatus === 'done' ? (
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 20, marginBottom: 8 }}>âœ“</div>
+                <div style={{ fontSize: 20, marginBottom: 8 }}>?</div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous etes inscrit !</div>
                 <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les evenements de l'Histoire alignes avec vous.</div>
               </div>
@@ -181,7 +181,7 @@ export default function TimelinePage() {
                   </button>
                 </form>
                 {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Reessayez.</div>}
-                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit Â· Sans spam Â· Desinscription en un clic</div>
+                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit · Sans spam · Desinscription en un clic</div>
               </>
             )}
           </div>

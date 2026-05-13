@@ -1,4 +1,4 @@
-ï»¿import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -38,10 +38,10 @@ export async function POST(req: NextRequest) {
         '</div>' +
 
         '<div style="background:#ffffff;padding:28px;border-radius:0 0 12px 12px;border:0.5px solid #e8e6e0;border-top:none;">' +
-          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 16px;">Vous Ãªtes inscrit Ã  ChronoHeroes. Vous recevrez un email uniquement lorsqu\'une coÃ¯ncidence exacte est dÃ©tectÃ©e â€” quand vous avez le mÃªme nombre de jours qu\'un personnage historique au moment d\'un Ã©vÃ©nement marquant.</p>' +
-          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 24px;">Votre Ã¢ge aujourd\'hui : <strong style="color:#1a1916;">' + userDays + ' jours</strong></p>' +
-          '<a href="https://chronoheroes.vercel.app" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;">Voir mes hÃ©ros du jour</a>' +
-          '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;">Â© 2026 ChronoHeroes Â· <a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">hero@chronoheroes.com</a></p>' +
+          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 16px;">Vous êtes inscrit à ChronoHeroes. Vous recevrez un email uniquement lorsqu\'une coïncidence exacte est détectée — quand vous avez le même nombre de jours qu\'un personnage historique au moment d\'un événement marquant.</p>' +
+          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 24px;">Votre âge aujourd\'hui : <strong style="color:#1a1916;">' + userDays + ' jours</strong></p>' +
+          '<a href="https://chronoheroes.com" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;">Voir mes héros du jour</a>' +
+          '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;">© 2026 ChronoHeroes · <a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">hero@chronoheroes.com</a></p>' +
         '</div>' +
 
       '</div>'

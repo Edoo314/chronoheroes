@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 import { useRouter } from 'next/navigation'
 
 export default function AboutPage() {
@@ -29,37 +29,37 @@ export default function AboutPage() {
         </div>
 
         <h1 style={{ fontSize: 40, fontWeight: 700, color: '#1a1916', lineHeight: 1.15, letterSpacing: '-1px', marginBottom: 16 }}>
-          Comment Ã§a marche
+          Comment ça marche
         </h1>
 
         <p style={{ fontSize: 17, color: '#6b6a65', lineHeight: 1.8, marginBottom: 56 }}>
-          ChronoHeroes est une faÃ§on nouvelle et personnelle de dÃ©couvrir l'Histoire. Non pas comme une suite de dates et d'Ã©vÃ©nements abstraits, mais comme une sÃ©rie de vies humaines qui ont toutes traversÃ© l'Ã¢ge que vous avez aujourd'hui.
+          ChronoHeroes est une façon nouvelle et personnelle de découvrir l'Histoire. Non pas comme une suite de dates et d'événements abstraits, mais comme une série de vies humaines qui ont toutes traversé l'âge que vous avez aujourd'hui.
         </p>
 
         {[
           {
-            t: "L'Ã¢ge comme mesure universelle",
-            p: "On apprend l'Histoire par annÃ©es : 1789, 1945, 1969. Ces chiffres situent les Ã©vÃ©nements dans le temps, mais ils ne disent rien de l'humain qui les a vÃ©cus. Quel Ã¢ge avait-il ? Ã‰tait-il jeune, expÃ©rimentÃ©, vieux ? ChronoHeroes rÃ©pond Ã  cette question en ramenant chaque Ã©vÃ©nement Ã  l'Ã©chelle d'une vie humaine â€” la vÃ´tre."
+            t: "L'âge comme mesure universelle",
+            p: "On apprend l'Histoire par années : 1789, 1945, 1969. Ces chiffres situent les événements dans le temps, mais ils ne disent rien de l'humain qui les a vécus. Quel âge avait-il ? Était-il jeune, expérimenté, vieux ? ChronoHeroes répond à cette question en ramenant chaque événement à l'échelle d'une vie humaine — la vôtre."
           },
           {
-            t: "Le calcul au jour prÃ¨s",
-            p: "Chaque personnage de notre base possÃ¨de sa date de naissance exacte. Chaque Ã©vÃ©nement historique est datÃ© prÃ©cisÃ©ment. On calcule l'Ã¢ge du personnage ce jour-lÃ  en nombre de jours, et on le compare au vÃ´tre. L'Ã©cart s'affiche sur chaque carte â€” parfois zÃ©ro. Quand l'Ã©cart est zÃ©ro, c'est jour pour jour : vous avez aujourd'hui l'Ã¢ge exact auquel ce personnage a changÃ© le cours de l'Histoire."
+            t: "Le calcul au jour près",
+            p: "Chaque personnage de notre base possède sa date de naissance exacte. Chaque événement historique est daté précisément. On calcule l'âge du personnage ce jour-là en nombre de jours, et on le compare au vôtre. L'écart s'affiche sur chaque carte — parfois zéro. Quand l'écart est zéro, c'est jour pour jour : vous avez aujourd'hui l'âge exact auquel ce personnage a changé le cours de l'Histoire."
           },
           {
             t: "Apprendre l'Histoire autrement",
-            p: "Savoir que NapolÃ©on avait 36 ans Ã  Austerlitz, que Marie Curie avait 36 ans quand elle a reÃ§u son premier Nobel, que Martin Luther King avait 34 ans lors du discours I Have a Dream â€” ce n'est pas de l'anecdote. C'est une faÃ§on de se situer dans le temps, de comprendre que l'Histoire n'est pas un passÃ© lointain mais une suite de destins humains qui ont tous connu votre Ã¢ge."
+            p: "Savoir que Napoléon avait 36 ans à Austerlitz, que Marie Curie avait 36 ans quand elle a reçu son premier Nobel, que Martin Luther King avait 34 ans lors du discours I Have a Dream — ce n'est pas de l'anecdote. C'est une façon de se situer dans le temps, de comprendre que l'Histoire n'est pas un passé lointain mais une suite de destins humains qui ont tous connu votre âge."
           },
           {
             t: "Se repositionner, pas se comparer",
-            p: "L'objectif n'est pas de crÃ©er de l'anxiÃ©tÃ©. Personne n'attend de vous que vous marchiez sur la Lune ou gagniez Austerlitz. L'idÃ©e est contemplative : prendre conscience que l'Histoire est faite de vies humaines ordinaires qui, un jour, ont fait quelque chose d'extraordinaire â€” souvent Ã  l'Ã¢ge que vous avez maintenant."
+            p: "L'objectif n'est pas de créer de l'anxiété. Personne n'attend de vous que vous marchiez sur la Lune ou gagniez Austerlitz. L'idée est contemplative : prendre conscience que l'Histoire est faite de vies humaines ordinaires qui, un jour, ont fait quelque chose d'extraordinaire — souvent à l'âge que vous avez maintenant."
           },
           {
             t: "Ceux qui font vraiment l'Histoire sont anonymes",
-            p: "Les grands noms de l'Histoire ne sont que la partie visible d'un iceberg. DerriÃ¨re chaque Ã©vÃ©nement cÃ©lÃ¨bre, des millions de vies ordinaires ont Ã©tÃ© traversÃ©es, bousculÃ©es, transformÃ©es. Chacun est le hÃ©ros de sa propre histoire, avec ses propres Ã©vÃ©nements marquants, ses propres tournants, ses propres exploits silencieux. ChronoHeroes vous invite Ã  regarder les grands destins avec les yeux de votre propre vie."
+            p: "Les grands noms de l'Histoire ne sont que la partie visible d'un iceberg. Derrière chaque événement célèbre, des millions de vies ordinaires ont été traversées, bousculées, transformées. Chacun est le héros de sa propre histoire, avec ses propres événements marquants, ses propres tournants, ses propres exploits silencieux. ChronoHeroes vous invite à regarder les grands destins avec les yeux de votre propre vie."
           },
           {
             t: "Une perspective personnelle",
-            p: "Chaque utilisateur vit une expÃ©rience unique. La mÃªme base de donnÃ©es, les mÃªmes Ã©vÃ©nements â€” mais le miroir change chaque jour, et il est diffÃ©rent pour chacun. C'est l'Histoire vue Ã  travers votre prisme personnel, au jour le jour."
+            p: "Chaque utilisateur vit une expérience unique. La même base de données, les mêmes événements — mais le miroir change chaque jour, et il est différent pour chacun. C'est l'Histoire vue à travers votre prisme personnel, au jour le jour."
           },
         ].map((s, i, arr) => (
           <div key={i} style={{ paddingBottom: 36, borderBottom: i < arr.length - 1 ? '0.5px solid #e8e6e0' : 'none', marginBottom: 36 }}>
@@ -70,14 +70,14 @@ export default function AboutPage() {
 
         <div style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '28px 32px', marginTop: 16, textAlign: 'center' }}>
           <div style={{ fontSize: 20, fontWeight: 600, color: '#1a1916', marginBottom: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
-            "L'Histoire n'est pas ce qui s'est passÃ©.<br />C'est ce qui s'est passÃ© Ã  l'Ã¢ge qu'on a."
+            "L'Histoire n'est pas ce qui s'est passé.<br />C'est ce qui s'est passé à l'âge qu'on a."
           </div>
           <div style={{ fontSize: 13, color: '#a8a79f', marginTop: 12 }}>Principe fondateur de ChronoHeroes</div>
         </div>
 
         <div style={{ textAlign: 'center', marginTop: 40 }}>
           <button onClick={() => router.push('/')} style={{ padding: '13px 32px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
-            DÃ©couvrir mes hÃ©ros du jour
+            Découvrir mes héros du jour
           </button>
         </div>
 
@@ -85,7 +85,7 @@ export default function AboutPage() {
 
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 8 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
-        <span>Â© 2026 ChronoHeroes Â· <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
+        <span>© 2026 ChronoHeroes · <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
         <span onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>Accueil</span>
       </footer>
     </main>

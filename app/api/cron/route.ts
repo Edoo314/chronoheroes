@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
@@ -86,8 +86,8 @@ export async function GET(req: NextRequest) {
           '<div style="background:#ffffff;padding:28px;border-radius:0 0 12px 12px;border:0.5px solid #e8e6e0;border-top:none;">' +
             '<p style="font-size:13px;color:#6b6a65;margin:0 0 16px;">Ce jour vous vivez exactement <strong style="color:#1a1916;">' + userDays + ' jours</strong>, soit autant que ces personnages lors des evenements suivants :</p>' +
             eventCards +
-            '<a href="https://chronoheroes.vercel.app" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;margin-top:8px;">Voir tous mes heros du jour</a>' +
-            '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;line-height:1.6;">Vous recevez cet email car une coincidence exacte a ete detectee.<br><a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">Se desinscrire</a> · 2026 ChronoHeroes</p>' +
+            '<a href="https://chronoheroes.com" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;margin-top:8px;">Voir tous mes heros du jour</a>' +
+            '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;line-height:1.6;">Vous recevez cet email car une coincidence exacte a ete detectee.<br><a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">Se desinscrire</a> � 2026 ChronoHeroes</p>' +
           '</div>' +
 
         '</div>'
