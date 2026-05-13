@@ -27,24 +27,18 @@ export async function POST(req: NextRequest) {
       from: 'ChronoHeroes <hero@chronoheroes.com>',
       to: email,
       subject: 'Votre perspective historique personnelle',
-      html: '<div style="font-family:sans-serif;max-width:520px;margin:0 auto;">' +
-
-        '<div style="background:#1a1916;padding:24px 28px;border-radius:12px 12px 0 0;">' +
-          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">' +
-            '<span style="font-size:15px;font-weight:700;color:#f0ede6;">ChronoHeroes</span>' +
-          '</div>' +
-          '<div style="font-size:11px;color:#b8860b;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Votre perspective historique</div>' +
-          '<div style="font-size:20px;font-weight:700;color:#ffffff;line-height:1.3;">Bienvenue ' + prenom + ' !</div>' +
-        '</div>' +
-
-        '<div style="background:#ffffff;padding:28px;border-radius:0 0 12px 12px;border:0.5px solid #e8e6e0;border-top:none;">' +
-          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 16px;">Vous êtes inscrit à ChronoHeroes. Vous recevrez un email uniquement lorsqu\'une coïncidence exacte est détectée — quand vous avez le même nombre de jours qu\'un personnage historique au moment d\'un événement marquant.</p>' +
-          '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 24px;">Votre âge aujourd\'hui : <strong style="color:#1a1916;">' + userDays + ' jours</strong></p>' +
-          '<a href="https://chronoheroes.com" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;">Voir mes héros du jour</a>' +
-          '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;">© 2026 ChronoHeroes · <a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">hero@chronoheroes.com</a></p>' +
-        '</div>' +
-
-      '</div>'
+      html: '<div style="font-family:sans-serif;max-width:520px;margin:0 auto;">'
+        + '<div style="background:#1a1916;padding:24px 28px;border-radius:12px 12px 0 0;">'
+        + '<div style="font-size:11px;color:#b8860b;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Votre perspective historique</div>'
+        + '<div style="font-size:20px;font-weight:700;color:#ffffff;line-height:1.3;">Bienvenue ' + prenom + ' !</div>'
+        + '</div>'
+        + '<div style="background:#ffffff;padding:28px;border-radius:0 0 12px 12px;border:0.5px solid #e8e6e0;border-top:none;">'
+        + '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 16px;">Vous etes inscrit a ChronoHeroes. Vous recevrez un email uniquement lorsqu une coincidence exacte est detectee.</p>'
+        + '<p style="font-size:15px;color:#6b6a65;line-height:1.75;margin:0 0 24px;">Votre age : <strong style="color:#1a1916;">' + userDays + ' jours</strong></p>'
+        + '<a href="https://chronoheroes.com" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;">Voir mes heros du jour</a>'
+        + '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;">2026 ChronoHeroes</p>'
+        + '</div>'
+        + '</div>'
     })
 
     return NextResponse.json({ success: true })
