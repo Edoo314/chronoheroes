@@ -37,8 +37,12 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const style = getCategoryStyle(event.category)
   const delta = getDeltaStyle(event.delta_signed)
 
+  const wikiUrl = event.wikipedia_slug
+    ? 'https://fr.wikipedia.org/wiki/' + event.wikipedia_slug
+    : null
+
   return (
-    <div onClick={() => setOpen(!open)} style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 18px', cursor: 'pointer', marginBottom: 12 }}>
+    <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 18px', marginBottom: 12 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 10 }}>
         <div style={{ width: 56, height: 56, borderRadius: 10, flexShrink: 0, background: style.bg, color: style.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, overflow: 'hidden' }}>
           {event.image_url ? (
@@ -48,7 +52,16 @@ export default function EventCard({ event }: { event: MatchEvent }) {
           )}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 3 }}>{event.person_name}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+            <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916' }}>{event.person_name}</div>
+            {wikiUrl && (
+              <a href={wikiUrl} target="_blank" rel="noopener noreferrer"
+                onClick={e => e.stopPropagation()}
+                style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap' }}>
+                En savoir plus
+              </a>
+            )}
+          </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '')}</div>
           <div style={{ fontSize: 12, color: '#6b6a65' }}>{event.age_label}</div>
         </div>
@@ -56,15 +69,27 @@ export default function EventCard({ event }: { event: MatchEvent }) {
           {delta.label}
         </div>
       </div>
-      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 12, paddingLeft: 70 }}>{event.description_fr}</div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70 }}>
+
+      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 4, paddingLeft: 70 }}>{event.description_fr}</div>
+
+      {event.bio_fr && (
+        <div style={{ paddingLeft: 70 }}>
+          <button onClick={e => { e.stopPropagation(); setOpen(!open) }} style={{ fontSize: 11, color: '#b8860b', background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 0', fontFamily: 'sans-serif' }}>
+            {open ? 'Réduire ▲' : 'Lire plus ▼'}
+          </button>
+          {open && (
+            <div style={{ fontSize: 13, color: '#6b6a65', lineHeight: 1.75, marginTop: 6, paddingBottom: 8, borderBottom: '0.5px solid #e8e6e0' }}>
+              {event.bio_fr}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70, marginTop: 10 }}>
         <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{style.label}</span>
         {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{event.period}</span>}
         <span style={{ fontSize: 11, color: '#b8b6ae', marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
       </div>
-      {open && event.bio_fr && (
-        <div style={{ marginTop: 12, paddingTop: 12, borderTop: '0.5px solid #e8e6e0', fontSize: 13, color: '#6b6a65', lineHeight: 1.75 }}>{event.bio_fr}</div>
-      )}
     </div>
   )
 }
