@@ -70,26 +70,23 @@ export async function GET(req: NextRequest) {
 
       const firstName = events[0].person_name
       const subject = 'Votre perspective historique personnelle'
-      const headline = sub.prenom + ', aujourd\'hui vous avez l\'age exact de ' + firstName + ' lors d\'un evenement historique.'
+      const headline = sub.prenom + ", aujourd'hui vous avez l'age exact de " + firstName + " lors d'un evenement historique."
 
       await resend.emails.send({
         from: 'ChronoHeroes <hero@chronoheroes.com>',
         to: sub.email,
         subject,
         html: '<div style="font-family:sans-serif;max-width:520px;margin:0 auto;">' +
-
           '<div style="background:#1a1916;padding:24px 28px;border-radius:12px 12px 0 0;">' +
             '<div style="font-size:11px;color:#b8860b;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Votre perspective historique</div>' +
             '<div style="font-size:20px;font-weight:700;color:#ffffff;line-height:1.3;">' + headline + '</div>' +
           '</div>' +
-
           '<div style="background:#ffffff;padding:28px;border-radius:0 0 12px 12px;border:0.5px solid #e8e6e0;border-top:none;">' +
             '<p style="font-size:13px;color:#6b6a65;margin:0 0 16px;">Ce jour vous vivez exactement <strong style="color:#1a1916;">' + userDays + ' jours</strong>, soit autant que ces personnages lors des evenements suivants :</p>' +
             eventCards +
             '<a href="https://chronoheroes.com" style="display:block;background:#1a1916;color:#ffffff;padding:13px 24px;border-radius:99px;text-decoration:none;font-size:14px;font-weight:600;text-align:center;margin-top:8px;">Voir tous mes heros du jour</a>' +
-            '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;line-height:1.6;">Vous recevez cet email car une coincidence exacte a ete detectee.<br><a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">Se desinscrire</a> · 2026 ChronoHeroes</p>' +
+            '<p style="font-size:11px;color:#a8a79f;margin-top:24px;text-align:center;line-height:1.6;">Vous recevez cet email car une coincidence exacte a ete detectee.<br><a href="mailto:hero@chronoheroes.com" style="color:#b8860b;text-decoration:none;">Se desinscrire</a> Â· 2026 ChronoHeroes</p>' +
           '</div>' +
-
         '</div>'
       })
 
