@@ -86,6 +86,7 @@ export default function TimelinePage() {
       setTimeout(() => setCopied(false), 2500)
     }
   }
+
   return (
     <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -117,7 +118,7 @@ export default function TimelinePage() {
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
-            Que faisaient-ils à votre âge ?
+            Que faisaient-ils a votre age ?
           </span>
         </div>
 
@@ -164,7 +165,7 @@ export default function TimelinePage() {
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginTop: 8 }}>
             {subscribeStatus === 'done' ? (
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 20, marginBottom: 8 }}>?</div>
+                <div style={{ fontSize: 20, marginBottom: 8 }}>OK</div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous etes inscrit !</div>
                 <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les evenements de l'Histoire alignes avec vous.</div>
               </div>
@@ -181,7 +182,7 @@ export default function TimelinePage() {
                   </button>
                 </form>
                 {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Reessayez.</div>}
-                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit · Sans spam · Desinscription en un clic</div>
+                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit - Sans spam - Desinscription en un clic</div>
               </>
             )}
           </div>
