@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useRouter } from 'next/navigation'
 
 const STATS = {
@@ -33,12 +33,27 @@ const STATS = {
     { name: 'Nikola Tesla', nb: 9, cat: 'Science' },
     { name: 'Roger Federer', nb: 9, cat: 'Sport' },
   ],
-  plusJeune: { name: 'Tiger Woods', age: '2 ans', desc: 'Joue au golf a la television — prodige annonce' },
-  plusAge: { name: 'Katherine Johnson', age: '97 ans', desc: 'Recoit la Medaille presidentielle de la Liberte d\'Obama' },
+  plusJeune: { name: 'Tiger Woods', age: '2 ans', desc: 'Joue au golf a la television' },
+  plusAge: { name: 'Katherine Johnson', age: '97 ans', desc: 'Recoit la Medaille presidentielle de la Liberte' },
+  genre: { hommes: 255, femmes: 62 },
+  tranches: [
+    { label: '0-9 ans', nb: 18 },
+    { label: '10-19 ans', nb: 139 },
+    { label: '20-29 ans', nb: 368 },
+    { label: '30-39 ans', nb: 337 },
+    { label: '40-49 ans', nb: 227 },
+    { label: '50-59 ans', nb: 135 },
+    { label: '60-69 ans', nb: 77 },
+    { label: '70-79 ans', nb: 57 },
+    { label: '80-89 ans', nb: 31 },
+    { label: '90+', nb: 12 },
+  ],
 }
 
 const MAX_CAT = Math.max(...STATS.categories.map(c => c.nb))
 const MAX_PER = Math.max(...STATS.periodes.map(p => p.nb))
+const MAX_TR = Math.max(...STATS.tranches.map(t => t.nb))
+const TOTAL_GENRE = STATS.genre.hommes + STATS.genre.femmes
 
 export default function StatsPage() {
   const router = useRouter()
@@ -74,10 +89,10 @@ export default function StatsPage() {
           Une base construite evenement par evenement pour couvrir l'Histoire de l'Antiquite a nos jours.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 48 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 24 }}>
           {[
-            { n: '1 403', l: 'evenements dates au jour' },
-            { n: '317', l: 'personnages historiques' },
+            { n: '1 403', l: 'evenements dates' },
+            { n: '317', l: 'personnages' },
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{s.n}</div>
@@ -98,6 +113,46 @@ export default function StatsPage() {
             <div style={{ fontSize: 22, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{STATS.plusAge.age}</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>{STATS.plusAge.name}</div>
             <div style={{ fontSize: 12, color: '#6b6a65', lineHeight: 1.5 }}>{STATS.plusAge.desc}</div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Hommes et femmes</h2>
+          <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+            <div style={{ flex: 1, background: '#f5f3ee', borderRadius: 12, padding: '16px', textAlign: 'center' }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: '#1a1916' }}>{STATS.genre.hommes}</div>
+              <div style={{ fontSize: 12, color: '#6b6a65', marginTop: 4 }}>Hommes — {Math.round(STATS.genre.hommes / TOTAL_GENRE * 100)}%</div>
+            </div>
+            <div style={{ flex: 1, background: '#FBEAF0', borderRadius: 12, padding: '16px', textAlign: 'center' }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: '#72243E' }}>{STATS.genre.femmes}</div>
+              <div style={{ fontSize: 12, color: '#72243E', marginTop: 4 }}>Femmes — {Math.round(STATS.genre.femmes / TOTAL_GENRE * 100)}%</div>
+            </div>
+          </div>
+          <div style={{ background: '#f5f3ee', borderRadius: 99, height: 12, overflow: 'hidden', display: 'flex' }}>
+            <div style={{ background: '#1a1916', height: '100%', width: Math.round(STATS.genre.hommes / TOTAL_GENRE * 100) + '%' }} />
+            <div style={{ background: '#72243E', height: '100%', flex: 1 }} />
+          </div>
+          <div style={{ fontSize: 12, color: '#6b6a65', marginTop: 8, textAlign: 'center' }}>
+            Objectif : atteindre 30% de femmes dans les prochaines versions
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Age des evenements</h2>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 120, marginBottom: 8 }}>
+            {STATS.tranches.map((t, i) => (
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{ width: '100%', background: '#b8860b', borderRadius: '4px 4px 0 0', height: Math.round(t.nb / MAX_TR * 100) + 'px', minHeight: 4 }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {STATS.tranches.map((t, i) => (
+              <div key={i} style={{ flex: 1, textAlign: 'center', fontSize: 9, color: '#a8a79f', lineHeight: 1.3 }}>{t.label}</div>
+            ))}
+          </div>
+          <div style={{ fontSize: 12, color: '#6b6a65', marginTop: 12, textAlign: 'center' }}>
+            Pic d'evenements entre 20 et 40 ans — l'age ou l'Histoire se fait
           </div>
         </div>
 
