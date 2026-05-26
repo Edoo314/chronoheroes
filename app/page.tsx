@@ -103,10 +103,10 @@ export default function HomePage() {
               <input
                 type="date"
                 value={birthdate}
-                onChange={e => setBirthdate(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBirthdate(e.target.value)}
                 min="1900-01-01"
                 max={new Date().toISOString().split('T')[0]}
-                style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: birthdate ? '#1a1916' : '#a8a79f', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
+                style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: birthdate ? '#1a1916' : '#a8a79f', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0, maxWidth: '100%' }}
               />
             </div>
             {error && (
