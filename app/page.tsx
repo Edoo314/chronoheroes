@@ -23,7 +23,7 @@ export default function HomePage() {
     const b = params.get('birth')
     if (p && b) {
       const { userDays } = computeUserDays(b)
-      localStorage.setItem('ch_prenom', p)
+      localStorage.setItem('ch_prenom', p || 'Vous')
       localStorage.setItem('ch_birthdate', b)
       localStorage.setItem('ch_userdays', String(userDays))
       router.push('/timeline')
@@ -32,7 +32,6 @@ export default function HomePage() {
 
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!prenom.trim()) { setError("Merci d'entrer votre prenom."); return }
     if (!birthdate) { setError("Merci d'entrer votre date de naissance."); return }
     const year = parseInt(birthdate.split('-')[0])
     const today = new Date()
@@ -42,7 +41,7 @@ export default function HomePage() {
     const { userDays } = computeUserDays(birthdate)
     if (userDays > 44000) { setError("Meme Jeanne Calment n'a vecu que 122 ans. Verifiez votre date !"); return }
     setError('')
-    localStorage.setItem('ch_prenom', prenom.trim())
+    localStorage.setItem('ch_prenom', prenom.trim() || 'Vous')
     localStorage.setItem('ch_birthdate', birthdate)
     localStorage.setItem('ch_userdays', String(userDays))
     router.push('/timeline')
@@ -74,36 +73,54 @@ export default function HomePage() {
           </span>
         </div>
       </nav>
-      <section style={{ maxWidth: 680, margin: '0 auto', padding: '72px 24px 64px', textAlign: 'center' }}>
+      <section style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 16px 48px' : '72px 24px 64px', textAlign: 'center' }}>
         <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginBottom: 24, padding: '5px 16px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
           Votre miroir dans l'Histoire
         </div>
-        <h1 style={{ fontSize: isMobile ? 30 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: '-1px', marginBottom: 20 }}>
+        <h1 style={{ fontSize: isMobile ? 28 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: isMobile ? '-0.5px' : '-1px', marginBottom: 20 }}>
           CEUX QUI ONT FAIT L'HISTOIRE<br />
           <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
         </h1>
-        <p style={{ fontSize: isMobile ? 15 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 48px' }}>
+        <p style={{ fontSize: isMobile ? 14 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 32px' }}>
           Chaque jour, decouvrez des evenements qui ont fait l'Histoire, avec une perspective personnelle.
         </p>
         <div id="form-section">
-          <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '28px 24px 24px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
+          <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '24px 20px 20px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
             <div style={{ marginBottom: 14 }}>
-              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Prenom</label>
-              <input type="text" placeholder="Sophie" value={prenom} onChange={e => setPrenom(e.target.value)} style={{ width: '100%', padding: '11px 14px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }} />
+              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
+                Prenom <span style={{ color: '#a8a79f', fontSize: 10, textTransform: 'none', letterSpacing: 0 }}>(facultatif)</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Sophie"
+                value={prenom}
+                onChange={e => setPrenom(e.target.value)}
+                style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
+              />
             </div>
-            <div style={{ marginBottom: 22 }}>
+            <div style={{ marginBottom: 20 }}>
               <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Date de naissance</label>
-              <input type="date" value={birthdate} onChange={e => setBirthdate(e.target.value)} min="1900-01-01" max={new Date().toISOString().split('T')[0]} style={{ width: '100%', padding: '11px 14px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }} />
+              <input
+                type="date"
+                value={birthdate}
+                onChange={e => setBirthdate(e.target.value)}
+                min="1900-01-01"
+                max={new Date().toISOString().split('T')[0]}
+                style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: birthdate ? '#1a1916' : '#a8a79f', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
+              />
             </div>
             {error && (
               <div style={{ background: '#faf6ea', border: '0.5px solid #b8860b', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#b8860b', marginBottom: 14, lineHeight: 1.5 }}>
                 {error}
               </div>
             )}
-            <button type="submit" style={{ width: '100%', padding: '13px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
+            <button
+              type="submit"
+              style={{ width: '100%', padding: '14px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 16, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', WebkitAppearance: 'none' }}
+            >
               Decouvrir mes heros du jour
             </button>
-            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 14 }}>Gratuit - sans compte</p>
+            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 12 }}>Gratuit - sans compte</p>
           </form>
         </div>
       </section>
