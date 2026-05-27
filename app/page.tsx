@@ -98,17 +98,52 @@ export default function HomePage() {
                 style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
               />
             </div>
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>Date de naissance</label>
-              <input
-                type="date"
-                value={birthdate}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBirthdate(e.target.value)}
-                min="1900-01-01"
-                max={new Date().toISOString().split('T')[0]}
-                style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: birthdate ? '#1a1916' : '#a8a79f', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0, maxWidth: '100%' }}
-              />
-            </div>
+   <div style={{ marginBottom: 20 }}>
+  <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
+    Date de naissance
+  </label>
+  <div style={{ display: 'flex', gap: 8 }}>
+    <select
+      value={birthdate ? birthdate.split('-')[2] : ''}
+      onChange={e => {
+        const parts = birthdate ? birthdate.split('-') : ['', '', '']
+        setBirthdate(`${parts[0]}-${parts[1]}-${e.target.value}`)
+      }}
+      style={{ flex: 1, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+    >
+      <option value="">Jour</option>
+      {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
+        <option key={d} value={String(d).padStart(2, '0')}>{d}</option>
+      ))}
+    </select>
+    <select
+      value={birthdate ? birthdate.split('-')[1] : ''}
+      onChange={e => {
+        const parts = birthdate ? birthdate.split('-') : ['', '', '']
+        setBirthdate(`${parts[0]}-${e.target.value}-${parts[2]}`)
+      }}
+      style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+    >
+      <option value="">Mois</option>
+      {['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'].map((m, i) => (
+        <option key={i} value={String(i + 1).padStart(2, '0')}>{m}</option>
+      ))}
+    </select>
+    <select
+      value={birthdate ? birthdate.split('-')[0] : ''}
+      onChange={e => {
+        const parts = birthdate ? birthdate.split('-') : ['', '', '']
+        setBirthdate(`${e.target.value}-${parts[1]}-${parts[2]}`)
+      }}
+      style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+    >
+      <option value="">Année</option>
+      {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).map(y => (
+        <option key={y} value={String(y)}>{y}</option>
+      ))}
+    </select>
+  </div>
+</div>
             {error && (
               <div style={{ background: '#faf6ea', border: '0.5px solid #b8860b', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#b8860b', marginBottom: 14, lineHeight: 1.5 }}>
                 {error}
