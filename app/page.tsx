@@ -206,7 +206,7 @@ export default function HomePage() {
               </div>
             )}
           </form>
-           <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500, fontSize: 14 }}>
+           <div style={{ display: 'inline-block', fontSize: 14, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
           Votre miroir dans l'Histoire
         </div>
         </div>
