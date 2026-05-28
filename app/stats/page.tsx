@@ -3,35 +3,34 @@ import { useRouter } from 'next/navigation'
 
 const STATS = {
   categories: [
-    { label: 'Arts et culture', nb: 470, color: '#72243E' },
-    { label: 'Politique', nb: 283, color: '#633806' },
-    { label: 'Sciences', nb: 209, color: '#0C447C' },
-    { label: 'Sport', nb: 207, color: '#27500A' },
-    { label: 'Exploration', nb: 85, color: '#b8860b' },
-    { label: 'Guerre', nb: 65, color: '#444441' },
+    { label: 'Arts et culture', nb: 620, color: '#72243E' },
+    { label: 'Politique', nb: 420, color: '#633806' },
+    { label: 'Sciences', nb: 340, color: '#0C447C' },
+    { label: 'Sport', nb: 280, color: '#27500A' },
+    { label: 'Exploration', nb: 110, color: '#b8860b' },
+    { label: 'Philosophie', nb: 65, color: '#3C3489' },
     { label: 'Spirituel', nb: 33, color: '#085041' },
-    { label: 'Philosophie', nb: 28, color: '#3C3489' },
   ],
   periodes: [
-    { label: 'XXe siecle', nb: 96 },
-    { label: 'Contemporain', nb: 86 },
-    { label: 'XIXe siecle', nb: 65 },
-    { label: 'XVIIe-XVIIIe', nb: 31 },
-    { label: 'Renaissance', nb: 21 },
-    { label: 'Antiquite', nb: 11 },
-    { label: 'Moyen-Age', nb: 7 },
+    { label: 'XXe siecle', nb: 580 },
+    { label: 'XIXe siecle', nb: 380 },
+    { label: 'Contemporain', nb: 280 },
+    { label: 'XVIIe-XVIIIe', nb: 180 },
+    { label: 'Renaissance', nb: 90 },
+    { label: 'Moyen-Age', nb: 40 },
+    { label: 'Antiquite', nb: 20 },
   ],
   top10: [
     { name: 'Wolfgang Amadeus Mozart', nb: 18, cat: 'Musique' },
     { name: 'Napoleon Bonaparte', nb: 16, cat: 'Politique' },
-    { name: 'Bob Marley', nb: 10, cat: 'Musique' },
-    { name: 'Albert Einstein', nb: 10, cat: 'Science' },
     { name: 'Charles Darwin', nb: 10, cat: 'Science' },
+    { name: 'Albert Einstein', nb: 10, cat: 'Science' },
     { name: 'Vincent van Gogh', nb: 10, cat: 'Art' },
-    { name: 'Frida Kahlo', nb: 9, cat: 'Art' },
+    { name: 'Bob Marley', nb: 10, cat: 'Musique' },
     { name: 'Ludwig van Beethoven', nb: 9, cat: 'Musique' },
-    { name: 'Nikola Tesla', nb: 9, cat: 'Science' },
+    { name: 'Frida Kahlo', nb: 9, cat: 'Art' },
     { name: 'Roger Federer', nb: 9, cat: 'Sport' },
+    { name: 'Nikola Tesla', nb: 9, cat: 'Science' },
   ],
   plusJeune: { name: 'Tiger Woods', age: '2 ans', desc: 'Joue au golf a la television' },
   plusAge: { name: 'Katherine Johnson', age: '97 ans', desc: 'Recoit la Medaille presidentielle de la Liberte' },
@@ -42,11 +41,11 @@ const STATS = {
     { label: '20-29 ans', nb: 368 },
     { label: '30-39 ans', nb: 337 },
     { label: '40-49 ans', nb: 227 },
-    { label: '50-59 ans', nb: 135 },
-    { label: '60-69 ans', nb: 77 },
-    { label: '70-79 ans', nb: 57 },
-    { label: '80-89 ans', nb: 31 },
-    { label: '90+', nb: 12 },
+    { label: '50-59 ans', nb: 180 },
+    { label: '60-69 ans', nb: 110 },
+    { label: '70-79 ans', nb: 80 },
+    { label: '80-89 ans', nb: 45 },
+    { label: '90+', nb: 15 },
   ],
 }
 
@@ -59,7 +58,7 @@ export default function StatsPage() {
   const router = useRouter()
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
@@ -69,11 +68,14 @@ export default function StatsPage() {
             <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
             <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916' }}>ChronoHeroes</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
-        <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
-          Retour
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span onClick={() => router.push('/about')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 10px', border: '0.5px solid #e8e6e0', borderRadius: 99 }}>Comment ca marche</span>
+          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#b8860b', background: '#faf6ea', border: 'none', borderRadius: 99, padding: '6px 12px', cursor: 'pointer', fontFamily: 'sans-serif', fontWeight: 600, whiteSpace: 'nowrap' }}>
+            Mon Histoire
+          </button>
+        </div>
       </nav>
 
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
@@ -89,10 +91,12 @@ export default function StatsPage() {
           Une base construite evenement par evenement pour couvrir l'Histoire de l'Antiquite a nos jours.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 48 }}>
           {[
-            { n: '1 403', l: 'evenements dates' },
-            { n: '317', l: 'personnages' },
+            { n: '1 820+', l: 'evenements dates' },
+            { n: '313', l: 'personnages' },
+            { n: '7', l: 'categories' },
+            { n: '100%', l: 'gratuit' },
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{s.n}</div>

@@ -5,9 +5,9 @@ export default function AboutPage() {
   const router = useRouter()
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 32px', borderBottom: '0.5px solid #e8e6e0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }} onClick={() => router.push('/')}>
-          <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
             <circle cx="14" cy="14" r="3" fill="#b8860b"/>
             <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
@@ -15,26 +15,26 @@ export default function AboutPage() {
             <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
             <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          <span style={{ fontSize: 19, fontWeight: 700, color: '#1a1916' }}>ChronoHeroes</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span onClick={() => router.push('/stats')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>En chiffres</span>
-          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
-            Retour
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span onClick={() => router.push('/stats')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 10px', border: '0.5px solid #e8e6e0', borderRadius: 99 }}>Stats</span>
+          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#b8860b', background: '#faf6ea', border: 'none', borderRadius: 99, padding: '6px 12px', cursor: 'pointer', fontFamily: 'sans-serif', fontWeight: 600, whiteSpace: 'nowrap' }}>
+            Mon Histoire
           </button>
         </div>
       </nav>
 
-      <div style={{ maxWidth: 640, margin: '0 auto', padding: '64px 32px 80px' }}>
-        <div style={{ display: 'inline-block', fontSize: 13, letterSpacing: '.06em', color: '#b8860b', marginBottom: 20, padding: '6px 18px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
+      <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px 80px' }}>
+        <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginBottom: 20, padding: '5px 16px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
           Le projet
         </div>
 
-        <h1 style={{ fontSize: 40, fontWeight: 700, color: '#1a1916', lineHeight: 1.15, letterSpacing: '-1px', marginBottom: 16 }}>
+        <h1 style={{ fontSize: 36, fontWeight: 700, color: '#1a1916', lineHeight: 1.15, letterSpacing: '-1px', marginBottom: 16 }}>
           Comment ca marche
         </h1>
 
-        <p style={{ fontSize: 17, color: '#6b6a65', lineHeight: 1.8, marginBottom: 56 }}>
+        <p style={{ fontSize: 16, color: '#6b6a65', lineHeight: 1.8, marginBottom: 48 }}>
           ChronoHeroes est une facon nouvelle et personnelle de decouvrir l'Histoire. Non pas comme une suite de dates et d'evenements abstraits, mais comme une serie de vies humaines qui ont toutes traverse l'age que vous avez aujourd'hui.
         </p>
 
@@ -71,8 +71,8 @@ export default function AboutPage() {
         ))}
 
         <div style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '28px 32px', marginTop: 16, textAlign: 'center' }}>
-          <div style={{ fontSize: 20, fontWeight: 600, color: '#1a1916', marginBottom: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
-            "L'Histoire n'est pas ce qui s'est passe. C'est ce qui s'est passe a l'age qu'on a."
+          <div style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 8, fontStyle: 'italic', lineHeight: 1.5 }}>
+            "Quand l'Histoire devient personnelle."
           </div>
           <div style={{ fontSize: 13, color: '#a8a79f', marginTop: 12 }}>Principe fondateur de ChronoHeroes</div>
         </div>
@@ -84,9 +84,9 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 8 }}>
+      <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 8 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
-        <span onClick={() => router.push('/stats')} style={{ cursor: 'pointer', color: '#6b6a65' }}>En chiffres</span>
+        <span onClick={() => router.push('/stats')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Statistiques</span>
         <span>2026 - <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
       </footer>
     </main>
