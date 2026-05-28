@@ -1,5 +1,6 @@
 ﻿import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/react'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body style={{ margin: 0, padding: 0, fontFamily: 'system-ui, sans-serif' }}>
         {children}
+        <Analytics />
       </body>
     </html>
   )

@@ -9,6 +9,8 @@ export default function HomePage() {
   const [birthdate, setBirthdate] = useState('')
   const [error, setError] = useState('')
   const [isMobile, setIsMobile] = useState(false)
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 600)
@@ -47,6 +49,25 @@ export default function HomePage() {
     router.push('/timeline')
   }
 
+  async function handleHomeSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!newsletterEmail || !birthdate) return
+    setNewsletterStatus('loading')
+    try {
+      const { userDays } = computeUserDays(birthdate)
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail, prenom: prenom.trim() || 'Vous', birthdate, userDays })
+      })
+      const data = await res.json()
+      if (data.success) setNewsletterStatus('done')
+      else setNewsletterStatus('error')
+    } catch {
+      setNewsletterStatus('error')
+    }
+  }
+
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
@@ -74,15 +95,12 @@ export default function HomePage() {
         </div>
       </nav>
       <section style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 16px 48px' : '72px 24px 64px', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginBottom: 24, padding: '5px 16px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
-          Votre miroir dans l'Histoire
-        </div>
         <h1 style={{ fontSize: isMobile ? 28 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: isMobile ? '-0.5px' : '-1px', marginBottom: 20 }}>
           CEUX QUI ONT FAIT L'HISTOIRE<br />
           <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
         </h1>
-        <p style={{ fontSize: isMobile ? 14 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 460, margin: '0 auto 32px' }}>
-          Chaque jour, decouvrez des evenements qui ont fait l'Histoire, avec une perspective personnelle.
+        <p style={{ fontSize: isMobile ? 14 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 480, margin: '0 auto 32px' }}>
+          Quand l'Histoire devient personnelle.<br />Changez de perspective sur les grands personnages et les événements historiques.
         </p>
         <div id="form-section">
           <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '24px 20px 20px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
@@ -98,52 +116,52 @@ export default function HomePage() {
                 style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
               />
             </div>
-   <div style={{ marginBottom: 20 }}>
-  <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
-    Date de naissance
-  </label>
-  <div style={{ display: 'flex', gap: 8 }}>
-    <select
-      value={birthdate ? birthdate.split('-')[2] : ''}
-      onChange={e => {
-        const parts = birthdate ? birthdate.split('-') : ['', '', '']
-        setBirthdate(`${parts[0]}-${parts[1]}-${e.target.value}`)
-      }}
-      style={{ flex: 1, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
-    >
-      <option value="">Jour</option>
-      {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
-        <option key={d} value={String(d).padStart(2, '0')}>{d}</option>
-      ))}
-    </select>
-    <select
-      value={birthdate ? birthdate.split('-')[1] : ''}
-      onChange={e => {
-        const parts = birthdate ? birthdate.split('-') : ['', '', '']
-        setBirthdate(`${parts[0]}-${e.target.value}-${parts[2]}`)
-      }}
-      style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
-    >
-      <option value="">Mois</option>
-      {['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'].map((m, i) => (
-        <option key={i} value={String(i + 1).padStart(2, '0')}>{m}</option>
-      ))}
-    </select>
-    <select
-      value={birthdate ? birthdate.split('-')[0] : ''}
-      onChange={e => {
-        const parts = birthdate ? birthdate.split('-') : ['', '', '']
-        setBirthdate(`${e.target.value}-${parts[1]}-${parts[2]}`)
-      }}
-      style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
-    >
-      <option value="">Année</option>
-      {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).map(y => (
-        <option key={y} value={String(y)}>{y}</option>
-      ))}
-    </select>
-  </div>
-</div>
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
+                Date de naissance
+              </label>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <select
+                  value={birthdate ? birthdate.split('-')[2] : ''}
+                  onChange={e => {
+                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
+                    setBirthdate(`${parts[0]}-${parts[1]}-${e.target.value}`)
+                  }}
+                  style={{ flex: 1, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+                >
+                  <option value="">Jour</option>
+                  {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
+                    <option key={d} value={String(d).padStart(2, '0')}>{d}</option>
+                  ))}
+                </select>
+                <select
+                  value={birthdate ? birthdate.split('-')[1] : ''}
+                  onChange={e => {
+                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
+                    setBirthdate(`${parts[0]}-${e.target.value}-${parts[2]}`)
+                  }}
+                  style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+                >
+                  <option value="">Mois</option>
+                  {['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'].map((m, i) => (
+                    <option key={i} value={String(i + 1).padStart(2, '0')}>{m}</option>
+                  ))}
+                </select>
+                <select
+                  value={birthdate ? birthdate.split('-')[0] : ''}
+                  onChange={e => {
+                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
+                    setBirthdate(`${e.target.value}-${parts[1]}-${parts[2]}`)
+                  }}
+                  style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+                >
+                  <option value="">Année</option>
+                  {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).map(y => (
+                    <option key={y} value={String(y)}>{y}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
             {error && (
               <div style={{ background: '#faf6ea', border: '0.5px solid #b8860b', borderRadius: 8, padding: '10px 14px', fontSize: 13, color: '#b8860b', marginBottom: 14, lineHeight: 1.5 }}>
                 {error}
@@ -155,8 +173,42 @@ export default function HomePage() {
             >
               Decouvrir mes heros du jour
             </button>
-            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 12 }}>Gratuit - sans compte</p>
+            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 12, marginBottom: 0 }}>Gratuit - Sans création de compte</p>
+
+            {/* NEWSLETTER HOME */}
+            {birthdate && birthdate.split('-').filter(Boolean).length === 3 && (
+              <div style={{ marginTop: 16, paddingTop: 16, borderTop: '0.5px solid #e8e6e0' }}>
+                {newsletterStatus === 'done' ? (
+                  <div style={{ textAlign: 'center', fontSize: 13, color: '#b8860b', fontWeight: 600 }}>
+                    ✓ Inscription confirmée !
+                  </div>
+                ) : (
+                  <>
+                    <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>
+                      Recevoir mes héros par email — un message uniquement quand une coïncidence exacte est détectée.
+                    </div>
+                    <form onSubmit={handleHomeSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      <input
+                        type="email"
+                        placeholder="votre@email.com"
+                        value={newsletterEmail}
+                        onChange={e => setNewsletterEmail(e.target.value)}
+                        style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
+                      />
+                      <button type="submit" disabled={newsletterStatus === 'loading'} style={{ padding: '10px 16px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                        {newsletterStatus === 'loading' ? '...' : "S'inscrire"}
+                      </button>
+                    </form>
+                    {newsletterStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
+                    <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 8, textAlign: 'center' }}>Gratuit · Sans spam · Désinscription en un clic</div>
+                  </>
+                )}
+              </div>
+            )}
           </form>
+           <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500, fontSize: 14 }}>
+          Votre miroir dans l'Histoire
+        </div>
         </div>
       </section>
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 12 }}>
@@ -168,3 +220,4 @@ export default function HomePage() {
     </main>
   )
 }
+

@@ -149,23 +149,12 @@ export default function TimelinePage() {
           </div>
         )}
 
+        {/* NEWSLETTER — au-dessus de "Partager" */}
         {!loading && (
-          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 12, textAlign: 'center' }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Partager ma perspective</div>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
-              Invitez quelqu'un a decouvrir votre perspective historique personnelle.
-            </div>
-            <button onClick={handleShare} style={{ padding: '10px 24px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
-              {copied ? 'Lien copie !' : 'Partager ma perspective'}
-            </button>
-          </div>
-        )}
-
-        {!loading && (
-          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginTop: 8 }}>
+          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginBottom: 12 }}>
             {subscribeStatus === 'done' ? (
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 20, marginBottom: 8 }}>OK</div>
+                <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
                 <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous etes inscrit !</div>
                 <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les evenements de l'Histoire alignes avec vous.</div>
               </div>
@@ -185,6 +174,19 @@ export default function TimelinePage() {
                 <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit - Sans spam - Desinscription en un clic</div>
               </>
             )}
+          </div>
+        )}
+
+        {/* PARTAGER */}
+        {!loading && (
+          <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 12, textAlign: 'center' }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Partager ma perspective</div>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
+              Invitez quelqu'un a decouvrir votre perspective historique personnelle.
+            </div>
+            <button onClick={handleShare} style={{ padding: '10px 24px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif' }}>
+              {copied ? 'Lien copie !' : 'Partager ma perspective'}
+            </button>
           </div>
         )}
       </div>
