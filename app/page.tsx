@@ -83,12 +83,8 @@ export default function HomePage() {
           <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          {!isMobile && (
-            <>
-              <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>Comment ca marche</span>
-              <span onClick={() => router.push('/stats')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>Statistiques</span>
-            </>
-          )}
+          <span onClick={() => router.push('/about')} style={{ fontSize: 11, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>Comment ca marche</span>
+          <span onClick={() => router.push('/stats')} style={{ fontSize: 11, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap' }}>Stats</span>
           <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
             Mon Histoire
           </span>
