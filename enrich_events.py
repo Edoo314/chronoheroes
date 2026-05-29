@@ -29,72 +29,76 @@ def compute_age(birth_str, event_str):
     return age_days, y, m, d, f"{y} ans, {m} mois et {d} {jour}"
 
 NEW_EVENTS = [
-    # Thomas Edison (1847-02-11)
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1862-01-01", "Sauve un enfant sur les rails — le père reconnaissant lui apprend la télégraphie", "science", "vie-privee", 4),
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1877-12-01", "Invente le phonographe — première machine à enregistrer et reproduire le son", "science", "invention", 5),
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1879-10-22", "Invente l'ampoule électrique pratique — après 1000 tentatives ratées", "science", "invention", 5),
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1882-09-04", "Inaugure la première centrale électrique de Manhattan — allume 400 ampoules simultanément", "science", "exploit", 5),
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1891-08-24", "Dépose le brevet du Kinetoscope — ancêtre du cinéma, voir des images en mouvement", "science", "invention", 5),
-    ("1086fd40-bedf-4db2-9f2f-4e58552e3990", "Thomas Edison", "1847-02-11", "1931-10-18", "Meurt à 84 ans dans son laboratoire de West Orange — 1093 brevets déposés", "science", "mort", 5),
+    # Aung San Suu Kyi (1945-06-19)
+    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1988-08-26", "Retourne en Birmanie pour soigner sa mère — découvre la répression militaire, bascule vers la résistance", "pouvoir", "engagement", 5),
+    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1989-07-20", "Assignée à résidence par la junte militaire — refuse de quitter le pays malgré la liberté offerte", "pouvoir", "emprisonnement", 5),
+    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1991-10-14", "Reçoit le prix Nobel de la Paix en son absence — assignée à résidence, son fils récupère le prix", "pouvoir", "prix", 5),
+    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "2010-11-13", "Libérée après 15 ans de détention — sort de sa maison au bord du lac Inya sous les acclamations", "pouvoir", "liberation", 5),
+    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "2021-02-01", "Arrêtée lors du coup d'état militaire à 75 ans — condamnée à 27 ans de prison", "pouvoir", "emprisonnement", 5),
 
-    # Alexander Graham Bell (1847-03-03)
-    ("2f8f2e3a-e088-48d0-930c-f081629d7cb4", "Alexander Graham Bell", "1847-03-03", "1871-01-01", "Enseigne aux sourds-muets à Boston — sa méthode révolutionne leur éducation", "science", "debut", 4),
-    ("2f8f2e3a-e088-48d0-930c-f081629d7cb4", "Alexander Graham Bell", "1847-03-03", "1876-03-10", "Invente le téléphone à 28 ans — premiers mots : Watson, venez, j'ai besoin de vous", "science", "invention", 5),
-    ("2f8f2e3a-e088-48d0-930c-f081629d7cb4", "Alexander Graham Bell", "1847-03-03", "1876-06-25", "Présente le téléphone à l'Exposition universelle de Philadelphie — l'empereur du Brésil s'exclame Mon Dieu, ça parle", "science", "exploit", 5),
-    ("2f8f2e3a-e088-48d0-930c-f081629d7cb4", "Alexander Graham Bell", "1847-03-03", "1880-01-01", "Invente le photophone — transmission de la voix par la lumière, ancêtre de la fibre optique", "science", "invention", 5),
-    ("2f8f2e3a-e088-48d0-930c-f081629d7cb4", "Alexander Graham Bell", "1847-03-03", "1922-08-02", "Meurt à 75 ans en Nouvelle-Écosse — à ses funérailles tous les téléphones d'Amérique silencieux une minute", "science", "mort", 5),
+    # Samuel Beckett (1906-04-13)
+    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1928-01-01", "Rencontre James Joyce à Paris — devient son secrétaire et disciple", "arts", "rencontre", 5),
+    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1938-01-07", "Poignardé dans la rue par un inconnu à Paris — survit, continue d'écrire", "arts", "vie-privee", 4),
+    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1953-01-05", "En attendant Godot créé à Paris — scandale et triomphe, révolution du théâtre mondial", "arts", "creation", 5),
+    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1969-10-23", "Reçoit le prix Nobel de Littérature — apprend la nouvelle dans un taxi, le trouve embarrassant", "arts", "prix", 5),
+    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1989-12-22", "Meurt à Paris à 83 ans — enterré au cimetière du Montparnasse avec Suzanne", "arts", "mort", 5),
 
-    # James Watt (1736-01-19)
-    ("7cbeb8d9-63c0-4e27-a12a-3b956ddb06f0", "James Watt", "1736-01-19", "1763-01-01", "Répare une machine à vapeur de Newcomen — comprend ses inefficacités fondamentales", "science", "decouverte", 5),
-    ("7cbeb8d9-63c0-4e27-a12a-3b956ddb06f0", "James Watt", "1736-01-19", "1769-01-05", "Dépose le brevet de sa machine à vapeur améliorée — condenseur séparé, révolution industrielle", "science", "invention", 5),
-    ("7cbeb8d9-63c0-4e27-a12a-3b956ddb06f0", "James Watt", "1736-01-19", "1775-06-01", "S'associe avec Matthew Boulton — ensemble ils industrialisent la machine à vapeur", "science", "creation", 5),
-    ("7cbeb8d9-63c0-4e27-a12a-3b956ddb06f0", "James Watt", "1736-01-19", "1784-01-01", "Invente la machine à vapeur rotative — permet d'alimenter les usines et locomotives", "science", "invention", 5),
-    ("7cbeb8d9-63c0-4e27-a12a-3b956ddb06f0", "James Watt", "1736-01-19", "1819-08-25", "Meurt à 83 ans à Handsworth — l'unité de puissance watt porte son nom", "science", "mort", 5),
+    # Pablo Neruda (1904-07-12)
+    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1924-06-01", "Publie Vingt poèmes d'amour à 19 ans — best-seller de poésie, traduit en 35 langues", "arts", "publication", 5),
+    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1936-07-18", "Consul du Chili en Espagne — témoin de la guerre civile, engagement politique total", "pouvoir", "engagement", 5),
+    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1950-01-01", "Publie le Chant Général — épopée de l'Amérique latine, chef-d'oeuvre universel", "arts", "publication", 5),
+    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1971-10-21", "Reçoit le prix Nobel de Littérature — discours sur la poésie comme acte politique", "arts", "prix", 5),
+    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1973-09-23", "Meurt à 69 ans à Santiago — 12 jours après le coup d'état de Pinochet contre Allende", "arts", "mort", 5),
 
-    # Guglielmo Marconi (1874-04-25)
-    ("e121b6ef-d55a-43b1-8882-a57d80c577b5", "Guglielmo Marconi", "1874-04-25", "1895-12-01", "Réalise les premières transmissions radio dans son jardin — signaux sur 3 km", "science", "invention", 4),
-    ("e121b6ef-d55a-43b1-8882-a57d80c577b5", "Guglielmo Marconi", "1874-04-25", "1896-06-02", "Dépose le brevet de la radio en Angleterre — le gouvernement italien avait refusé de l'écouter", "science", "invention", 5),
-    ("e121b6ef-d55a-43b1-8882-a57d80c577b5", "Guglielmo Marconi", "1874-04-25", "1901-12-12", "Premier signal radio traversant l'Atlantique — de Cornwall à Terre-Neuve, la lettre S en morse", "science", "exploit", 5),
-    ("e121b6ef-d55a-43b1-8882-a57d80c577b5", "Guglielmo Marconi", "1874-04-25", "1909-12-10", "Reçoit le prix Nobel de Physique — partagé avec Ferdinand Braun", "science", "prix", 5),
-    ("e121b6ef-d55a-43b1-8882-a57d80c577b5", "Guglielmo Marconi", "1874-04-25", "1937-07-20", "Meurt à Rome à 63 ans — les émetteurs radio du monde entier silencieux deux minutes", "science", "mort", 5),
+    # Alexandre Soljenitsyne (1918-12-11)
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1945-02-09", "Arrêté par le NKVD à 26 ans — une lettre critique sur Staline interceptée, 8 ans de Goulag", "arts", "emprisonnement", 5),
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1962-11-18", "Publie Une journée d'Ivan Denissovitch — premier récit du Goulag autorisé par Khrouchtchev", "arts", "publication", 5),
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1970-10-08", "Reçoit le prix Nobel de Littérature — refuse d'aller chercher le prix, craint de ne plus rentrer", "arts", "prix", 5),
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1974-02-13", "Expulsé d'URSS — L'Archipel du Goulag publié en Occident, coup fatal au mythe soviétique", "arts", "exil", 5),
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1994-05-27", "Retour triomphal en Russie après 20 ans d'exil — traverse le pays en train de Vladivostok à Moscou", "arts", "retour", 5),
+    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "2008-08-03", "Meurt à Moscou à 89 ans — l'homme qui a contribué à faire tomber l'URSS", "arts", "mort", 5),
 
-    # Salvador Dalí (1904-05-11)
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1922-09-01", "Entre à l'École des Beaux-Arts de Madrid — rencontre Lorca et Buñuel, scandale permanent", "arts", "debut", 4),
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1929-06-01", "Tourne Un Chien andalou avec Buñuel — chef-d'oeuvre surréaliste, l'oeil tranché au rasoir", "arts", "creation", 5),
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1931-06-01", "Peint La Persistance de la mémoire — les montres molles, icône du surréalisme mondial", "arts", "creation", 5),
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1940-08-16", "Fuit en Amérique avec Gala — 8 ans d'exil luxueux, devient une célébrité commerciale", "arts", "exil", 4),
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1974-09-28", "Inaugure le Théâtre-Musée Dalí à Figueres — son oeuvre maîtresse architecturale", "arts", "creation", 5),
-    ("8b9e81f8-cb85-4291-9895-6401001e1cf4", "Salvador Dalí", "1904-05-11", "1989-01-23", "Meurt à 84 ans à Figueres — enterré sous la scène de son propre musée", "arts", "mort", 5),
+    # Naguib Mahfouz (1911-12-11)
+    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1956-12-01", "Publie la Trilogie du Caire — chef-d'oeuvre de la littérature arabe moderne", "arts", "publication", 5),
+    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1988-10-13", "Reçoit le prix Nobel de Littérature — premier auteur arabophone nobélisé", "arts", "prix", 5),
+    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1994-10-14", "Poignardé au cou par un islamiste à 82 ans — survit mais perd l'usage de sa main droite", "arts", "vie-privee", 5),
+    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "2006-08-30", "Meurt au Caire à 94 ans — 34 romans, la mémoire vivante de l'Égypte moderne", "arts", "mort", 5),
 
-    # Francisco de Goya (1746-03-30)
-    ("beeb3afe-312a-4526-91ce-cdcf716219c0", "Francisco de Goya", "1746-03-30", "1786-06-25", "Nommé peintre du roi Charles III — entre à la cour d'Espagne à 40 ans", "arts", "nomination", 4),
-    ("beeb3afe-312a-4526-91ce-cdcf716219c0", "Francisco de Goya", "1746-03-30", "1792-01-01", "Grave maladie — devient sourd à 46 ans, sa peinture bascule vers les ténèbres", "arts", "vie-privee", 5),
-    ("beeb3afe-312a-4526-91ce-cdcf716219c0", "Francisco de Goya", "1746-03-30", "1808-05-02", "Témoin du soulèvement de Madrid contre Napoléon — peindra les fusillades du 3 mai", "arts", "vie-privee", 5),
-    ("beeb3afe-312a-4526-91ce-cdcf716219c0", "Francisco de Goya", "1746-03-30", "1819-01-01", "Peint les Peintures noires sur les murs de sa maison — génie sombre et visionnaire", "arts", "creation", 5),
-    ("beeb3afe-312a-4526-91ce-cdcf716219c0", "Francisco de Goya", "1746-03-30", "1828-04-16", "Meurt à Bordeaux à 82 ans en exil — précurseur du romantisme et de l'art moderne", "arts", "mort", 5),
+    # Richard Feynman (1918-05-11)
+    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1943-06-01", "Rejoint le projet Manhattan à Los Alamos — passe son temps à crocheter les coffres-forts des scientifiques", "science", "debut", 4),
+    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1948-03-01", "Développe l'électrodynamique quantique — les diagrammes de Feynman révolutionnent la physique", "science", "decouverte", 5),
+    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1965-10-21", "Reçoit le prix Nobel de Physique — le professeur le plus aimé de Caltech", "science", "prix", 5),
+    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1986-02-11", "Démontre la défaillance du joint torique de Challenger — anneau de caoutchouc dans un verre d'eau glacée", "science", "exploit", 5),
+    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1988-02-15", "Meurt à Los Angeles à 69 ans — ses Cours de physique restent la référence mondiale", "science", "mort", 5),
 
-    # Édouard Manet (1832-01-23)
-    ("246706c3-6a80-4e64-b99a-5d04a5e92685", "Édouard Manet", "1832-01-23", "1863-05-15", "Le Déjeuner sur l'herbe scandalise le Salon des Refusés — femme nue avec des hommes habillés", "arts", "creation", 5),
-    ("246706c3-6a80-4e64-b99a-5d04a5e92685", "Édouard Manet", "1832-01-23", "1865-05-01", "Olympia provoque un scandale au Salon — prostituée nue regardant le spectateur sans détourner les yeux", "arts", "creation", 5),
-    ("246706c3-6a80-4e64-b99a-5d04a5e92685", "Édouard Manet", "1832-01-23", "1874-04-15", "Refuse de participer à la première exposition impressionniste — reste attaché au Salon officiel", "arts", "vie-privee", 4),
-    ("246706c3-6a80-4e64-b99a-5d04a5e92685", "Édouard Manet", "1832-01-23", "1882-01-01", "Peint Un bar aux Folies-Bergère — son dernier chef-d'oeuvre avant la maladie", "arts", "creation", 5),
-    ("246706c3-6a80-4e64-b99a-5d04a5e92685", "Édouard Manet", "1832-01-23", "1883-04-30", "Meurt à Paris à 51 ans d'une gangrène — père de l'art moderne selon ses successeurs", "arts", "mort", 5),
+    # Linus Pauling (1901-02-28)
+    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1931-01-01", "Publie ses règles sur la structure des cristaux — révolutionne la chimie structurale", "science", "decouverte", 5),
+    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1951-03-01", "Découvre la structure en hélice des protéines — avant Watson et Crick pour l'ADN", "science", "decouverte", 5),
+    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1954-12-10", "Reçoit le Nobel de Chimie — pour sa découverte de la nature des liaisons chimiques", "science", "prix", 5),
+    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1962-10-10", "Reçoit le Nobel de la Paix — pour son combat contre les essais nucléaires, seul double Nobel", "pouvoir", "prix", 5),
+    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1994-08-19", "Meurt à 93 ans en Californie — deux prix Nobel dans des domaines totalement différents", "science", "mort", 5),
 
-    # Alexandre le Grand (0356-07-20)
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0343-01-01", "Aristote devient son précepteur à 13 ans — 3 ans de formation philosophique et scientifique", "pouvoir", "formation", 5),
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0338-08-02", "Commande la cavalerie macédonienne à Chéronée à 18 ans — victoire décisive sur la Grèce", "pouvoir", "victoire", 5),
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0334-05-01", "Traverse l'Hellespont avec 35 000 hommes — début de la conquête de l'Empire perse", "pouvoir", "voyage", 5),
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0331-10-01", "Bat Darius III à Gaugamèles — fin de l'Empire perse, maître de l'Asie", "pouvoir", "victoire", 5),
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0326-07-01", "Ses soldats refusent d'aller plus loin aux Indes — premier échec, demi-tour forcé", "pouvoir", "echec", 5),
-    ("a8d109c5-e81f-43ca-8174-cc8dbd04e5c3", "Alexandre le Grand", "0356-07-20", "0323-06-10", "Meurt à Babylone à 32 ans — fièvre mystérieuse, empire démembré entre ses généraux", "pouvoir", "mort", 5),
+    # Jimmy Carter (1924-10-01)
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1976-11-02", "Élu président des États-Unis — gouverneur de Géorgie inconnu bat Gerald Ford", "pouvoir", "election", 5),
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1978-09-17", "Accords de Camp David — première paix entre Israël et un pays arabe, l'Égypte", "pouvoir", "victoire", 5),
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1980-11-04", "Battu par Reagan — otages en Iran, crise économique, un seul mandat", "pouvoir", "chute", 5),
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1984-06-01", "Fonde Habitat pour l'Humanité — construit lui-même des maisons pour les pauvres", "pouvoir", "engagement", 5),
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "2002-10-11", "Reçoit le prix Nobel de la Paix à 78 ans — pour ses décennies de diplomatie et d'action humanitaire", "pouvoir", "prix", 5),
+    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "2024-12-29", "Meurt à 100 ans — le président américain le plus âgé de l'histoire", "pouvoir", "mort", 5),
 
-    # Jules César (0100-07-12)
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0081-01-01", "Capturé par des pirates — négocie sa rançon puis revient les crucifier", "pouvoir", "exploit", 5),
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0060-01-01", "Forme le premier triumvirat avec Pompée et Crassus — partage le pouvoir de Rome", "pouvoir", "decision", 5),
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0052-10-03", "Bat Vercingétorix à Alésia — fin de la résistance gauloise après 8 ans de guerre", "pouvoir", "victoire", 5),
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0049-01-10", "Franchit le Rubicon — le dé est jeté, début de la guerre civile contre Pompée", "pouvoir", "decision", 5),
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0044-02-14", "Nommé dictateur à vie — le Sénat lui offre un pouvoir absolu et sans limite", "pouvoir", "nomination", 5),
-    ("def59446-7bd3-431d-8f55-0b5b16726ef8", "Jules César", "0100-07-12", "0044-03-15", "Assassiné aux Ides de Mars à 55 ans — 23 coups de poignard dont celui de Brutus", "pouvoir", "mort", 5),
+    # Francis Crick (1916-06-08)
+    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1951-01-01", "Rejoint le Cavendish Laboratory de Cambridge — commence à travailler sur la structure de l'ADN", "science", "debut", 4),
+    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1953-04-25", "Publie la double hélice de l'ADN avec Watson — en utilisant la Photo 51 de Rosalind Franklin", "science", "decouverte", 5),
+    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1962-10-18", "Reçoit le Nobel de Médecine avec Watson et Wilkins — Franklin est décédée 4 ans plus tôt", "science", "prix", 5),
+    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1976-09-01", "Rejoint le Salk Institute — se consacre aux neurosciences et à la conscience", "science", "nomination", 4),
+    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "2004-07-28", "Meurt à San Diego à 88 ans — travaillait encore sur un article le jour de sa mort", "science", "mort", 5),
+
+    # James Watson (1928-04-06)
+    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1950-01-01", "Obtient son doctorat à 22 ans à Chicago — prodige de la biologie moléculaire", "science", "formation", 4),
+    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1953-04-25", "Publie la structure en double hélice de l'ADN — révolution de la biologie", "science", "decouverte", 5),
+    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1962-10-18", "Reçoit le Nobel de Médecine avec Crick et Wilkins — à 34 ans", "science", "prix", 5),
+    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1988-10-01", "Dirige le projet Génome humain — cartographie complète de l'ADN humain", "science", "nomination", 5),
+    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "2019-01-13", "Déchu de ses titres honorifiques — propos racistes sur l'intelligence répétés à la télévision", "science", "chute", 4),
 ]
 
 def main():
