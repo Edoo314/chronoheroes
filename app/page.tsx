@@ -93,10 +93,8 @@ export default function HomePage() {
   </div>
 </nav>
       <section style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 16px 48px' : '72px 24px 64px', textAlign: 'center' }}>
-        <div style={{ fontSize: isMobile ? 11 : 12, fontWeight: 700, letterSpacing: '.15em', color: '#b8860b', marginBottom: 12, textTransform: 'uppercase' }}>
-          Découvrez les personnages
-        </div>
         <h1 style={{ fontSize: isMobile ? 28 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: isMobile ? '-0.5px' : '-1px', marginBottom: 20 }}>
+          DÉCOUVREZ<br />
           CEUX QUI ONT FAIT L'HISTOIRE<br />
           <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
         </h1>
