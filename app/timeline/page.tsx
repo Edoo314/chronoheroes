@@ -118,7 +118,7 @@ export default function TimelinePage() {
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
-            Que faisaient-ils a votre age ?
+            Découvrez ce qu'ils faisaient à votre âge précisément.
           </span>
         </div>
 

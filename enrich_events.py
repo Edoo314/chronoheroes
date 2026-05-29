@@ -29,75 +29,28 @@ def compute_age(birth_str, event_str):
     return age_days, y, m, d, f"{y} ans, {m} mois et {d} {jour}"
 
 NEW_EVENTS = [
-    # Piotr Tchaïkovski (1840-05-07)
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1866-09-01", "Nommé professeur au Conservatoire de Moscou — commence à composer intensément", "arts", "nomination", 4),
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1876-03-04", "Crée le Lac des Cygnes — accueil mitigé, le chef-d'oeuvre sera reconnu après sa mort", "arts", "creation", 5),
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1877-07-18", "Épouse Antonina Miliukova — catastrophe totale, il tente de se suicider, fuit en Europe", "arts", "vie-privee", 5),
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1878-01-07", "Achève son concerto pour violon et la 4e symphonie — période la plus créative", "arts", "creation", 5),
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1890-01-23", "Crée La Belle au Bois Dormant — ballet commandé par le tsar, triomphe absolu", "arts", "creation", 5),
-    ("80162ee5-10e0-4b10-a26b-1086e2a6e58f", "Piotr Tchaïkovski", "1840-05-07", "1893-11-06", "Meurt à 53 ans — choléra officiel ou suicide imposé, mystère jamais élucidé", "arts", "mort", 5),
-    # Giuseppe Verdi (1813-10-10)
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1839-11-17", "Crée Oberto à la Scala de Milan — premier opéra, succès modeste mais encourageant", "arts", "debut", 4),
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1842-03-09", "Crée Nabucco — triomphe absolu, Va Pensiero devient hymne du Risorgimento", "arts", "creation", 5),
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1851-03-11", "Crée Rigoletto — chef-d'oeuvre, la censure avait voulu le faire interdire", "arts", "creation", 5),
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1853-01-19", "Crée Il Trovatore et La Traviata — deux chefs-d'oeuvre en un mois", "arts", "creation", 5),
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1871-12-24", "Crée Aïda au Caire — commande du khédive d'Égypte pour l'ouverture du canal de Suez", "arts", "creation", 5),
-    ("3a199e9f-4b95-4e86-9bd6-49134fe590fb", "Giuseppe Verdi", "1813-10-10", "1901-01-27", "Meurt à Milan à 87 ans — 28 opéras, 200 000 personnes à ses funérailles", "arts", "mort", 5),
-    # Carl Sagan (1934-11-09)
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1960-05-01", "Obtient son doctorat à Chicago — spécialiste de l'astronomie et de l'origine de la vie", "science", "formation", 4),
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1972-03-02", "Contribue à la plaque Pioneer — message de l'humanité vers les étoiles sur la sonde Pioneer 10", "science", "exploit", 5),
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1977-09-05", "Lance Voyager 1 avec son disque d'or — sons et images de la Terre pour une civilisation extraterrestre", "science", "exploit", 5),
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1980-09-28", "Lance la série Cosmos à la télévision — 500 millions de téléspectateurs dans 60 pays", "science", "creation", 5),
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1994-10-13", "Publie Pale Blue Dot — contemple la Terre photographiée depuis 6 milliards de km", "science", "publication", 5),
-    ("a43804a0-26c5-4003-bec7-2f2abad56675", "Carl Sagan", "1934-11-09", "1996-12-20", "Meurt à Seattle à 62 ans d'une pneumonie — après un combat de 2 ans contre la leucémie", "science", "mort", 5),
-    # Tim Berners-Lee (1955-06-08)
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "1980-06-01", "Propose un système de gestion de l'information au CERN — première ébauche du Web", "science", "creation", 4),
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "1989-03-12", "Soumet sa proposition pour le World Wide Web — son patron écrit vague mais excitant", "science", "creation", 5),
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "1991-08-06", "Met en ligne le premier site web de l'histoire — info.cern.ch", "science", "exploit", 5),
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "1994-10-01", "Fonde le W3C — consortium pour standardiser le Web et le garder ouvert à tous", "science", "creation", 5),
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "2004-07-16", "Anobli par la reine Elizabeth II — devient Sir Tim Berners-Lee", "science", "distinction", 4),
-    ("78d624c0-19c0-48f9-852d-15551c87cf91", "Tim Berners-Lee", "1955-06-08", "2012-07-27", "Salué aux JO de Londres — tweete This is for everyone lors de la cérémonie d'ouverture", "science", "distinction", 5),
-    # Charles Darwin (1809-02-12)
-    ("9924b00b-070c-48d1-8242-2f1d5171aeb0", "Charles Darwin", "1809-02-12", "1831-12-27", "Embarque sur le Beagle — voyage de 5 ans qui changera sa vision du monde", "science", "voyage", 5),
-    ("9924b00b-070c-48d1-8242-2f1d5171aeb0", "Charles Darwin", "1809-02-12", "1836-10-02", "Retour en Angleterre après 5 ans — commence à noter ses premières théories sur l'évolution", "science", "decouverte", 5),
-    ("9924b00b-070c-48d1-8242-2f1d5171aeb0", "Charles Darwin", "1809-02-12", "1844-01-01", "Rédige un essai de 230 pages sur la sélection naturelle — garde le secret pendant 15 ans", "science", "creation", 5),
-    ("9924b00b-070c-48d1-8242-2f1d5171aeb0", "Charles Darwin", "1809-02-12", "1860-06-30", "Débat d'Oxford — Huxley défend Darwin contre l'évêque Wilberforce, victoire éclatante", "science", "distinction", 5),
-    ("9924b00b-070c-48d1-8242-2f1d5171aeb0", "Charles Darwin", "1809-02-12", "1871-02-24", "Publie La Filiation de l'homme — applique la sélection naturelle à l'espèce humaine", "science", "publication", 5),
-    # Albert Einstein (1879-03-14)
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1902-06-16", "Obtient un poste à l'Office des brevets de Berne — commence à penser pendant ses heures libres", "science", "debut", 4),
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1905-03-17", "Publie 4 articles révolutionnaires en un an — l'annus mirabilis de la physique", "science", "decouverte", 5),
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1919-11-07", "Confirmé par l'éclipse solaire — la relativité générale est prouvée, célébrité mondiale", "science", "decouverte", 5),
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1921-12-10", "Reçoit le prix Nobel de Physique — pour l'effet photoélectrique, pas la relativité", "science", "prix", 5),
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1933-03-01", "Fuit l'Allemagne nazie — ne reviendra jamais, s'installe à Princeton", "science", "exil", 5),
-    ("0a49f4f4-0d02-4830-87f1-8c8cddf85269", "Albert Einstein", "1879-03-14", "1955-04-18", "Meurt à Princeton à 76 ans — refuse une opération : vouloir prolonger la vie est sans goût", "science", "mort", 5),
-    # Pelé (1940-10-23)
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "1956-09-07", "Débute en professionnel au Santos FC à 15 ans — plus jeune buteur du club", "sport", "debut", 4),
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "1958-06-29", "Remporte la Coupe du monde à 17 ans — pleure dans les bras de son coéquipier Gilmar", "sport", "victoire", 5),
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "1961-11-05", "Marque le but du siècle contre Fluminense — dribble 7 joueurs depuis sa propre surface", "sport", "exploit", 5),
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "1969-11-19", "Inscrit son 1000e but en carrière — fête nationale au Brésil", "sport", "record", 5),
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "1970-06-21", "Remporte sa 3e Coupe du monde — meilleur joueur du tournoi à 29 ans", "sport", "victoire", 5),
-    ("960b8ab5-2b8c-4e63-8b35-6e346cd8e80d", "Pelé (Edson Arantes do Nascimento)", "1940-10-23", "2022-12-29", "Meurt à 82 ans à São Paulo — deuil national au Brésil, 3 jours de tribut mondial", "sport", "mort", 5),
-    # Diego Maradona (1960-10-30)
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "1976-10-22", "Débute en professionnel à 15 ans avec les Argentinos Juniors", "sport", "debut", 4),
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "1982-06-01", "Rejoint le FC Barcelone pour 7,6 millions de dollars — transfert record mondial", "sport", "transfert", 5),
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "1984-07-05", "Rejoint le Napoli — transforme un club modeste en champion d'Italie", "sport", "transfert", 5),
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "1986-06-22", "But de la main de Dieu puis but du siècle contre l'Angleterre — deux buts en 4 minutes", "sport", "exploit", 5),
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "1986-06-29", "Remporte la Coupe du monde avec l'Argentine — meilleur joueur du tournoi", "sport", "victoire", 5),
-    ("08983622-9998-4382-b4bf-70411374162a", "Diego Maradona", "1960-10-30", "2020-11-25", "Meurt à 60 ans d'une crise cardiaque — deuil national en Argentine, 3 jours de deuil officiel", "sport", "mort", 5),
-    # Roger Federer (1981-08-08)
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "1998-07-06", "Remporte Wimbledon junior à 16 ans — première grande distinction", "sport", "victoire", 4),
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "2001-07-02", "Bat Pete Sampras à Wimbledon — l'élimination du champion en titre lance sa légende", "sport", "victoire", 5),
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "2003-07-06", "Remporte son premier Wimbledon — début d'une série de 5 titres consécutifs", "sport", "victoire", 5),
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "2009-06-07", "Remporte Roland-Garros — complète le Grand Chelem en carrière, pleure sur le court", "sport", "victoire", 5),
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "2017-07-16", "Remporte Wimbledon à 35 ans — 8e titre, retour miraculeux après blessure", "sport", "victoire", 5),
-    ("82d3dfe2-a1ff-4981-99df-5413660b52d8", "Roger Federer", "1981-08-08", "2022-09-23", "Prend sa retraite à 41 ans lors de la Laver Cup — pleure avec Nadal sur le banc", "sport", "retraite", 5),
-    # Zinédine Zidane (1972-06-23)
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "1989-05-20", "Débute professionnel à Cannes à 16 ans — repéré dans les quartiers nord de Marseille", "sport", "debut", 4),
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "1996-07-02", "Rejoint la Juventus — devient l'un des meilleurs joueurs du monde en Serie A", "sport", "transfert", 4),
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "1998-07-12", "Double buteur en finale de la Coupe du monde — champion du monde à 26 ans", "sport", "victoire", 5),
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "2001-07-09", "Transféré au Real Madrid pour 77,5 millions d'euros — record mondial à l'époque", "sport", "transfert", 5),
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "2006-07-09", "Coup de tête sur Materazzi en finale de la Coupe du monde — sa dernière action professionnelle", "sport", "vie-privee", 5),
-    ("63cce132-a1cb-4c5e-a952-87ce00a6d1f9", "Zinédine Zidane", "1972-06-23", "2016-01-04", "Nommé entraîneur du Real Madrid — remporte 3 Ligue des Champions consécutives", "sport", "nomination", 5),
+    # Michel de Montaigne (1533-02-28)
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1557-01-01", "Rencontre Étienne de La Boétie au parlement de Bordeaux — amitié la plus célèbre de la littérature", "philosophie", "rencontre", 5),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1563-08-18", "Mort de La Boétie à 32 ans — deuil profond, Montaigne se retire progressivement du monde", "philosophie", "vie-privee", 5),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1571-02-28", "Se retire dans sa tour à 38 ans — commence à écrire les Essais, invente un genre littéraire", "arts", "creation", 5),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1580-03-01", "Publie les deux premiers livres des Essais — succès immédiat, voyage en Europe", "arts", "publication", 5),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1581-09-01", "Élu maire de Bordeaux pendant son voyage en Italie — accepte à contrecoeur", "pouvoir", "election", 4),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1588-06-01", "Publie le troisième livre des Essais — travail inachevé, annotera jusqu'à sa mort", "arts", "publication", 5),
+    ("877482e4-baaf-43dd-b1ba-124c85ad69a8", "Michel de Montaigne", "1533-02-28", "1592-09-13", "Meurt dans son château à 59 ans — les Essais seront le livre de chevet de Pascal, Nietzsche, Flaubert", "philosophie", "mort", 5),
+
+    # Étienne de La Boétie (1530-11-01)
+    ("977c2db8-388e-47ec-99f0-4db53db417ec", "Étienne de La Boétie", "1530-11-01", "1548-01-01", "Rédige le Discours de la servitude volontaire à 18 ans — texte fondateur de la résistance au tyran", "philosophie", "publication", 5),
+    ("977c2db8-388e-47ec-99f0-4db53db417ec", "Étienne de La Boétie", "1530-11-01", "1553-05-23", "Nommé conseiller au parlement de Bordeaux à 22 ans — brillante carrière juridique", "pouvoir", "nomination", 4),
+    ("977c2db8-388e-47ec-99f0-4db53db417ec", "Étienne de La Boétie", "1530-11-01", "1557-01-01", "Rencontre Montaigne — parce que c'était lui, parce que c'était moi, dit Montaigne", "philosophie", "rencontre", 5),
+    ("977c2db8-388e-47ec-99f0-4db53db417ec", "Étienne de La Boétie", "1530-11-01", "1563-08-18", "Meurt de la peste à 32 ans — Montaigne à son chevet, lui transmet ses manuscrits", "philosophie", "mort", 5),
+
+    # Érasme (1466-10-28)
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1495-01-01", "Étudie à Paris — entre en contact avec l'humanisme et les textes grecs anciens", "philosophie", "formation", 4),
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1500-01-01", "Publie les Adages — recueil de proverbes latins et grecs, best-seller de la Renaissance", "arts", "publication", 5),
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1509-06-01", "Écrit l'Éloge de la Folie en une semaine chez Thomas More — satire mordante de l'Église", "arts", "creation", 5),
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1516-02-01", "Publie le Nouveau Testament grec — édition critique qui révolutionne la théologie", "philosophie", "publication", 5),
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1524-09-01", "Répond à Luther sur le libre arbitre — refuse la Réforme, choisit l'unité de l'Église", "philosophie", "publication", 5),
+    ("7d2bb2f5-16f6-401a-8441-c91194796c69", "Érasme", "1466-10-28", "1536-07-12", "Meurt à Bâle à 69 ans — le plus grand humaniste de la Renaissance européenne", "philosophie", "mort", 5),
 ]
 
 def main():

@@ -8,7 +8,7 @@ function formatDate(raw: string): string {
   const clean = bce ? raw.slice(1) : raw
   const parts = clean.split('-')
   if (parts.length < 3) return raw
-  const months = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre']
+  const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
   const d = parseInt(parts[2])
   const m = parseInt(parts[1]) - 1
   const y = parseInt(parts[0])
@@ -18,8 +18,8 @@ function formatDate(raw: string): string {
 
 function formatBirthDeath(born: string, died: string): string {
   const b = formatDate(born)
-  if (!died) return 'Ne le ' + b
-  return 'Ne le ' + b + ' · Mort le ' + formatDate(died)
+  if (!died) return 'Né le ' + b
+  return 'Né le ' + b + ' · Mort le ' + formatDate(died)
 }
 
 function getDeltaStyle(signed: number): { label: string; bg: string; color: string } {
@@ -63,7 +63,9 @@ export default function EventCard({ event }: { event: MatchEvent }) {
             )}
           </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '')}</div>
-          <div style={{ fontSize: 12, color: '#6b6a65' }}>{event.age_label}</div>
+          <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
+            Son âge ce jour-là : <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
+          </div>
         </div>
         <div style={{ fontSize: 10, padding: '3px 10px', borderRadius: 99, background: delta.bg, color: delta.color, fontWeight: 600, whiteSpace: 'nowrap', flexShrink: 0 }}>
           {delta.label}
@@ -88,7 +90,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70, marginTop: 10 }}>
         <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{style.label}</span>
         {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{event.period}</span>}
-        <span style={{ fontSize: 11, color: '#b8b6ae', marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
+        <span style={{ fontSize: 12, color: '#1a1916', fontWeight: 600, marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
       </div>
     </div>
   )
