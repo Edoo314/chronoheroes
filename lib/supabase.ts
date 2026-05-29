@@ -9,7 +9,7 @@ export type MatchEvent = {
   event_date_raw: string; person_age_days: number; age_years: number
   age_months: number; age_days_rem: number; age_label: string
   description_fr: string; category: string; subcategory: string | null
-  importance: number; delta_days: number; delta_signed: number
+  importance: number; gender: string | null; delta_days: number; delta_signed: number
 }
 export function computeUserDays(birthdate: string) {
   const [by, bm, bd] = birthdate.split('-').map(Number)

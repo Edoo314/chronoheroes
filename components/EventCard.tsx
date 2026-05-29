@@ -18,14 +18,8 @@ function formatDate(raw: string): string {
 
 const FEMMES = ['Marie','Rosa','Simone','Frida','Coco','Josephine','Joséphine','Nina','Billie','Janis','Audrey','Marilyn','Marlene','Marlène','Amelia','Florence','Ada','Emmy','Rosalind','Lise','Katherine','Virginia','Jane','Toni','Harriet','Olympe','Wangari','Malala','Steffi','Serena','Martina','Nadia','Cathy','Kim','Chris','Romy','Sophia','Catherine','Angela','Lady','Reine','Anne','Sophie','Ayrton']
 
-function isFemme(name: string): boolean {
-  const first = name.split(' ')[0]
-  return FEMMES.includes(first)
-}
-
-function formatBirthDeath(born: string, died: string, name: string): string {
+function formatBirthDeath(born: string, died: string, femme: boolean): string {
   const b = formatDate(born)
-  const femme = isFemme(name)
   if (!died) return (femme ? 'Née le ' : 'Né le ') + b
   return (femme ? 'Née le ' : 'Né le ') + b + ' · ' + (femme ? 'Morte le ' : 'Mort le ') + formatDate(died)
 }
@@ -70,7 +64,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
               </a>
             )}
           </div>
-          <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', event.person_name)}</div>
+          <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', event.gender === 'female')}</div>
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
             Son âge ce jour-là : <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
           </div>
