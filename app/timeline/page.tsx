@@ -111,7 +111,7 @@ export default function TimelinePage() {
 
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 16px 80px' }}>
         <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', margin: '24px 0 8px', textAlign: 'center' }}>
-          <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>{prenom}</div>
+          <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>Votre âge exact aujourd'hui{prenom ? ' · ' + prenom : ''}</div>
           <div style={{ fontSize: 34, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
         </div>
