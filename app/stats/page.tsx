@@ -93,9 +93,9 @@ export default function StatsPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 48 }}>
           {[
-            { n: '1 820+', l: 'evenements dates' },
+            { n: '2 000+', l: 'evenements dates' },
             { n: '313', l: 'personnages' },
-            { n: '7', l: 'categories' },
+            
             { n: '100%', l: 'gratuit' },
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
