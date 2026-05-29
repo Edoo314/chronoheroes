@@ -96,7 +96,7 @@ export default function StatsPage() {
             { n: '2 000+', l: 'evenements dates' },
             { n: '313', l: 'personnages' },
             
-            { n: '100%', l: 'gratuit' },
+            
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{s.n}</div>
