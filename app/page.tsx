@@ -34,7 +34,7 @@ export default function HomePage() {
 
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!birthdate) { setError("Merci d'entrer votre date de naissance."); return }
+    if (!birthdate) { setError("Merci d'entrer votre Ma date de naissance."); return }
     const year = parseInt(birthdate.split('-')[0])
     const today = new Date()
     const birthDate = new Date(birthdate)
@@ -105,7 +105,7 @@ export default function HomePage() {
           <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '24px 20px 20px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
             <div style={{ marginBottom: 14 }}>
               <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
-                Prenom <span style={{ color: '#a8a79f', fontSize: 10, textTransform: 'none', letterSpacing: 0 }}>(facultatif)</span>
+                Mon prénom <span style={{ color: '#a8a79f', fontSize: 10, textTransform: 'none', letterSpacing: 0 }}>(facultatif)</span>
               </label>
               <input
                 type="text"
@@ -117,7 +117,7 @@ export default function HomePage() {
             </div>
             <div style={{ marginBottom: 20 }}>
               <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
-                Date de naissance
+                Ma date de naissance
               </label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
