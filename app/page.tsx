@@ -109,7 +109,7 @@ export default function HomePage() {
               </label>
               <input
                 type="text"
-                placeholder="Sophie"
+                placeholder="Votre prénom"
                 value={prenom}
                 onChange={e => setPrenom(e.target.value)}
                 style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
@@ -178,8 +178,14 @@ export default function HomePage() {
             {birthdate && birthdate.split('-').filter(Boolean).length === 3 && (
               <div style={{ marginTop: 16, paddingTop: 16, borderTop: '0.5px solid #e8e6e0' }}>
                 {newsletterStatus === 'done' ? (
-                  <div style={{ textAlign: 'center', fontSize: 13, color: '#b8860b', fontWeight: 600 }}>
-                    ✓ Inscription confirmée !
+                  <div style={{ background: '#f0f9f0', border: '0.5px solid #27500A', borderRadius: 12, padding: '18px 20px', textAlign: 'center' }}>
+                    <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: '#27500A', marginBottom: 6 }}>
+                      Inscription confirmée !
+                    </div>
+                    <div style={{ fontSize: 13, color: '#6b6a65', lineHeight: 1.6 }}>
+                      Vous recevrez un email dès qu'une coïncidence exacte est détectée avec votre âge au jour près.
+                    </div>
                   </div>
                 ) : (
                   <>

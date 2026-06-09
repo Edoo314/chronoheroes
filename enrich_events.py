@@ -29,76 +29,66 @@ def compute_age(birth_str, event_str):
     return age_days, y, m, d, f"{y} ans, {m} mois et {d} {jour}"
 
 NEW_EVENTS = [
-    # Aung San Suu Kyi (1945-06-19)
-    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1988-08-26", "Retourne en Birmanie pour soigner sa mère — découvre la répression militaire, bascule vers la résistance", "pouvoir", "engagement", 5),
-    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1989-07-20", "Assignée à résidence par la junte militaire — refuse de quitter le pays malgré la liberté offerte", "pouvoir", "emprisonnement", 5),
-    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "1991-10-14", "Reçoit le prix Nobel de la Paix en son absence — assignée à résidence, son fils récupère le prix", "pouvoir", "prix", 5),
-    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "2010-11-13", "Libérée après 15 ans de détention — sort de sa maison au bord du lac Inya sous les acclamations", "pouvoir", "liberation", 5),
-    ("4d35e6cb-ea51-4a7c-af4d-4f23f8830518", "Aung San Suu Kyi", "1945-06-19", "2021-02-01", "Arrêtée lors du coup d'état militaire à 75 ans — condamnée à 27 ans de prison", "pouvoir", "emprisonnement", 5),
+    # George Orwell (1903-06-25)
+    ("7a758e3a-5825-4a22-bc2d-314d98b3be5f", "George Orwell", "1903-06-25", "1928-01-01", "Vit dans la misère à Paris comme plongeur — expérience qui donnera Dans la dèche à Paris et Londres", "arts", "vie-privee", 5),
+    ("7a758e3a-5825-4a22-bc2d-314d98b3be5f", "George Orwell", "1903-06-25", "1936-12-01", "Part combattre en Espagne — blessé par balle à la gorge, dénonce le stalinisme", "pouvoir", "engagement", 5),
+    ("7a758e3a-5825-4a22-bc2d-314d98b3be5f", "George Orwell", "1903-06-25", "1945-08-17", "Publie La Ferme des animaux — allégorie anti-stalinienne, refusée par 4 éditeurs", "arts", "publication", 5),
+    ("7a758e3a-5825-4a22-bc2d-314d98b3be5f", "George Orwell", "1903-06-25", "1949-06-08", "Publie 1984 — Big Brother, la novlangue, chef-d'oeuvre de la dystopie mondiale", "arts", "publication", 5),
+    ("7a758e3a-5825-4a22-bc2d-314d98b3be5f", "George Orwell", "1903-06-25", "1950-01-21", "Meurt à Londres à 46 ans de tuberculose — 1984 écrit depuis son lit de malade", "arts", "mort", 5),
 
-    # Samuel Beckett (1906-04-13)
-    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1928-01-01", "Rencontre James Joyce à Paris — devient son secrétaire et disciple", "arts", "rencontre", 5),
-    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1938-01-07", "Poignardé dans la rue par un inconnu à Paris — survit, continue d'écrire", "arts", "vie-privee", 4),
-    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1953-01-05", "En attendant Godot créé à Paris — scandale et triomphe, révolution du théâtre mondial", "arts", "creation", 5),
-    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1969-10-23", "Reçoit le prix Nobel de Littérature — apprend la nouvelle dans un taxi, le trouve embarrassant", "arts", "prix", 5),
-    ("0886bac6-934d-4a79-89ec-5de505d8151d", "Samuel Beckett", "1906-04-13", "1989-12-22", "Meurt à Paris à 83 ans — enterré au cimetière du Montparnasse avec Suzanne", "arts", "mort", 5),
+    # Stefan Zweig (1881-11-28)
+    ("2d80d413-56c8-4fd6-aaa2-ca95dd9b1195", "Stefan Zweig", "1881-11-28", "1901-01-01", "Publie ses premiers poèmes à Vienne à 19 ans — entre dans les cercles intellectuels européens", "arts", "debut", 4),
+    ("2d80d413-56c8-4fd6-aaa2-ca95dd9b1195", "Stefan Zweig", "1881-11-28", "1927-01-01", "Publie Vingt-quatre heures de la vie d'une femme — maître de la nouvelle psychologique", "arts", "publication", 5),
+    ("2d80d413-56c8-4fd6-aaa2-ca95dd9b1195", "Stefan Zweig", "1881-11-28", "1934-02-28", "Fuit Vienne après la montée du nazisme — exil en Angleterre puis au Brésil", "arts", "exil", 5),
+    ("2d80d413-56c8-4fd6-aaa2-ca95dd9b1195", "Stefan Zweig", "1881-11-28", "1941-01-01", "Publie Le Monde d'hier — mémoires d'une Europe disparue, testament d'une civilisation", "arts", "publication", 5),
+    ("2d80d413-56c8-4fd6-aaa2-ca95dd9b1195", "Stefan Zweig", "1881-11-28", "1942-02-22", "Se suicide avec sa femme à Petrópolis au Brésil à 60 ans — désespoir face à la barbarie", "arts", "mort", 5),
 
-    # Pablo Neruda (1904-07-12)
-    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1924-06-01", "Publie Vingt poèmes d'amour à 19 ans — best-seller de poésie, traduit en 35 langues", "arts", "publication", 5),
-    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1936-07-18", "Consul du Chili en Espagne — témoin de la guerre civile, engagement politique total", "pouvoir", "engagement", 5),
-    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1950-01-01", "Publie le Chant Général — épopée de l'Amérique latine, chef-d'oeuvre universel", "arts", "publication", 5),
-    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1971-10-21", "Reçoit le prix Nobel de Littérature — discours sur la poésie comme acte politique", "arts", "prix", 5),
-    ("13c41fee-4a40-4190-8037-55187c409237", "Pablo Neruda", "1904-07-12", "1973-09-23", "Meurt à 69 ans à Santiago — 12 jours après le coup d'état de Pinochet contre Allende", "arts", "mort", 5),
+    # Simone Veil (1927-07-13)
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "1944-03-30", "Déportée à Auschwitz-Birkenau à 16 ans — survivra avec sa mère et sa soeur", "pouvoir", "emprisonnement", 5),
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "1974-11-26", "Discours pour la loi sur l'avortement — Je vous parle au nom des femmes, ovation puis insultes", "pouvoir", "discours", 5),
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "1975-01-17", "La loi Veil est adoptée — légalisation de l'avortement en France, révolution sociale", "pouvoir", "loi", 5),
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "1979-07-17", "Élue présidente du Parlement européen — première femme à ce poste", "pouvoir", "election", 5),
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "2008-03-13", "Élue à l'Académie française — reçue par son ami Jean d'Ormesson", "arts", "distinction", 5),
+    ("c64a3bd9-51fd-42a7-9354-f910e1e1137b", "Simone Veil", "1927-07-13", "2017-06-30", "Meurt à Paris à 89 ans — panthéonisée avec son mari en 2018", "pouvoir", "mort", 5),
 
-    # Alexandre Soljenitsyne (1918-12-11)
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1945-02-09", "Arrêté par le NKVD à 26 ans — une lettre critique sur Staline interceptée, 8 ans de Goulag", "arts", "emprisonnement", 5),
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1962-11-18", "Publie Une journée d'Ivan Denissovitch — premier récit du Goulag autorisé par Khrouchtchev", "arts", "publication", 5),
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1970-10-08", "Reçoit le prix Nobel de Littérature — refuse d'aller chercher le prix, craint de ne plus rentrer", "arts", "prix", 5),
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1974-02-13", "Expulsé d'URSS — L'Archipel du Goulag publié en Occident, coup fatal au mythe soviétique", "arts", "exil", 5),
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "1994-05-27", "Retour triomphal en Russie après 20 ans d'exil — traverse le pays en train de Vladivostok à Moscou", "arts", "retour", 5),
-    ("43e60f2f-243d-4541-80b1-4544c6c312f4", "Alexandre Soljenitsyne", "1918-12-11", "2008-08-03", "Meurt à Moscou à 89 ans — l'homme qui a contribué à faire tomber l'URSS", "arts", "mort", 5),
+    # Max Planck (1858-04-23)
+    ("958721ad-aaa6-4ba9-a0db-531f0544ce24", "Max Planck", "1858-04-23", "1900-12-14", "Présente la théorie des quanta — naissance de la mécanique quantique, révolution de la physique", "science", "decouverte", 5),
+    ("958721ad-aaa6-4ba9-a0db-531f0544ce24", "Max Planck", "1858-04-23", "1918-12-10", "Reçoit le prix Nobel de Physique — pour la découverte des quanta d'énergie", "science", "prix", 5),
+    ("958721ad-aaa6-4ba9-a0db-531f0544ce24", "Max Planck", "1858-04-23", "1944-02-23", "Son fils Erwin exécuté par les nazis — pour avoir participé au complot contre Hitler", "science", "vie-privee", 5),
+    ("958721ad-aaa6-4ba9-a0db-531f0544ce24", "Max Planck", "1858-04-23", "1947-10-04", "Meurt à Göttingen à 89 ans — père de la physique quantique, deuil mondial des scientifiques", "science", "mort", 5),
 
-    # Naguib Mahfouz (1911-12-11)
-    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1956-12-01", "Publie la Trilogie du Caire — chef-d'oeuvre de la littérature arabe moderne", "arts", "publication", 5),
-    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1988-10-13", "Reçoit le prix Nobel de Littérature — premier auteur arabophone nobélisé", "arts", "prix", 5),
-    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "1994-10-14", "Poignardé au cou par un islamiste à 82 ans — survit mais perd l'usage de sa main droite", "arts", "vie-privee", 5),
-    ("b7721aeb-212b-44fd-a154-e80842112d34", "Naguib Mahfouz", "1911-12-11", "2006-08-30", "Meurt au Caire à 94 ans — 34 romans, la mémoire vivante de l'Égypte moderne", "arts", "mort", 5),
+    # Enrico Fermi (1901-09-29)
+    ("b44079d2-a142-4ea1-8609-744ae05f8e54", "Enrico Fermi", "1901-09-29", "1926-01-01", "Nommé professeur de physique à Rome à 24 ans — le plus jeune professeur d'Italie", "science", "nomination", 4),
+    ("b44079d2-a142-4ea1-8609-744ae05f8e54", "Enrico Fermi", "1901-09-29", "1938-12-10", "Reçoit le Nobel de Physique à Stockholm — fuit l'Italie fasciste directement depuis la cérémonie", "science", "prix", 5),
+    ("b44079d2-a142-4ea1-8609-744ae05f8e54", "Enrico Fermi", "1901-09-29", "1942-12-02", "Réalise la première réaction nucléaire en chaîne à Chicago — l'ère atomique commence", "science", "exploit", 5),
+    ("b44079d2-a142-4ea1-8609-744ae05f8e54", "Enrico Fermi", "1901-09-29", "1954-11-28", "Meurt à Chicago à 53 ans d'un cancer — exposé aux radiations pendant toute sa carrière", "science", "mort", 5),
 
-    # Richard Feynman (1918-05-11)
-    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1943-06-01", "Rejoint le projet Manhattan à Los Alamos — passe son temps à crocheter les coffres-forts des scientifiques", "science", "debut", 4),
-    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1948-03-01", "Développe l'électrodynamique quantique — les diagrammes de Feynman révolutionnent la physique", "science", "decouverte", 5),
-    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1965-10-21", "Reçoit le prix Nobel de Physique — le professeur le plus aimé de Caltech", "science", "prix", 5),
-    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1986-02-11", "Démontre la défaillance du joint torique de Challenger — anneau de caoutchouc dans un verre d'eau glacée", "science", "exploit", 5),
-    ("184a03e9-fc63-4be6-aa20-3a5df7c72cb8", "Richard Feynman", "1918-05-11", "1988-02-15", "Meurt à Los Angeles à 69 ans — ses Cours de physique restent la référence mondiale", "science", "mort", 5),
+    # Ernest Rutherford (1871-08-30)
+    ("5590f423-3695-4400-a0e2-1979f6d2916d", "Ernest Rutherford", "1871-08-30", "1898-01-01", "Découvre les rayonnements alpha et bêta à 27 ans — fondements de la physique nucléaire", "science", "decouverte", 5),
+    ("5590f423-3695-4400-a0e2-1979f6d2916d", "Ernest Rutherford", "1871-08-30", "1908-12-10", "Reçoit le Nobel de Chimie — pour ses travaux sur la désintégration des éléments", "science", "prix", 5),
+    ("5590f423-3695-4400-a0e2-1979f6d2916d", "Ernest Rutherford", "1871-08-30", "1911-04-07", "Découvre le noyau atomique — l'atome est presque entièrement vide, révolution totale", "science", "decouverte", 5),
+    ("5590f423-3695-4400-a0e2-1979f6d2916d", "Ernest Rutherford", "1871-08-30", "1919-01-01", "Première transmutation artificielle — transforme l'azote en oxygène, réalise le rêve des alchimistes", "science", "exploit", 5),
+    ("5590f423-3695-4400-a0e2-1979f6d2916d", "Ernest Rutherford", "1871-08-30", "1937-10-19", "Meurt à Cambridge à 66 ans — père de la physique nucléaire, enterré à Westminster", "science", "mort", 5),
 
-    # Linus Pauling (1901-02-28)
-    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1931-01-01", "Publie ses règles sur la structure des cristaux — révolutionne la chimie structurale", "science", "decouverte", 5),
-    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1951-03-01", "Découvre la structure en hélice des protéines — avant Watson et Crick pour l'ADN", "science", "decouverte", 5),
-    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1954-12-10", "Reçoit le Nobel de Chimie — pour sa découverte de la nature des liaisons chimiques", "science", "prix", 5),
-    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1962-10-10", "Reçoit le Nobel de la Paix — pour son combat contre les essais nucléaires, seul double Nobel", "pouvoir", "prix", 5),
-    ("554a09ca-030a-4d1b-be50-28e678a4260f", "Linus Pauling", "1901-02-28", "1994-08-19", "Meurt à 93 ans en Californie — deux prix Nobel dans des domaines totalement différents", "science", "mort", 5),
+    # Andy Warhol (1928-08-06)
+    ("84c4f48d-719f-4e1e-94f4-f70aae6522e0", "Andy Warhol", "1928-08-06", "1949-01-01", "Arrive à New York comme illustrateur — talent immédiatement reconnu par les magazines", "arts", "debut", 4),
+    ("84c4f48d-719f-4e1e-94f4-f70aae6522e0", "Andy Warhol", "1928-08-06", "1962-07-09", "Exposition des boîtes de soupe Campbell — naissance officielle du Pop Art américain", "arts", "creation", 5),
+    ("84c4f48d-719f-4e1e-94f4-f70aae6522e0", "Andy Warhol", "1928-08-06", "1964-01-01", "Ouvre la Factory à New York — usine à art, laboratoire de la contre-culture", "arts", "creation", 5),
+    ("84c4f48d-719f-4e1e-94f4-f70aae6522e0", "Andy Warhol", "1928-08-06", "1968-06-03", "Blessé par balle par Valerie Solanas — survit miraculeusement, sa vision du monde change", "arts", "vie-privee", 5),
+    ("84c4f48d-719f-4e1e-94f4-f70aae6522e0", "Andy Warhol", "1928-08-06", "1987-02-22", "Meurt à New York à 58 ans — des suites d'une opération de la vésicule biliaire", "arts", "mort", 5),
 
-    # Jimmy Carter (1924-10-01)
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1976-11-02", "Élu président des États-Unis — gouverneur de Géorgie inconnu bat Gerald Ford", "pouvoir", "election", 5),
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1978-09-17", "Accords de Camp David — première paix entre Israël et un pays arabe, l'Égypte", "pouvoir", "victoire", 5),
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1980-11-04", "Battu par Reagan — otages en Iran, crise économique, un seul mandat", "pouvoir", "chute", 5),
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "1984-06-01", "Fonde Habitat pour l'Humanité — construit lui-même des maisons pour les pauvres", "pouvoir", "engagement", 5),
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "2002-10-11", "Reçoit le prix Nobel de la Paix à 78 ans — pour ses décennies de diplomatie et d'action humanitaire", "pouvoir", "prix", 5),
-    ("80abad43-6f1e-49f8-832b-c81544694a38", "Jimmy Carter", "1924-10-01", "2024-12-29", "Meurt à 100 ans — le président américain le plus âgé de l'histoire", "pouvoir", "mort", 5),
+    # Jackson Pollock (1912-01-28)
+    ("aad2159d-3fda-4cd6-b6b9-9ebd23190096", "Jackson Pollock", "1912-01-28", "1929-01-01", "Arrive à New York pour étudier la peinture — rencontre Thomas Hart Benton, son premier maître", "arts", "debut", 4),
+    ("aad2159d-3fda-4cd6-b6b9-9ebd23190096", "Jackson Pollock", "1912-01-28", "1947-01-01", "Invente le dripping — peint en versant la peinture directement sur la toile au sol", "arts", "creation", 5),
+    ("aad2159d-3fda-4cd6-b6b9-9ebd23190096", "Jackson Pollock", "1912-01-28", "1949-08-08", "Life Magazine le sacre le plus grand peintre américain vivant — célébrité soudaine", "arts", "distinction", 5),
+    ("aad2159d-3fda-4cd6-b6b9-9ebd23190096", "Jackson Pollock", "1912-01-28", "1956-08-11", "Meurt dans un accident de voiture à 44 ans — ivre au volant, l'expressionnisme abstrait perd son génie", "arts", "mort", 5),
 
-    # Francis Crick (1916-06-08)
-    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1951-01-01", "Rejoint le Cavendish Laboratory de Cambridge — commence à travailler sur la structure de l'ADN", "science", "debut", 4),
-    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1953-04-25", "Publie la double hélice de l'ADN avec Watson — en utilisant la Photo 51 de Rosalind Franklin", "science", "decouverte", 5),
-    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1962-10-18", "Reçoit le Nobel de Médecine avec Watson et Wilkins — Franklin est décédée 4 ans plus tôt", "science", "prix", 5),
-    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "1976-09-01", "Rejoint le Salk Institute — se consacre aux neurosciences et à la conscience", "science", "nomination", 4),
-    ("671bed1b-0812-47e0-a2b2-e07c0a5de51b", "Francis Crick", "1916-06-08", "2004-07-28", "Meurt à San Diego à 88 ans — travaillait encore sur un article le jour de sa mort", "science", "mort", 5),
-
-    # James Watson (1928-04-06)
-    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1950-01-01", "Obtient son doctorat à 22 ans à Chicago — prodige de la biologie moléculaire", "science", "formation", 4),
-    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1953-04-25", "Publie la structure en double hélice de l'ADN — révolution de la biologie", "science", "decouverte", 5),
-    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1962-10-18", "Reçoit le Nobel de Médecine avec Crick et Wilkins — à 34 ans", "science", "prix", 5),
-    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "1988-10-01", "Dirige le projet Génome humain — cartographie complète de l'ADN humain", "science", "nomination", 5),
-    ("6e73fff1-2608-4d2c-a5d1-e6863179fe87", "James Watson", "1928-04-06", "2019-01-13", "Déchu de ses titres honorifiques — propos racistes sur l'intelligence répétés à la télévision", "science", "chute", 4),
+    # Marc Chagall (1887-07-07)
+    ("d5c55e55-2290-4550-a8e6-5566ad53aa31", "Marc Chagall", "1887-07-07", "1910-01-01", "Arrive à Paris — La Ruche, rencontre Modigliani et Léger, découvre le cubisme", "arts", "debut", 4),
+    ("d5c55e55-2290-4550-a8e6-5566ad53aa31", "Marc Chagall", "1887-07-07", "1914-06-15", "Première exposition solo à Berlin — Der Sturm, reconnaissance internationale immédiate", "arts", "distinction", 5),
+    ("d5c55e55-2290-4550-a8e6-5566ad53aa31", "Marc Chagall", "1887-07-07", "1941-06-23", "Fuit la France occupée pour New York — arrêté puis libéré grâce à Varian Fry", "arts", "exil", 5),
+    ("d5c55e55-2290-4550-a8e6-5566ad53aa31", "Marc Chagall", "1887-07-07", "1964-09-23", "Peint le plafond de l'Opéra de Paris — commande de Malraux, polémique et chef-d'oeuvre", "arts", "creation", 5),
+    ("d5c55e55-2290-4550-a8e6-5566ad53aa31", "Marc Chagall", "1887-07-07", "1985-03-28", "Meurt à Saint-Paul-de-Vence à 97 ans — le dernier des grands maîtres du 20e siècle", "arts", "mort", 5),
 ]
 
 def main():
