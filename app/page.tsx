@@ -49,8 +49,8 @@ export default function HomePage() {
     router.push('/timeline')
   }
 
-  async function handleHomeSubscribe(e: React.FormEvent) {
-    e.preventDefault()
+  async function handleHomeSubscribe(e?: React.FormEvent) {
+    e?.preventDefault()
     if (!newsletterEmail || !birthdate) return
     setNewsletterStatus('loading')
     try {
@@ -192,7 +192,7 @@ export default function HomePage() {
                     <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>
                       Recevoir mes héros par email — un message uniquement quand une coïncidence exacte est détectée.
                     </div>
-                    <form onSubmit={handleHomeSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                       <input
                         type="email"
                         placeholder="votre@email.com"
@@ -200,10 +200,10 @@ export default function HomePage() {
                         onChange={e => setNewsletterEmail(e.target.value)}
                         style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
                       />
-                      <button type="submit" disabled={newsletterStatus === 'loading'} style={{ padding: '10px 16px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                      <button type="button" onClick={handleHomeSubscribe} disabled={newsletterStatus === 'loading'} style={{ padding: '10px 16px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
                         {newsletterStatus === 'loading' ? '...' : "S'inscrire"}
                       </button>
-                    </form>
+                    </div>
                     {newsletterStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
                     <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 8, textAlign: 'center' }}>Gratuit · Sans spam · Désinscription en un clic</div>
                   </>
