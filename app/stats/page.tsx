@@ -3,49 +3,50 @@ import { useRouter } from 'next/navigation'
 
 const STATS = {
   categories: [
-    { label: 'Arts et culture', nb: 620, color: '#72243E' },
-    { label: 'Politique', nb: 420, color: '#633806' },
-    { label: 'Sciences', nb: 340, color: '#0C447C' },
-    { label: 'Sport', nb: 280, color: '#27500A' },
-    { label: 'Exploration', nb: 110, color: '#b8860b' },
-    { label: 'Philosophie', nb: 65, color: '#3C3489' },
-    { label: 'Spirituel', nb: 33, color: '#085041' },
+    { label: 'Arts et culture', nb: 954, color: '#72243E' },
+    { label: 'Politique / Pouvoir', nb: 527, color: '#633806' },
+    { label: 'Sciences', nb: 413, color: '#0C447C' },
+    { label: 'Sport', nb: 276, color: '#27500A' },
+    { label: 'Exploration', nb: 154, color: '#b8860b' },
+    { label: 'Philosophie', nb: 69, color: '#3C3489' },
+    { label: 'Guerre', nb: 63, color: '#8B0000' },
+    { label: 'Spirituel', nb: 36, color: '#085041' },
   ],
   periodes: [
-    { label: 'XXe siecle', nb: 580 },
-    { label: 'XIXe siecle', nb: 380 },
-    { label: 'Contemporain', nb: 280 },
-    { label: 'XVIIe-XVIIIe', nb: 180 },
-    { label: 'Renaissance', nb: 90 },
-    { label: 'Moyen-Age', nb: 40 },
-    { label: 'Antiquite', nb: 20 },
+    { label: 'XXe siècle', nb: 146 },
+    { label: 'Contemporain', nb: 96 },
+    { label: 'XIXe siècle', nb: 75 },
+    { label: 'XVIIe-XVIIIe', nb: 37 },
+    { label: 'Renaissance', nb: 28 },
+    { label: 'Antiquité', nb: 12 },
+    { label: 'Moyen-Âge', nb: 7 },
   ],
   top10: [
     { name: 'Wolfgang Amadeus Mozart', nb: 18, cat: 'Musique' },
-    { name: 'Napoleon Bonaparte', nb: 16, cat: 'Politique' },
-    { name: 'Charles Darwin', nb: 10, cat: 'Science' },
-    { name: 'Albert Einstein', nb: 10, cat: 'Science' },
-    { name: 'Vincent van Gogh', nb: 10, cat: 'Art' },
-    { name: 'Bob Marley', nb: 10, cat: 'Musique' },
-    { name: 'Ludwig van Beethoven', nb: 9, cat: 'Musique' },
-    { name: 'Frida Kahlo', nb: 9, cat: 'Art' },
-    { name: 'Roger Federer', nb: 9, cat: 'Sport' },
-    { name: 'Nikola Tesla', nb: 9, cat: 'Science' },
+    { name: 'Napoléon Bonaparte', nb: 16, cat: 'Politique' },
+    { name: 'Honoré de Balzac', nb: 13, cat: 'Littérature' },
+    { name: 'Francisco de Goya', nb: 13, cat: 'Art' },
+    { name: 'Winston Churchill', nb: 13, cat: 'Politique' },
+    { name: 'Maximilien Robespierre', nb: 12, cat: 'Politique' },
+    { name: 'Alexander Fleming', nb: 12, cat: 'Science' },
+    { name: 'Louis Pasteur', nb: 12, cat: 'Science' },
+    { name: 'Charles Darwin', nb: 12, cat: 'Science' },
+    { name: 'Albert Einstein', nb: 11, cat: 'Science' },
   ],
-  plusJeune: { name: 'Tiger Woods', age: '2 ans', desc: 'Joue au golf a la television' },
-  plusAge: { name: 'Katherine Johnson', age: '97 ans', desc: 'Recoit la Medaille presidentielle de la Liberte' },
-  genre: { hommes: 255, femmes: 62 },
+  plusJeune: { name: 'Marie Stuart', age: '6 jours', desc: 'Devient reine d\'Écosse à la mort de son père' },
+  plusAge: { name: 'Edgar Morin', age: '104 ans', desc: 'S\'éteint à Paris, figure tutélaire de la pensée complexe' },
+  genre: { hommes: 336, femmes: 65 },
   tranches: [
-    { label: '0-9 ans', nb: 18 },
-    { label: '10-19 ans', nb: 139 },
-    { label: '20-29 ans', nb: 368 },
-    { label: '30-39 ans', nb: 337 },
-    { label: '40-49 ans', nb: 227 },
-    { label: '50-59 ans', nb: 180 },
-    { label: '60-69 ans', nb: 110 },
-    { label: '70-79 ans', nb: 80 },
-    { label: '80-89 ans', nb: 45 },
-    { label: '90+', nb: 15 },
+    { label: '0-9 ans', nb: 17 },
+    { label: '10-19 ans', nb: 211 },
+    { label: '20-29 ans', nb: 658 },
+    { label: '30-39 ans', nb: 581 },
+    { label: '40-49 ans', nb: 419 },
+    { label: '50-59 ans', nb: 250 },
+    { label: '60-69 ans', nb: 165 },
+    { label: '70-79 ans', nb: 114 },
+    { label: '80-89 ans', nb: 70 },
+    { label: '90+', nb: 25 },
   ],
 }
 
@@ -71,7 +72,7 @@ export default function StatsPage() {
           <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span onClick={() => router.push('/about')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 10px', border: '0.5px solid #e8e6e0', borderRadius: 99 }}>Comment ca marche</span>
+          <span onClick={() => router.push('/about')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 10px', border: '0.5px solid #e8e6e0', borderRadius: 99 }}>Comment ça marche</span>
           <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#b8860b', background: '#faf6ea', border: 'none', borderRadius: 99, padding: '6px 12px', cursor: 'pointer', fontFamily: 'sans-serif', fontWeight: 600, whiteSpace: 'nowrap' }}>
             Mon Histoire
           </button>
@@ -88,15 +89,13 @@ export default function StatsPage() {
         </h1>
 
         <p style={{ fontSize: 15, color: '#6b6a65', lineHeight: 1.75, marginBottom: 40 }}>
-          Une base construite evenement par evenement pour couvrir l'Histoire de l'Antiquite a nos jours.
+          Une base construite événement par événement pour couvrir l'Histoire de l'Antiquité à nos jours.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 48 }}>
           {[
-            { n: '2 000+', l: 'evenements dates' },
-            { n: '313', l: 'personnages' },
-            
-            
+            { n: '2 500+', l: 'événements datés' },
+            { n: '394', l: 'personnages historiques' },
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{s.n}</div>
@@ -113,7 +112,7 @@ export default function StatsPage() {
             <div style={{ fontSize: 12, color: '#6b6a65', lineHeight: 1.5 }}>{STATS.plusJeune.desc}</div>
           </div>
           <div style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px' }}>
-            <div style={{ fontSize: 11, color: '#b8860b', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 8, fontWeight: 600 }}>Le plus age</div>
+            <div style={{ fontSize: 11, color: '#b8860b', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 8, fontWeight: 600 }}>Le plus âgé</div>
             <div style={{ fontSize: 22, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{STATS.plusAge.age}</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>{STATS.plusAge.name}</div>
             <div style={{ fontSize: 12, color: '#6b6a65', lineHeight: 1.5 }}>{STATS.plusAge.desc}</div>
@@ -142,7 +141,7 @@ export default function StatsPage() {
         </div>
 
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Age des evenements</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Âge des événements</h2>
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 120, marginBottom: 8 }}>
             {STATS.tranches.map((t, i) => (
               <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
@@ -156,12 +155,12 @@ export default function StatsPage() {
             ))}
           </div>
           <div style={{ fontSize: 12, color: '#6b6a65', marginTop: 12, textAlign: 'center' }}>
-            Pic d'evenements entre 20 et 40 ans — l'age ou l'Histoire se fait
+            Pic d'événements entre 20 et 40 ans — l'âge où l'Histoire se fait
           </div>
         </div>
 
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Par theme</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Par thème</h2>
           {STATS.categories.map((c, i) => (
             <div key={i} style={{ marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
@@ -176,7 +175,7 @@ export default function StatsPage() {
         </div>
 
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Par epoque</h2>
+          <h2 style={{ fontSize: 18, fontWeight: 600, color: '#1a1916', marginBottom: 20 }}>Par époque</h2>
           {STATS.periodes.map((p, i) => (
             <div key={i} style={{ marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
@@ -197,7 +196,7 @@ export default function StatsPage() {
               <div style={{ fontSize: 13, color: i === 0 ? '#b8860b' : '#a8a79f', width: 20, textAlign: 'right', flexShrink: 0, fontWeight: i === 0 ? 700 : 400 }}>{i + 1}</div>
               <div style={{ flex: 1, fontSize: 14, fontWeight: i < 3 ? 600 : 400, color: '#1a1916' }}>{p.name}</div>
               <div style={{ fontSize: 11, color: '#a8a79f' }}>{p.cat}</div>
-              <div style={{ fontSize: 13, color: i === 0 ? '#b8860b' : '#6b6a65', fontWeight: i === 0 ? 700 : 400 }}>{p.nb} ev.</div>
+              <div style={{ fontSize: 13, color: i === 0 ? '#b8860b' : '#6b6a65', fontWeight: i === 0 ? 700 : 400 }}>{p.nb} év.</div>
             </div>
           ))}
         </div>
@@ -205,17 +204,17 @@ export default function StatsPage() {
         <div style={{ background: '#f5f3ee', borderRadius: 14, padding: '24px', textAlign: 'center' }}>
           <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 8 }}>La base grandit chaque semaine</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.7 }}>
-            Vous ne trouvez pas votre personnage prefere ? Ecrivez-nous.
+            Vous ne trouvez pas votre personnage préféré ? Écrivez-nous.
           </div>
           <a href="mailto:hero@chronoheroes.com" style={{ display: 'inline-block', padding: '10px 24px', background: '#1a1916', color: '#ffffff', borderRadius: 99, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
-            Suggerer un personnage
+            Suggérer un personnage
           </a>
         </div>
       </div>
 
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 8 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
-        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ca marche</span>
+        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ça marche</span>
         <span>2026 - <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
       </footer>
     </main>
