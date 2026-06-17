@@ -121,7 +121,7 @@ export default function StatsPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 48 }}>
           {[
             { n: '2 500+', l: 'événements datés' },
-            { n: '394', l: 'personnages historiques' },
+            { n: '400+', l: 'personnages historiques' },
           ].map((s, i) => (
             <div key={i} style={{ background: '#f5f3ee', borderRadius: 12, padding: '20px 16px', textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: '#1a1916', marginBottom: 4 }}>{s.n}</div>
