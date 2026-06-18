@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "brand": "ChronoHeroes",
+    "howItWorks": "Comment ça marche",
+    "myHistory": "Mon Histoire",
+    "statistics": "Statistiques"
+  },
+  "home": {
+    "title1": "DÉCOUVREZ",
+    "title2": "CEUX QUI ONT FAIT L'HISTOIRE",
+    "title3": "AU JOUR LE JOUR",
+    "subtitle": "Changez de perspective sur les grands personnages et les événements historiques.",
+    "labelFirstname": "Mon prénom",
+    "labelFirstnameOptional": "(facultatif)",
+    "placeholderFirstname": "Votre prénom",
+    "labelBirthdate": "Ma date de naissance",
+    "day": "Jour",
+    "month": "Mois",
+    "year": "Année",
+    "months": ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+    "submit": "Découvrir mes héros du jour",
+    "free": "Gratuit - Sans création de compte",
+    "newsletterText": "Recevoir mes héros par email — un message uniquement quand une coïncidence exacte est détectée.",
+    "subscribe": "S'inscrire",
+    "noSpam": "Gratuit · Sans spam · Désinscription en un clic",
+    "confirmTitle": "Inscription confirmée !",
+    "confirmText": "Vous recevrez un email dès qu'une coïncidence exacte est détectée avec votre âge au jour près.",
+    "mirror": "Votre miroir dans l'Histoire",
+    "errorDate": "Merci d'entrer votre date de naissance.",
+    "errorTooOld": "Même Jeanne Calment n'a vécu que 122 ans. Vérifiez votre date !",
+    "errorFuture": "Vous n'êtes pas encore né !"
+  },
+  "timeline": {
+    "yourAge": "Votre âge exact aujourd'hui",
+    "days": "jours",
+    "years": "ans",
+    "months": "mois",
+    "tagline": "Découvrez ce qu'ils faisaient à votre âge précisément.",
+    "filters": {
+      "all": "Tous",
+      "arts": "Arts",
+      "science": "Sciences",
+      "sport": "Sport",
+      "politique": "Politique",
+      "exploration": "Exploration"
+    },
+    "noResults": "Aucun événement trouvé pour cette catégorie.",
+    "seeMore": "Voir plus",
+    "subscribeTitle": "Recevoir mes héros par email",
+    "subscribeText": "Un email uniquement quand une coïncidence exacte est détectée.",
+    "subscribeDone": "Vous êtes inscrit !",
+    "subscribeDoneText": "Vous recevrez les événements de l'Histoire alignés avec vous.",
+    "dayFor": "Jour pour jour",
+    "daysAgo": "Il y a",
+    "inDays": "Dans",
+    "day1": "jour",
+    "days2": "jours",
+    "ageOnThatDay": "Son âge ce jour-là :"
+  },
+  "eventCard": {
+    "bornOn": "Né le",
+    "bornFem": "Née le",
+    "diedOn": "Mort le",
+    "diedFem": "Morte le",
+    "learnMore": "En savoir plus",
+    "readMore": "Lire plus",
+    "reduce": "Réduire"
+  },
+  "stats": {
+    "title": "ChronoHeroes en chiffres",
+    "subtitle": "Une base construite événement par événement pour couvrir l'Histoire de l'Antiquité à nos jours.",
+    "events": "événements datés",
+    "persons": "personnages historiques",
+    "youngest": "Le plus jeune",
+    "oldest": "Le plus âgé",
+    "menWomen": "Hommes et femmes",
+    "men": "Hommes",
+    "women": "Femmes",
+    "ageOfEvents": "Âge des événements",
+    "agePeak": "Pic d'événements entre 20 et 40 ans — l'âge où l'Histoire se fait",
+    "byTheme": "Par thème",
+    "byEra": "Par époque",
+    "topPersons": "Personnages les mieux couverts",
+    "growing": "La base grandit chaque semaine",
+    "suggest": "Suggérer un personnage",
+    "suggestText": "Vous ne trouvez pas votre personnage préféré ? Écrivez-nous."
+  },
+  "about": {
+    "title": "Comment ça marche"
+  },
+  "footer": {
+    "howItWorks": "Comment ça marche",
+    "statistics": "Statistiques",
+    "contact": "hero@chronoheroes.com"
+  }
+}

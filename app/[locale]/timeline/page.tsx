@@ -1,20 +1,16 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { MatchEvent } from '@/lib/supabase'
 import EventCard from '@/components/EventCard'
 
-const CATEGORIES = [
-  { slug: null, label: 'Tous' },
-  { slug: 'arts', label: 'Arts' },
-  { slug: 'science', label: 'Sciences' },
-  { slug: 'sport', label: 'Sport' },
-  { slug: 'pouvoir', label: 'Politique' },
-  { slug: 'exploration', label: 'Exploration' },
-]
-
 export default function TimelinePage() {
   const router = useRouter()
+  const locale = useLocale()
+  const t = useTranslations('timeline')
+  const tn = useTranslations('nav')
+
   const [prenom, setPrenom] = useState('')
   const [userDays, setUserDays] = useState(0)
   const [birthdate, setBirthdate] = useState('')
@@ -27,11 +23,20 @@ export default function TimelinePage() {
   const [subscribeStatus, setSubscribeStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
   const [copied, setCopied] = useState(false)
 
+  const CATEGORIES = [
+    { slug: null,          label: t('filters.all') },
+    { slug: 'arts',        label: t('filters.arts') },
+    { slug: 'science',     label: t('filters.science') },
+    { slug: 'sport',       label: t('filters.sport') },
+    { slug: 'pouvoir',     label: t('filters.politique') },
+    { slug: 'exploration', label: t('filters.exploration') },
+  ]
+
   useEffect(() => {
     const p = localStorage.getItem('ch_prenom')
     const bd = localStorage.getItem('ch_birthdate')
     const ud = localStorage.getItem('ch_userdays')
-    if (!p || !bd || !ud) { router.push('/'); return }
+    if (!p || !bd || !ud) { router.push(`/${locale}`); return }
     setPrenom(p)
     setBirthdate(bd)
     setUserDays(Number(ud))
@@ -42,7 +47,7 @@ export default function TimelinePage() {
     let d = today.getDate() - birth.getDate()
     if (d < 0) { m -= 1; d += new Date(today.getFullYear(), today.getMonth(), 0).getDate() }
     if (m < 0) { y -= 1; m += 12 }
-    setAgeLabel(y + ' ans, ' + m + ' mois et ' + d + ' jour' + (d > 1 ? 's' : ''))
+    setAgeLabel(y + ' ' + t('years') + ', ' + m + ' ' + t('months') + ' et ' + d + ' ' + (d > 1 ? t('days') : t('day1')))
   }, [])
 
   useEffect(() => {
@@ -90,7 +95,7 @@ export default function TimelinePage() {
   return (
     <main style={{ minHeight: '100vh', background: '#f5f3ee', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push(`/${locale}`)}>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
             <circle cx="14" cy="14" r="3" fill="#b8860b"/>
@@ -99,11 +104,14 @@ export default function TimelinePage() {
             <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
             <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
-          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916' }}>ChronoHeroes</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916' }}>{tn('brand')}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span onClick={() => router.push('/about')} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>Comment ca marche</span>
-          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span onClick={() => router.push(locale === 'fr' ? '/en' : '/fr')} style={{ fontSize: 12, color: '#b8860b', cursor: 'pointer', fontWeight: 600 }}>
+            {locale === 'fr' ? 'EN' : 'FR'}
+          </span>
+          <span onClick={() => router.push(`/${locale}/about`)} style={{ fontSize: 13, color: '#6b6a65', cursor: 'pointer' }}>{tn('howItWorks')}</span>
+          <button onClick={() => router.push(`/${locale}`)} style={{ fontSize: 12, color: '#6b6a65', background: 'transparent', border: '0.5px solid #e8e6e0', borderRadius: 99, padding: '6px 14px', cursor: 'pointer', fontFamily: 'sans-serif' }}>
             Retour
           </button>
         </div>
@@ -111,14 +119,14 @@ export default function TimelinePage() {
 
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '0 16px 80px' }}>
         <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', margin: '24px 0 8px', textAlign: 'center' }}>
-          <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>Votre âge exact aujourd'hui{prenom ? ' · ' + prenom : ''}</div>
-          <div style={{ fontSize: 34, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} jours</div>
-          <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel} de vie</div>
+          <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 6 }}>{t('yourAge')}{prenom ? ' · ' + prenom : ''}</div>
+          <div style={{ fontSize: 34, fontWeight: 700, color: '#1a1916', letterSpacing: '-1px' }}>{userDays.toLocaleString('fr-FR')} {t('days')}</div>
+          <div style={{ fontSize: 13, color: '#6b6a65', marginTop: 6 }}>{ageLabel}</div>
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <span style={{ fontSize: 15, color: '#b8860b', fontStyle: 'italic', fontWeight: 500 }}>
-            Découvrez ce qu'ils faisaient à votre âge précisément.
+            {t('tagline')}
           </span>
         </div>
 
@@ -134,8 +142,8 @@ export default function TimelinePage() {
         {error && <div style={{ background: '#fef3e2', border: '0.5px solid #b8860b', borderRadius: 10, padding: '12px 16px', fontSize: 13, color: '#b8860b' }}>{error}</div>}
         {!loading && !error && events.length === 0 && (
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 12, padding: '40px', textAlign: 'center' }}>
-            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>Aucun evenement trouve dans cette categorie.</div>
-            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>Voir tout</button>
+            <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 12 }}>{t('noResults')}</div>
+            <button onClick={() => setCat(null)} style={{ fontSize: 12, padding: '7px 16px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>{t('filters.all')}</button>
           </div>
         )}
 
@@ -143,41 +151,43 @@ export default function TimelinePage() {
 
         {!loading && events.length > 0 && (
           <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 20 }}>
-            <button onClick={() => { const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'; setLoading(true); fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) }) }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
-              Voir plus
+            <button onClick={() => {
+              const url = '/api/match?days=' + userDays + '&window=120' + (cat ? '&category=' + cat : '') + '&limit=40'
+              setLoading(true)
+              fetch(url).then(r => r.json()).then(d => { setEvents(d.events ?? []); setLoading(false) })
+            }} style={{ fontSize: 13, padding: '9px 22px', border: '0.5px solid #e8e6e0', borderRadius: 99, background: 'transparent', cursor: 'pointer', color: '#1a1916', fontFamily: 'sans-serif' }}>
+              {t('seeMore')}
             </button>
           </div>
         )}
 
-        {/* NEWSLETTER — au-dessus de "Partager" */}
         {!loading && (
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginBottom: 12 }}>
             {subscribeStatus === 'done' ? (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
-                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Vous etes inscrit !</div>
-                <div style={{ fontSize: 13, color: '#6b6a65' }}>Vous recevrez les evenements de l'Histoire alignes avec vous.</div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>{t('subscribeDone')}</div>
+                <div style={{ fontSize: 13, color: '#6b6a65' }}>{t('subscribeDoneText')}</div>
               </div>
             ) : (
               <>
-                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>Recevoir mes heros par email</div>
-                <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>
-                  Un email uniquement quand une coincidence exacte est detectee avec votre age.
-                </div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 4 }}>{t('subscribeTitle')}</div>
+                <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>{t('subscribeText')}</div>
                 <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  <input type="email" placeholder="votre@email.com" value={email} onChange={e => setEmail(e.target.value)} style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
-                  <button type="submit" disabled={subscribeStatus === 'loading'} style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
-                    {subscribeStatus === 'loading' ? '...' : "S'inscrire"}
+                  <input type="email" placeholder="votre@email.com" value={email} onChange={e => setEmail(e.target.value)}
+                    style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
+                  <button type="submit" disabled={subscribeStatus === 'loading'}
+                    style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                    {subscribeStatus === 'loading' ? '...' : t('subscribeTitle')}
                   </button>
                 </form>
-                {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue. Reessayez.</div>}
-                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>Gratuit - Sans spam - Desinscription en un clic</div>
+                {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
+                <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10 }}>{t('noSpam') ?? 'Gratuit · Sans spam · Desinscription en un clic'}</div>
               </>
             )}
           </div>
         )}
 
-        {/* PARTAGER */}
         {!loading && (
           <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 12, textAlign: 'center' }}>
             <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>Partager ma perspective</div>

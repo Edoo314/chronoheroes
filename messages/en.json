@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "brand": "ChronoHeroes",
+    "howItWorks": "How it works",
+    "myHistory": "My History",
+    "statistics": "Statistics"
+  },
+  "home": {
+    "title1": "DISCOVER",
+    "title2": "THOSE WHO MADE HISTORY",
+    "title3": "DAY BY DAY",
+    "subtitle": "Change your perspective on great historical figures and events.",
+    "labelFirstname": "My first name",
+    "labelFirstnameOptional": "(optional)",
+    "placeholderFirstname": "Your first name",
+    "labelBirthdate": "My date of birth",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "months": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    "submit": "Discover my heroes of the day",
+    "free": "Free - No account required",
+    "newsletterText": "Receive my heroes by email — a message only when an exact coincidence is detected.",
+    "subscribe": "Subscribe",
+    "noSpam": "Free · No spam · Unsubscribe in one click",
+    "confirmTitle": "Subscription confirmed!",
+    "confirmText": "You will receive an email as soon as an exact coincidence is detected with your age to the day.",
+    "mirror": "Your mirror in History",
+    "errorDate": "Please enter your date of birth.",
+    "errorTooOld": "Even Jeanne Calment only lived 122 years. Check your date!",
+    "errorFuture": "You haven't been born yet!"
+  },
+  "timeline": {
+    "yourAge": "Your exact age today",
+    "days": "days",
+    "years": "years",
+    "months": "months",
+    "tagline": "Discover what they did at your exact age.",
+    "filters": {
+      "all": "All",
+      "arts": "Arts",
+      "science": "Science",
+      "sport": "Sport",
+      "politique": "Politics",
+      "exploration": "Exploration"
+    },
+    "noResults": "No events found for this category.",
+    "seeMore": "See more",
+    "subscribeTitle": "Receive my heroes by email",
+    "subscribeText": "An email only when an exact coincidence is detected.",
+    "subscribeDone": "You are subscribed!",
+    "subscribeDoneText": "You will receive historical events aligned with you.",
+    "dayFor": "Day for day",
+    "daysAgo": "ago",
+    "inDays": "In",
+    "day1": "day",
+    "days2": "days",
+    "ageOnThatDay": "Their age that day:"
+  },
+  "eventCard": {
+    "bornOn": "Born on",
+    "bornFem": "Born on",
+    "diedOn": "Died on",
+    "diedFem": "Died on",
+    "learnMore": "Learn more",
+    "readMore": "Read more",
+    "reduce": "Collapse"
+  },
+  "stats": {
+    "title": "ChronoHeroes by the numbers",
+    "subtitle": "A database built event by event to cover History from Antiquity to the present day.",
+    "events": "dated events",
+    "persons": "historical figures",
+    "youngest": "The youngest",
+    "oldest": "The oldest",
+    "menWomen": "Men and women",
+    "men": "Men",
+    "women": "Women",
+    "ageOfEvents": "Age of events",
+    "agePeak": "Peak of events between 20 and 40 — the age when History is made",
+    "byTheme": "By theme",
+    "byEra": "By era",
+    "topPersons": "Most covered figures",
+    "growing": "The database grows every week",
+    "suggest": "Suggest a figure",
+    "suggestText": "Can't find your favorite historical figure? Write to us."
+  },
+  "about": {
+    "title": "How it works"
+  },
+  "footer": {
+    "howItWorks": "How it works",
+    "statistics": "Statistics",
+    "contact": "hero@chronoheroes.com"
+  }
+}

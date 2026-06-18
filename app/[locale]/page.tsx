@@ -1,16 +1,24 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { computeUserDays } from '@/lib/supabase'
 
 export default function HomePage() {
   const router = useRouter()
+  const locale = useLocale()
+  const t = useTranslations('home')
+  const tn = useTranslations('nav')
+  const tf = useTranslations('footer')
+
   const [prenom, setPrenom] = useState('')
   const [birthdate, setBirthdate] = useState('')
   const [error, setError] = useState('')
   const [isMobile, setIsMobile] = useState(false)
   const [newsletterEmail, setNewsletterEmail] = useState('')
   const [newsletterStatus, setNewsletterStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
+
+  const months = t.raw('months') as string[]
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 600)
@@ -28,25 +36,25 @@ export default function HomePage() {
       localStorage.setItem('ch_prenom', p || 'Vous')
       localStorage.setItem('ch_birthdate', b)
       localStorage.setItem('ch_userdays', String(userDays))
-      router.push('/timeline')
+      router.push(`/${locale}/timeline`)
     }
   }, [])
 
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!birthdate) { setError("Merci d'entrer votre Ma date de naissance."); return }
-    const year = parseInt(birthdate.split('-')[0])
+    if (!birthdate || birthdate.split('-').filter(Boolean).length < 3) {
+      setError(t('errorDate')); return
+    }
     const today = new Date()
     const birthDate = new Date(birthdate)
-    if (year < 1900) { setError("Meme Jeanne Calment n'est nee qu'en 1875... Verifiez !"); return }
-    if (birthDate > today) { setError("Vous n'etes pas encore ne ! Revenez le " + birthDate.toLocaleDateString('fr-FR')); return }
+    if (birthDate > today) { setError(t('errorFuture')); return }
     const { userDays } = computeUserDays(birthdate)
-    if (userDays > 44000) { setError("Meme Jeanne Calment n'a vecu que 122 ans. Verifiez votre date !"); return }
+    if (userDays > 44000) { setError(t('errorTooOld')); return }
     setError('')
     localStorage.setItem('ch_prenom', prenom.trim() || 'Vous')
     localStorage.setItem('ch_birthdate', birthdate)
     localStorage.setItem('ch_userdays', String(userDays))
-    router.push('/timeline')
+    router.push(`/${locale}/timeline`)
   }
 
   async function handleHomeSubscribe(e?: React.FormEvent) {
@@ -71,45 +79,51 @@ export default function HomePage() {
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
       <nav style={{ borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
-        <circle cx="14" cy="14" r="3" fill="#b8860b"/>
-        <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="14" y1="20" x2="14" y2="26" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-      <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
-    </div>
-    <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
-      Mon Histoire
-    </span>
-  </div>
-  <div style={{ display: 'flex', gap: 20, padding: '8px 20px 10px', borderTop: '0.5px solid #f0ede8' }}>
-    <span onClick={() => router.push('/about')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>Comment ca marche</span>
-    <span onClick={() => router.push('/stats')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>Statistiques</span>
-  </div>
-</nav>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push(`/${locale}`)}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
+              <circle cx="14" cy="14" r="3" fill="#b8860b"/>
+              <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="14" y1="20" x2="14" y2="26" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>{tn('brand')}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span onClick={() => router.push(locale === 'fr' ? '/en' : '/fr')} style={{ fontSize: 12, color: '#b8860b', cursor: 'pointer', fontWeight: 600 }}>
+              {locale === 'fr' ? 'EN' : 'FR'}
+            </span>
+            <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
+              {tn('myHistory')}
+            </span>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 20, padding: '8px 20px 10px', borderTop: '0.5px solid #f0ede8' }}>
+          <span onClick={() => router.push(`/${locale}/about`)} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>{tn('howItWorks')}</span>
+          <span onClick={() => router.push(`/${locale}/stats`)} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>{tn('statistics')}</span>
+        </div>
+      </nav>
+
       <section style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 16px 48px' : '72px 24px 64px', textAlign: 'center' }}>
         <h1 style={{ fontSize: isMobile ? 28 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: isMobile ? '-0.5px' : '-1px', marginBottom: 20 }}>
-          <span style={{ color: '#b8860b' }}>DÉCOUVREZ</span><br />
-          CEUX QUI ONT FAIT L'HISTOIRE<br />
-          <span style={{ color: '#b8860b' }}>AU JOUR LE JOUR</span>
+          <span style={{ color: '#b8860b' }}>{t('title1')}</span><br />
+          {t('title2')}<br />
+          <span style={{ color: '#b8860b' }}>{t('title3')}</span>
         </h1>
         <p style={{ fontSize: isMobile ? 14 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 480, margin: '0 auto 32px' }}>
-          Changez de perspective sur les grands personnages et les événements historiques.
+          {t('subtitle')}
         </p>
         <div id="form-section">
           <form onSubmit={validateAndSubmit} style={{ background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 16, padding: '24px 20px 20px', textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
             <div style={{ marginBottom: 14 }}>
               <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
-                Mon prénom <span style={{ color: '#a8a79f', fontSize: 10, textTransform: 'none', letterSpacing: 0 }}>(facultatif)</span>
+                {t('labelFirstname')} <span style={{ color: '#a8a79f', fontSize: 10, textTransform: 'none', letterSpacing: 0 }}>{t('labelFirstnameOptional')}</span>
               </label>
               <input
                 type="text"
-                placeholder="Votre prénom"
+                placeholder={t('placeholderFirstname')}
                 value={prenom}
                 onChange={e => setPrenom(e.target.value)}
                 style={{ width: '100%', padding: '12px 14px', fontSize: 16, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box' }}
@@ -117,44 +131,35 @@ export default function HomePage() {
             </div>
             <div style={{ marginBottom: 20 }}>
               <label style={{ fontSize: 11, color: '#6b6a65', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '.06em' }}>
-                Ma date de naissance
+                {t('labelBirthdate')}
               </label>
               <div style={{ display: 'flex', gap: 8 }}>
                 <select
                   value={birthdate ? birthdate.split('-')[2] : ''}
-                  onChange={e => {
-                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
-                    setBirthdate(`${parts[0]}-${parts[1]}-${e.target.value}`)
-                  }}
+                  onChange={e => { const parts = birthdate ? birthdate.split('-') : ['', '', '']; setBirthdate(`${parts[0]}-${parts[1]}-${e.target.value}`) }}
                   style={{ flex: 1, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
                 >
-                  <option value="">Jour</option>
+                  <option value="">{t('day')}</option>
                   {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
                     <option key={d} value={String(d).padStart(2, '0')}>{d}</option>
                   ))}
                 </select>
                 <select
                   value={birthdate ? birthdate.split('-')[1] : ''}
-                  onChange={e => {
-                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
-                    setBirthdate(`${parts[0]}-${e.target.value}-${parts[2]}`)
-                  }}
+                  onChange={e => { const parts = birthdate ? birthdate.split('-') : ['', '', '']; setBirthdate(`${parts[0]}-${e.target.value}-${parts[2]}`) }}
                   style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
                 >
-                  <option value="">Mois</option>
-                  {['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'].map((m, i) => (
+                  <option value="">{t('month')}</option>
+                  {months.map((m: string, i: number) => (
                     <option key={i} value={String(i + 1).padStart(2, '0')}>{m}</option>
                   ))}
                 </select>
                 <select
                   value={birthdate ? birthdate.split('-')[0] : ''}
-                  onChange={e => {
-                    const parts = birthdate ? birthdate.split('-') : ['', '', '']
-                    setBirthdate(`${e.target.value}-${parts[1]}-${parts[2]}`)
-                  }}
+                  onChange={e => { const parts = birthdate ? birthdate.split('-') : ['', '', '']; setBirthdate(`${e.target.value}-${parts[1]}-${parts[2]}`) }}
                   style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
                 >
-                  <option value="">Année</option>
+                  <option value="">{t('year')}</option>
                   {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).filter(y => y <= new Date().getFullYear() - 13).map(y => (
                     <option key={y} value={String(y)}>{y}</option>
                   ))}
@@ -166,63 +171,49 @@ export default function HomePage() {
                 {error}
               </div>
             )}
-            <button
-              type="submit"
-              style={{ width: '100%', padding: '14px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 16, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', WebkitAppearance: 'none' }}
-            >
-              Decouvrir mes heros du jour
+            <button type="submit" style={{ width: '100%', padding: '14px', background: '#1a1916', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 16, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', WebkitAppearance: 'none' }}>
+              {t('submit')}
             </button>
-            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 12, marginBottom: 0 }}>Gratuit - Sans création de compte</p>
+            <p style={{ fontSize: 12, color: '#a8a79f', textAlign: 'center', marginTop: 12, marginBottom: 0 }}>{t('free')}</p>
 
-            {/* NEWSLETTER HOME */}
             {birthdate && birthdate.split('-').filter(Boolean).length === 3 && (
               <div style={{ marginTop: 16, paddingTop: 16, borderTop: '0.5px solid #e8e6e0' }}>
                 {newsletterStatus === 'done' ? (
                   <div style={{ background: '#f0f9f0', border: '0.5px solid #27500A', borderRadius: 12, padding: '18px 20px', textAlign: 'center' }}>
                     <div style={{ fontSize: 28, marginBottom: 8 }}>✓</div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: '#27500A', marginBottom: 6 }}>
-                      Inscription confirmée !
-                    </div>
-                    <div style={{ fontSize: 13, color: '#6b6a65', lineHeight: 1.6 }}>
-                      Vous recevrez un email dès qu'une coïncidence exacte est détectée avec votre âge au jour près.
-                    </div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: '#27500A', marginBottom: 6 }}>{t('confirmTitle')}</div>
+                    <div style={{ fontSize: 13, color: '#6b6a65', lineHeight: 1.6 }}>{t('confirmText')}</div>
                   </div>
                 ) : (
                   <>
-                    <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>
-                      Recevoir mes héros par email — un message uniquement quand une coïncidence exacte est détectée.
-                    </div>
+                    <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>{t('newsletterText')}</div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                      <input
-                        type="email"
-                        placeholder="votre@email.com"
-                        value={newsletterEmail}
-                        onChange={e => setNewsletterEmail(e.target.value)}
-                        style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
-                      />
-                      <button type="button" onClick={handleHomeSubscribe} disabled={newsletterStatus === 'loading'} style={{ padding: '10px 16px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
-                        {newsletterStatus === 'loading' ? '...' : "S'inscrire"}
+                      <input type="email" placeholder="votre@email.com" value={newsletterEmail} onChange={e => setNewsletterEmail(e.target.value)}
+                        style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }} />
+                      <button type="button" onClick={handleHomeSubscribe} disabled={newsletterStatus === 'loading'}
+                        style={{ padding: '10px 16px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                        {newsletterStatus === 'loading' ? '...' : t('subscribe')}
                       </button>
                     </div>
                     {newsletterStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
-                    <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 8, textAlign: 'center' }}>Gratuit · Sans spam · Désinscription en un clic</div>
+                    <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 8, textAlign: 'center' }}>{t('noSpam')}</div>
                   </>
                 )}
               </div>
             )}
           </form>
-           <div style={{ display: 'inline-block', fontSize: 14, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
-          Votre miroir dans l'Histoire
-        </div>
+          <div style={{ display: 'inline-block', fontSize: 14, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
+            {t('mirror')}
+          </div>
         </div>
       </section>
+
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 12 }}>
-        <span style={{ color: '#1a1916', fontWeight: 600 }}>ChronoHeroes</span>
-        <span onClick={() => router.push('/about')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Comment ca marche</span>
-        <span onClick={() => router.push('/stats')} style={{ cursor: 'pointer', color: '#6b6a65' }}>Statistiques</span>
+        <span style={{ color: '#1a1916', fontWeight: 600 }}>{tn('brand')}</span>
+        <span onClick={() => router.push(`/${locale}/about`)} style={{ cursor: 'pointer', color: '#6b6a65' }}>{tf('howItWorks')}</span>
+        <span onClick={() => router.push(`/${locale}/stats`)} style={{ cursor: 'pointer', color: '#6b6a65' }}>{tf('statistics')}</span>
         <span>2026 - <a href="mailto:hero@chronoheroes.com" style={{ color: '#b8860b', textDecoration: 'none' }}>hero@chronoheroes.com</a></span>
       </footer>
     </main>
   )
 }
-
