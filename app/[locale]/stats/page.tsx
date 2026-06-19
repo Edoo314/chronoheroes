@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useLocale } from 'next-intl'
+import Nav from '@/components/Nav'
 const STATS = {
   categories: [
     { label: 'Arts et culture', nb: 954, color: '#72243E' },
@@ -83,28 +83,9 @@ const TOTAL_GENRE = STATS.genre.hommes + STATS.genre.femmes
 
 export default function StatsPage() {
   const router = useRouter()
-  const locale = useLocale()
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push('/')}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
-            <circle cx="14" cy="14" r="3" fill="#b8860b"/>
-            <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-            <line x1="14" y1="20" x2="14" y2="26" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-            <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-            <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          <span style={{ fontSize: 16, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>ChronoHeroes</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span onClick={() => router.push('/about')} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 10px', border: '0.5px solid #e8e6e0', borderRadius: 99 }}>Comment ça marche</span>
-          <button onClick={() => router.push('/')} style={{ fontSize: 12, color: '#b8860b', background: '#faf6ea', border: 'none', borderRadius: 99, padding: '6px 12px', cursor: 'pointer', fontFamily: 'sans-serif', fontWeight: 600, whiteSpace: 'nowrap' }}>
-            Mon Histoire
-          </button>
-        </div>
-      </nav>
+      <Nav />
 
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
         <div style={{ display: 'inline-block', fontSize: 12, letterSpacing: '.08em', color: '#b8860b', marginBottom: 20, padding: '5px 16px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>

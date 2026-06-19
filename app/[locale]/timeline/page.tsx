@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { MatchEvent } from '@/lib/supabase'
 import EventCard from '@/components/EventCard'
+import Nav from '@/components/Nav'
 
 export default function TimelinePage() {
   const router = useRouter()
-  const locale = useLocale()
   const t = useTranslations('timeline')
   const tn = useTranslations('nav')
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { computeUserDays } from '@/lib/supabase'
-
+import Nav from '@/components/Nav'
 export default function HomePage() {
   const router = useRouter()
   const locale = useLocale()
@@ -78,34 +78,7 @@ export default function HomePage() {
 
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
-      <nav style={{ borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }} onClick={() => router.push(`/${locale}`)}>
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="#b8860b" strokeWidth="1.5"/>
-              <circle cx="14" cy="14" r="3" fill="#b8860b"/>
-              <line x1="14" y1="2" x2="14" y2="8" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="14" y1="20" x2="14" y2="26" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="2" y1="14" x2="8" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="20" y1="14" x2="26" y2="14" stroke="#b8860b" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <span style={{ fontSize: 17, fontWeight: 700, color: '#1a1916', letterSpacing: '-.3px' }}>{tn('brand')}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span onClick={() => router.push(locale === 'fr' ? '/en' : '/fr')} style={{ fontSize: 12, color: '#b8860b', cursor: 'pointer', fontWeight: 600 }}>
-              {locale === 'fr' ? 'EN' : 'FR'}
-            </span>
-            <span onClick={() => document.getElementById('form-section')?.scrollIntoView({ behavior: 'smooth' })} style={{ fontSize: 13, color: '#b8860b', cursor: 'pointer', fontWeight: 600, whiteSpace: 'nowrap' }}>
-              {tn('myHistory')}
-            </span>
-          </div>
-        </div>
-        <div style={{ display: 'flex', gap: 20, padding: '8px 20px 10px', borderTop: '0.5px solid #f0ede8' }}>
-          <span onClick={() => router.push(`/${locale}/about`)} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>{tn('howItWorks')}</span>
-          <span onClick={() => router.push(`/${locale}/stats`)} style={{ fontSize: 12, color: '#6b6a65', cursor: 'pointer' }}>{tn('statistics')}</span>
-        </div>
-      </nav>
-
+      <Nav />
       <section style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 16px 48px' : '72px 24px 64px', textAlign: 'center' }}>
         <h1 style={{ fontSize: isMobile ? 28 : 42, fontWeight: 700, color: '#1a1916', lineHeight: 1.1, letterSpacing: isMobile ? '-0.5px' : '-1px', marginBottom: 20 }}>
           <span style={{ color: '#b8860b' }}>{t('title1')}</span><br />
