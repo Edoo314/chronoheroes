@@ -8,6 +8,7 @@ import Nav from '@/components/Nav'
 
 export default function TimelinePage() {
   const router = useRouter()
+  const locale = useLocale()
   const t = useTranslations('timeline')
   const tn = useTranslations('nav')
 
