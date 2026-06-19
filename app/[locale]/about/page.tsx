@@ -1,8 +1,10 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export default function AboutPage() {
   const router = useRouter()
+  const locale = useLocale()
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>

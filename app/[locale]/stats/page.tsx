@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-
+import { useLocale } from 'next-intl'
 const STATS = {
   categories: [
     { label: 'Arts et culture', nb: 954, color: '#72243E' },
@@ -83,6 +83,7 @@ const TOTAL_GENRE = STATS.genre.hommes + STATS.genre.femmes
 
 export default function StatsPage() {
   const router = useRouter()
+  const locale = useLocale()
   return (
     <main style={{ minHeight: '100vh', background: '#ffffff', fontFamily: 'sans-serif' }}>
       <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', borderBottom: '0.5px solid #e8e6e0', background: '#ffffff', position: 'sticky', top: 0, zIndex: 100 }}>
