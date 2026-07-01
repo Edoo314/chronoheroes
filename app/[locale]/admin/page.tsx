@@ -88,10 +88,9 @@ export default function AdminPage() {
 
     const ids = personsData.map(p => p.id)
     const { data: eventsData } = await supabase
-      .from('events')
-      .select('*')
-      .in('person_id', ids)
-      .order('event_date_raw', { ascending: true })
+  .from('events')
+  .select('*')
+  .order('event_date_raw', { ascending: true })
 
     const enriched = personsData.map(p => ({
       ...p,
