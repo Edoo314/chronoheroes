@@ -87,10 +87,20 @@ export default function AdminPage() {
     if (!personsData) { setLoading(false); return }
 
     const ids = personsData.map(p => p.id)
-    const { data: eventsData } = await supabase
-  .from('events')
-  .select('*')
-  .order('event_date_raw', { ascending: true })
+   let eventsData: any[] = []
+let from = 0
+const step = 1000
+while (true) {
+  const { data } = await supabase
+    .from('events')
+    .select('*')
+    .order('event_date_raw', { ascending: true })
+    .range(from, from + step - 1)
+  if (!data || data.length === 0) break
+  eventsData = [...eventsData, ...data]
+  if (data.length < step) break
+  from += step
+}
 
     const enriched = personsData.map(p => ({
       ...p,
