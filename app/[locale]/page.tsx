@@ -159,7 +159,10 @@ export default function HomePage() {
                   </div>
                 ) : (
                   <>
-                    <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>{t('newsletterText')}</div>
+                    <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>
+                    <span style={{ fontWeight: 700, color: '#1a1916' }}>{t('home.newsletterTitleBold')}</span>
+                    {' '}<span>{t('home.newsletterTitleLight')}</span>
+                    </div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                       <input type="email" placeholder="votre@email.com" value={newsletterEmail} onChange={e => setNewsletterEmail(e.target.value)}
                         style={{ flex: 1, padding: '10px 14px', fontSize: 14, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }} />

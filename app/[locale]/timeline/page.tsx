@@ -176,7 +176,7 @@ export default function TimelinePage() {
                   <span style={{ fontWeight: 700 }}>{t('subscribeTitleBold')}</span>
                    {' '}<span style={{ fontWeight: 400 }}>{t('subscribeTitleLight')}</span>
                    </div>
-                <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 16, lineHeight: 1.6 }}>{t('subscribeText')}</div>
+                 
                 <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <input type="email" placeholder="votre@email.com" value={email} onChange={e => setEmail(e.target.value)}
                     style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
