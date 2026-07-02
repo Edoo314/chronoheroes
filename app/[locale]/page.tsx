@@ -160,8 +160,8 @@ export default function HomePage() {
                 ) : (
                   <>
                     <div style={{ fontSize: 12, color: '#6b6a65', marginBottom: 10, textAlign: 'center', lineHeight: 1.5 }}>
-                    <span style={{ fontWeight: 700, color: '#1a1916' }}>{t('home.newsletterTitleBold')}</span>
-                    {' '}<span>{t('home.newsletterTitleLight')}</span>
+                   <span style={{ fontWeight: 700, color: '#1a1916' }}>{t('newsletterTitleBold')}</span>
+                    {' '}<span>{t('newsletterTitleLight')}</span>
                     </div>
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                       <input type="email" placeholder="votre@email.com" value={newsletterEmail} onChange={e => setNewsletterEmail(e.target.value)}
