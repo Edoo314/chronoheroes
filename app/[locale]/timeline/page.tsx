@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -149,7 +150,7 @@ export default function TimelinePage() {
         )}
 
         {!loading && events.map((event, index) => (
-  <React.Fragment key={event.event_id}>
+  <Fragment key={event.event_id}>
     <EventCard key={event.event_id} event={event} />
     {index === 4 && (
       <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginBottom: 12 }}>
@@ -179,7 +180,7 @@ export default function TimelinePage() {
         )}
       </div>
     )}
-    </React.Fragment>
+    </Fragment>
     ))}
 
         {!loading && events.length > 0 && (
