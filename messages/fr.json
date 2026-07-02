@@ -20,14 +20,14 @@
     "months": ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
     "submit": "Découvrir mes héros du jour",
     "free": "Gratuit - Sans création de compte",
-    "newsletterText": "Recevoir mes héros par email — un message uniquement quand une coïncidence exacte est détectée.",
+    "newsletterText": "Recevoir mon héros du jour par email — un message uniquement quand une coïncidence exacte est détectée.",
     "subscribe": "S'inscrire",
     "noSpam": "Gratuit · Sans spam · Désinscription en un clic",
     "confirmTitle": "Inscription confirmée !",
     "confirmText": "Vous recevrez un email dès qu'une coïncidence exacte est détectée avec votre âge au jour près.",
     "mirror": "Votre miroir dans l'Histoire",
     "errorDate": "Merci d'entrer votre date de naissance.",
-    "errorTooOld": "Même Jeanne Calment n'a vécu que 122 ans. Vérifiez votre date !",
+    "errorTooOld": "Même Jeanne Calment n'a pas vécu plus de 122 ans. Vérifiez votre date de naissance !",
     "errorFuture": "Vous n'êtes pas encore né !"
   },
   "timeline": {
