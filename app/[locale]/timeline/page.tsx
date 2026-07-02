@@ -148,7 +148,39 @@ export default function TimelinePage() {
           </div>
         )}
 
-        {!loading && events.map(event => <EventCard key={event.event_id} event={event} />)}
+        {!loading && events.map((event, index) => (
+  <React.Fragment key={event.event_id}>
+    <EventCard key={event.event_id} event={event} />
+    {index === 4 && (
+      <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginBottom: 12 }}>
+        {subscribeStatus === 'done' ? (
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 20, marginBottom: 8 }}>✓</div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', marginBottom: 6 }}>{t('subscribeDone')}</div>
+            <div style={{ fontSize: 13, color: '#6b6a65' }}>{t('subscribeDoneText')}</div>
+          </div>
+        ) : (
+          <>
+            <div style={{ fontSize: 15, color: '#1a1916', marginBottom: 4, textAlign: 'center' }}>
+              <span style={{ fontWeight: 700, display: 'block' }}>{t('subscribeTitleBold')}</span>
+              <span style={{ fontWeight: 400 }}>{t('subscribeTitleLight')}</span>
+            </div>
+            <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <input type="email" placeholder="votre@email.com" value={email} onChange={e => setEmail(e.target.value)}
+                style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
+              <button type="submit" disabled={subscribeStatus === 'loading'}
+                style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
+                {subscribeStatus === 'loading' ? '...' : t('subscribeButton')}
+              </button>
+            </form>
+            {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
+            <div style={{ fontSize: 11, color: '#a8a79f', marginTop: 10, textAlign: 'center' }}>{t('noSpam')}</div>
+          </>
+        )}
+      </div>
+    )}
+    </React.Fragment>
+    ))}
 
         {!loading && events.length > 0 && (
           <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 20 }}>
