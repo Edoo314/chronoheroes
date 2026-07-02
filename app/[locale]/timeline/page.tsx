@@ -179,7 +179,7 @@ export default function TimelinePage() {
                     style={{ flex: 1, minWidth: 200, padding: '10px 14px', fontSize: 14, background: '#f5f3ee', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif' }} />
                   <button type="submit" disabled={subscribeStatus === 'loading'}
                     style={{ padding: '10px 20px', background: '#b8860b', color: '#ffffff', border: 'none', borderRadius: 99, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'sans-serif', whiteSpace: 'nowrap' }}>
-                    {subscribeStatus === 'loading' ? '...' : t('subscribeTitle')}
+                    {subscribeStatus === 'loading' ? '...' : t('subscribeButton')}
                   </button>
                 </form>
                 {subscribeStatus === 'error' && <div style={{ fontSize: 12, color: '#E24B4A', marginTop: 8 }}>Une erreur est survenue.</div>}
