@@ -39,7 +39,24 @@ const CONTENT = {
     stats: "Statistics",
   }
 }
-
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const isEn = params.locale === 'en'
+  return {
+    title: isEn ? 'ChronoHeroes — How it works' : 'ChronoHeroes — Comment ça marche',
+    description: isEn
+      ? 'ChronoHeroes calculates your exact age in days and finds historical figures who lived something remarkable at the same age.'
+      : 'ChronoHeroes calcule votre âge exact en jours et trouve les personnages historiques qui ont vécu quelque chose de remarquable au même âge.',
+    openGraph: {
+      title: isEn ? 'ChronoHeroes — How it works' : 'ChronoHeroes — Comment ça marche',
+      description: isEn
+        ? 'Discover history through your own age, down to the day.'
+        : 'Découvrez l\'histoire à travers votre propre âge, au jour près.',
+      url: isEn ? 'https://chronoheroes.com/en/about' : 'https://chronoheroes.com/fr/about',
+      siteName: 'ChronoHeroes',
+      type: 'website',
+    },
+  }
+}
 export default function AboutPage() {
   const router = useRouter()
   const locale = useLocale() as 'fr' | 'en'

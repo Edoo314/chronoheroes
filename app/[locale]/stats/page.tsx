@@ -141,7 +141,24 @@ const T = {
     howItWorks: 'How it works',
   }
 }
-
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const isEn = params.locale === 'en'
+  return {
+    title: isEn ? 'ChronoHeroes — Statistics' : 'ChronoHeroes — Statistiques',
+    description: isEn
+      ? '580+ historical figures, 3000+ dated events. Explore the ChronoHeroes database by theme, era and age.'
+      : '580+ personnages historiques, 3000+ événements datés. Explorez la base ChronoHeroes par thème, époque et âge.',
+    openGraph: {
+      title: isEn ? 'ChronoHeroes — Statistics' : 'ChronoHeroes — Statistiques',
+      description: isEn
+        ? '580+ historical figures, 3000+ dated events.'
+        : '580+ personnages historiques, 3000+ événements datés.',
+      url: isEn ? 'https://chronoheroes.com/en/stats' : 'https://chronoheroes.com/fr/stats',
+      siteName: 'ChronoHeroes',
+      type: 'website',
+    },
+  }
+}
 export default function StatsPage() {
   const router = useRouter()
   const locale = useLocale() as 'fr' | 'en'
