@@ -69,7 +69,7 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
             <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 10 }}>
               {formatDate(person.birthdate_raw)}
               {person.deathdate_raw ? ` → ${formatDate(person.deathdate_raw)}` : ''}
-              {' · '}{person.country}{' · '}{person.period}
+              {' · '}{person.country}{' · '}{person.period?.toUpperCase()}
             </div>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {(person.tags ?? '').split(',').map((tag: string) => (
