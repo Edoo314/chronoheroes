@@ -16,11 +16,12 @@ export async function generateStaticParams() {
     .map(p => ({ slug: p.wikipedia_slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string, locale: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: string }> }) {
+  const { slug } = await params
   const { data: person } = await supabase
     .from('persons')
     .select('name, bio_fr')
-    .eq('wikipedia_slug', params.slug)
+    .eq('wikipedia_slug', slug)
     .single()
   if (!person) return { title: 'ChronoHeroes' }
   return {
@@ -29,11 +30,13 @@ export async function generateMetadata({ params }: { params: { slug: string, loc
   }
 }
 
-export default async function PersonnagePage({ params }: { params: { slug: string, locale: string } }) {
+export default async function PersonnagePage({ params }: { params: Promise<{ slug: string, locale: string }> }) {
+  const { slug, locale } = await params
+
   const { data: person } = await supabase
     .from('persons')
     .select('*')
-    .eq('wikipedia_slug', params.slug)
+    .eq('wikipedia_slug', slug)
     .single()
 
   if (!person) notFound()
@@ -56,7 +59,6 @@ export default async function PersonnagePage({ params }: { params: { slug: strin
       <Nav />
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '40px 24px 80px' }}>
 
-        {/* Header personnage */}
         <div style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', marginBottom: 24, display: 'flex', gap: 20, alignItems: 'flex-start' }}>
           {person.image_url && (
             <img src={person.image_url} alt={person.name}
@@ -77,7 +79,6 @@ export default async function PersonnagePage({ params }: { params: { slug: strin
           </div>
         </div>
 
-        {/* Timeline */}
         <h2 style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', margin: '0 0 12px' }}>Sa vie, au jour près</h2>
 
         {(events ?? []).map(ev => (
@@ -93,13 +94,12 @@ export default async function PersonnagePage({ params }: { params: { slug: strin
           </div>
         ))}
 
-        {/* CTA */}
         <div style={{ marginTop: 32, background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', textAlign: 'center' }}>
           <div style={{ fontSize: 16, fontWeight: 600, color: '#1a1916', marginBottom: 8 }}>Et vous, que faisiez-vous à cet âge ?</div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 20, lineHeight: 1.6 }}>
             Entrez votre date de naissance pour découvrir les personnages historiques qui ont vécu quelque chose de remarquable à votre âge exact.
           </div>
-          <a href={`/${params.locale}`}
+          <a href={`/${locale}`}
             style={{ display: 'inline-block', padding: '12px 28px', background: '#1a1916', color: '#fff', borderRadius: 99, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
             Découvrir mon miroir dans l'Histoire
           </a>
