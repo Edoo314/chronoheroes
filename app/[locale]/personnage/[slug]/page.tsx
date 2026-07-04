@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
-
+export const dynamic = 'force-dynamic'
 export async function generateStaticParams() {
   const { data } = await supabase
     .from('persons')
