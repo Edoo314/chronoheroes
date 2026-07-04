@@ -11,14 +11,13 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
 }
-
 export const metadata: Metadata = {
-  title: "ChronoHeroes — L'Histoire a votre age exact",
-  description: "Chaque jour, decouvrez des evenements qui ont fait l'Histoire dans votre perspective personnelle.",
+  title: "ChronoHeroes — L'Histoire à votre âge exact",
+  description: "Découvrez ce que les grands personnages historiques faisaient à votre âge exact, au jour près. 600+ personnages, 3000+ événements.",
   icons: { icon: '/icon.svg' },
   openGraph: {
-    title: "ChronoHeroes — L'Histoire a votre age exact",
-    description: "Decouvrez ce que les grands personnages historiques faisaient a votre age exact.",
+    title: "ChronoHeroes — L'Histoire à votre âge exact",
+    description: "Découvrez ce que les grands personnages historiques faisaient à votre âge exact, au jour près.",
     url: 'https://chronoheroes.com',
     siteName: 'ChronoHeroes',
     type: 'website',

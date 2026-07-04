@@ -4,25 +4,6 @@ import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { computeUserDays } from '@/lib/supabase'
 import Nav from '@/components/Nav'
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const isEn = params.locale === 'en'
-  return {
-    title: isEn ? 'ChronoHeroes — History at your exact age' : 'ChronoHeroes — L\'Histoire à votre âge exact',
-    description: isEn
-      ? 'Discover what historical figures were doing at your exact age, down to the day. Mozart, Napoleon, Curie and 580+ others.'
-      : 'Découvrez ce que les grands personnages historiques faisaient à votre âge exact, au jour près. Mozart, Napoléon, Curie et 580+ autres.',
-    openGraph: {
-      title: isEn ? 'ChronoHeroes — History at your exact age' : 'ChronoHeroes — L\'Histoire à votre âge exact',
-      description: isEn
-        ? 'Discover what historical figures were doing at your exact age, down to the day.'
-        : 'Découvrez ce que les grands personnages historiques faisaient à votre âge exact, au jour près.',
-      url: 'https://chronoheroes.com',
-      siteName: 'ChronoHeroes',
-      locale: isEn ? 'en_US' : 'fr_FR',
-      type: 'website',
-    },
-  }
-}
 export default function HomePage() {
   const router = useRouter()
   const locale = useLocale()
