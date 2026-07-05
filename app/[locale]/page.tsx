@@ -194,7 +194,10 @@ setExamples(shuffled)
       {examples.length > 0 && (
  <div style={{ maxWidth: 680, margin: '24px auto 0', padding: '0 24px', marginBottom: 32 }}>
     <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 12, textAlign: 'center' }}>
-      Ils ont fait l'Histoire à un âge précis
+     {locale === 'fr' 
+  ? "Découvrez l'âge exact au jour près des personnalités quand ils ont fait l'Histoire"
+  : "The exact age, to the day, of famous figures when they made history"
+}
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 10 }}>
       {examples.map((ex, i) => (
