@@ -81,7 +81,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   </a>
 )}
           </div>
-          <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '')}</div>
+          <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', locale, event.gender ?? '')}</div>
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
             {locale === 'en' ? 'Their age that day:' : 'Son âge ce jour-là :'} <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
           </div>
