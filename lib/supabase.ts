@@ -43,6 +43,8 @@ export async function fetchMatchEvents(params: { userDays: number; window?: numb
 export const CATEGORY_COLORS: Record<string, { bg: string; text: string; label: string }> = {
   arts: { bg: '#FBEAF0', text: '#72243E', label: 'Arts & culture' },
   science: { bg: '#E6F1FB', text: '#0C447C', label: 'Sciences' },
+  contemporain: { bg: '#F1EFE8', text: '#444441', label: 'Contemporain' },
+  guerre: { bg: '#FCEBEB', text: '#791F1F', label: 'Guerre' },
   sport: { bg: '#EAF3DE', text: '#27500A', label: 'Sport' },
   pouvoir: { bg: '#FAEEDA', text: '#633806', label: 'Politique' },
   exploration: { bg: '#FFF9E6', text: '#633806', label: 'Exploration' },
