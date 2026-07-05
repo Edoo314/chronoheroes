@@ -17,10 +17,15 @@ function formatDate(raw: string): string {
   return d + ' ' + months[m] + ' ' + y + suffix
 }
 
-function formatBirthDeath(born: string, died: string): string {
+function formatBirthDeath(born: string, died: string, locale: string, gender: string): string {
   const b = formatDate(born)
-  if (!died) return 'Né le ' + b
-  return 'Né le ' + b + ' · Mort le ' + formatDate(died)
+  const isF = gender === 'F'
+  if (locale === 'en') {
+    if (!died) return 'Born ' + b
+    return 'Born ' + b + ' · Died ' + formatDate(died)
+  }
+  if (!died) return (isF ? 'Née le ' : 'Né le ') + b
+  return (isF ? 'Née le ' : 'Né le ') + b + ' · ' + (isF ? 'Morte le ' : 'Mort le ') + formatDate(died)
 }
 
 function getDeltaStyle(signed: number): { label: string; bg: string; color: string } {
@@ -38,6 +43,18 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const style = getCategoryStyle(event.category)
   const delta = getDeltaStyle(event.delta_signed)
   const locale = useLocale()
+  const categoryLabels: Record<string, { fr: string, en: string }> = {
+  'Arts & culture': { fr: 'Arts & culture', en: 'Arts & culture' },
+  'Sciences': { fr: 'Sciences', en: 'Sciences' },
+  'Sport': { fr: 'Sport', en: 'Sport' },
+  'Politique': { fr: 'Politique', en: 'Politics' },
+  'Exploration': { fr: 'Exploration', en: 'Exploration' },
+  'Philosophie': { fr: 'Philosophie', en: 'Philosophy' },
+  'Spirituel': { fr: 'Spirituel', en: 'Spiritual' },
+  'Architecture': { fr: 'Architecture', en: 'Architecture' },
+  'Economie': { fr: 'Economie', en: 'Economy' },
+  'guerre': { fr: 'Guerre', en: 'War' },
+}
   const labelAutresEvents = locale === 'fr' ? 'Ses autres événements' : 'More events'
   const personnageUrl = event.wikipedia_slug
   ? `/${locale}/personnage/${event.wikipedia_slug}`
@@ -66,7 +83,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
           </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '')}</div>
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
-            Son âge ce jour-là : <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
+            {locale === 'en' ? 'Their age that day:' : 'Son âge ce jour-là :'} <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
           </div>
         </div>
         <div style={{ fontSize: 10, padding: '3px 10px', borderRadius: 99, background: delta.bg, color: delta.color, fontWeight: 600, whiteSpace: 'nowrap', flexShrink: 0 }}>
@@ -90,7 +107,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
       )}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70, marginTop: 10 }}>
-        <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{style.label}</span>
+        <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{categoryLabels[style.label]?.[locale as 'fr'|'en'] ?? style.label}</span>
         {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{event.period}</span>}
         <span style={{ fontSize: 12, color: '#1a1916', fontWeight: 600, marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
       </div>
