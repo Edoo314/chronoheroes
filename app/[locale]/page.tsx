@@ -17,7 +17,8 @@ export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false)
   const [newsletterEmail, setNewsletterEmail] = useState('')
   const [newsletterStatus, setNewsletterStatus] = useState<'idle'|'loading'|'done'|'error'>('idle')
-
+  const [stats, setStats] = useState({ persons: 0, events: 0 })
+  const [examples, setExamples] = useState<any[]>([])
   const months = t.raw('months') as string[]
 
   useEffect(() => {
@@ -38,8 +39,17 @@ export default function HomePage() {
       localStorage.setItem('ch_userdays', String(userDays))
       router.push(`/${locale}/timeline`)
     }
-  }, [])
-
+    }, [])
+   useEffect(() => {
+   fetch('/api/homestats')
+    .then(r => r.json())
+    .then(d => {
+      setStats({ persons: d.persons, events: d.events })
+    const shuffled = (d.examples || []).sort(() => Math.random() - 0.5).slice(0, 4)
+setExamples(shuffled)
+    })
+    .catch(() => {})
+    }, [])
   function validateAndSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!birthdate || birthdate.split('-').filter(Boolean).length < 3) {
@@ -178,12 +188,33 @@ export default function HomePage() {
               </div>
             )}
           </form>
-          <div style={{ display: 'inline-block', fontSize: 14, letterSpacing: '.08em', color: '#b8860b', marginTop: 28, marginBottom: 0, padding: '7px 20px', border: '0.5px solid #b8860b44', borderRadius: 99, fontWeight: 500 }}>
-            {t('mirror')}
-          </div>
         </div>
       </section>
-
+      {/* Cards exemples */}
+      {examples.length > 0 && (
+ <div style={{ maxWidth: 680, margin: '24px auto 0', padding: '0 24px', marginBottom: 32 }}>
+    <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1916', marginBottom: 12, textAlign: 'center' }}>
+      Ils ont fait l'Histoire à un âge précis
+    </div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 10 }}>
+      {examples.map((ex, i) => (
+        <div key={i} style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 12, padding: '14px 16px', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ width: 40, height: 40, borderRadius: 8, background: '#F5F3EE', flexShrink: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {ex.persons?.image_url
+              ? <img src={ex.persons.image_url} alt={ex.person_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              : <span style={{ fontSize: 11, color: '#a8a79f' }}>{ex.person_name?.[0]}</span>
+            }
+          </div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#1a1916', marginBottom: 2 }}>{ex.person_name}</div>
+            <div style={{ fontSize: 11, color: '#b8860b', marginBottom: 4 }}>{ex.age_label}</div>
+            <div style={{ fontSize: 12, color: '#6b6a65', lineHeight: 1.5 }}>{ex.description_fr}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
       <footer style={{ borderTop: '0.5px solid #e8e6e0', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#a8a79f', background: '#f5f3ee', flexWrap: 'wrap', gap: 12 }}>
         <span style={{ color: '#1a1916', fontWeight: 600 }}>{tn('brand')}</span>
         <span onClick={() => router.push(`/${locale}/about`)} style={{ cursor: 'pointer', color: '#6b6a65' }}>{tf('howItWorks')}</span>
