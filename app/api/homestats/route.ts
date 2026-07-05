@@ -10,7 +10,7 @@ export async function GET() {
   const [{ count: persons }, { count: events }, { data: examples }] = await Promise.all([
     supabase.from('persons').select('*', { count: 'exact', head: true }),
     supabase.from('events').select('*', { count: 'exact', head: true }),
-    supabase.from('events').select('description_fr, person_name, age_label, persons(image_url)').order('person_age_days').range(Math.floor(Math.random() * 500), Math.floor(Math.random() * 500) + 19),
+    supabase.from('events').select('description_fr, person_name, age_label, persons(image_url)').limit(50),
   ])
   return NextResponse.json({ persons, events, examples: examples ?? [] })
 }
