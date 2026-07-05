@@ -1,6 +1,7 @@
 ﻿'use client'
 import { MatchEvent, getCategoryStyle } from '@/lib/supabase'
 import { useState } from 'react'
+import { useLocale } from 'next-intl'
 
 function formatDate(raw: string): string {
   if (!raw) return ''
@@ -22,20 +23,6 @@ function formatBirthDeath(born: string, died: string): string {
   return 'Né le ' + b + ' · Mort le ' + formatDate(died)
 }
 
-const PERIOD_LABELS: Record<string, string> = {
-  antiquite: 'Antiquité',
-  'moyen-age': 'Moyen Âge',
-  renaissance: 'Renaissance',
-  'xviie-xviiie': 'XVIIe-XVIIIe siècle',
-  xixe: 'XIXe siècle',
-  xxe: 'XXe siècle',
-  contemporain: 'Époque contemporaine',
-}
-
-function formatPeriod(period: string): string {
-  return PERIOD_LABELS[period] ?? period
-}
-
 function getDeltaStyle(signed: number): { label: string; bg: string; color: string } {
   if (signed === 0) return { label: 'Jour pour jour', bg: '#b8860b22', color: '#b8860b' }
   if (signed > 0) {
@@ -50,15 +37,16 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const [open, setOpen] = useState(false)
   const style = getCategoryStyle(event.category)
   const delta = getDeltaStyle(event.delta_signed)
-
-  const wikiUrl = event.wikipedia_slug
-    ? 'https://fr.wikipedia.org/wiki/' + event.wikipedia_slug
-    : null
+  const locale = useLocale()
+  const labelAutresEvents = locale === 'fr' ? 'Ses autres événements' : 'More events'
+  const personnageUrl = event.wikipedia_slug
+  ? `/${locale}/personnage/${event.wikipedia_slug}`
+  : null
 
   return (
     <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 18px', marginBottom: 12 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 10 }}>
-        <div style={{ width: 68, height: 68, borderRadius: 12, flexShrink: 0, background: style.bg, color: style.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 600, overflow: 'hidden' }}>
+        <div style={{ width: 56, height: 56, borderRadius: 10, flexShrink: 0, background: style.bg, color: style.text, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, overflow: 'hidden' }}>
           {event.image_url ? (
             <img src={event.image_url} alt={event.person_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
@@ -68,13 +56,13 @@ export default function EventCard({ event }: { event: MatchEvent }) {
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916' }}>{event.person_name}</div>
-            {wikiUrl && (
-              <a href={wikiUrl} target="_blank" rel="noopener noreferrer"
-                onClick={e => e.stopPropagation()}
-                style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap' }}>
-                En savoir plus
-              </a>
-            )}
+            {personnageUrl && (
+  <a href={personnageUrl}
+    onClick={e => e.stopPropagation()}
+    style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap' }}>
+    {locale === 'fr' ? 'Ses autres événements' : 'More events'}
+  </a>
+)}
           </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '')}</div>
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
@@ -86,10 +74,10 @@ export default function EventCard({ event }: { event: MatchEvent }) {
         </div>
       </div>
 
-      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 4, paddingLeft: 82 }}>{event.description_fr}</div>
+      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 4, paddingLeft: 70 }}>{event.description_fr}</div>
 
       {event.bio_fr && (
-        <div style={{ paddingLeft: 82 }}>
+        <div style={{ paddingLeft: 70 }}>
           <button onClick={e => { e.stopPropagation(); setOpen(!open) }} style={{ fontSize: 11, color: '#b8860b', background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 0', fontFamily: 'sans-serif' }}>
             {open ? 'Réduire ▲' : 'Lire plus ▼'}
           </button>
@@ -101,9 +89,9 @@ export default function EventCard({ event }: { event: MatchEvent }) {
         </div>
       )}
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 82, marginTop: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70, marginTop: 10 }}>
         <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{style.label}</span>
-        {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{formatPeriod(event.period)}</span>}
+        {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{event.period}</span>}
         <span style={{ fontSize: 12, color: '#1a1916', fontWeight: 600, marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
       </div>
     </div>
