@@ -44,7 +44,6 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const delta = getDeltaStyle(event.delta_signed)
   const locale = useLocale()
   const categoryLabels: Record<string, { fr: string, en: string }> = {
-  const categoryLabels: Record<string, { fr: string, en: string }> = {
   ...
   'Contemporain': { fr: 'Contemporain', en: 'Contemporary' },
 }
