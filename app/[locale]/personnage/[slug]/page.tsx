@@ -74,7 +74,15 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
             <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 10 }}>
               {formatDate(person.birthdate_raw)}
               {person.deathdate_raw ? ` → ${formatDate(person.deathdate_raw)}` : ''}
-              {' · '}{person.country}{' · '}{person.period?.replace(/\b([a-z]+)\b/gi, (s: string) => s.toUpperCase()).replace(/E\b/g, 'e')}
+              {' · '}{person.country}{' · '}{({
+  'antiquite': locale === 'en' ? 'Antiquity' : 'Antiquité',
+  'moyen-age': locale === 'en' ? 'Middle Ages' : 'Moyen Âge',
+  'renaissance': 'Renaissance',
+  'xviie-xviiie': 'XVIIe-XVIIIe',
+  'xixe': 'XIXe',
+  'xxe': 'XXe',
+  'contemporain': locale === 'en' ? 'Contemporary' : 'Contemporain',
+} as Record<string, string>)[person.period] ?? person.period}
             </div>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {(person.tags ?? '').split(',').map((tag: string) => (
