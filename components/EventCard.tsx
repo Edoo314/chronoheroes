@@ -45,7 +45,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const locale = useLocale()
   const categoryLabels: Record<string, { fr: string, en: string }> = {
   'Arts & culture': { fr: 'Arts & culture', en: 'Arts & culture' },
-  'Sciences': { fr: 'Sciences', en: 'Sciences' },
+  'Sciences': { fr: 'Sciences', en: 'Sciences' },'Contemporain': { fr: 'Contemporain', en: 'Contemporary' },
   'Sport': { fr: 'Sport', en: 'Sport' },
   'Politique': { fr: 'Politique', en: 'Politics' },
   'Exploration': { fr: 'Exploration', en: 'Exploration' },
