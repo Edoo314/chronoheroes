@@ -44,6 +44,19 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const delta = getDeltaStyle(event.delta_signed)
   const locale = useLocale()
   const categoryLabels: Record<string, { fr: string, en: string }> = {
+  const categoryLabels: Record<string, { fr: string, en: string }> = {
+  ...
+  'Contemporain': { fr: 'Contemporain', en: 'Contemporary' },
+}
+const periodLabels: Record<string, { fr: string, en: string }> = {
+  'antiquite': { fr: 'Antiquité', en: 'Antiquity' },
+  'moyen-age': { fr: 'Moyen Âge', en: 'Middle Ages' },
+  'renaissance': { fr: 'Renaissance', en: 'Renaissance' },
+  'xviie-xviiie': { fr: 'XVIIe-XVIIIe', en: 'XVIIth-XVIIIth' },
+  'xixe': { fr: 'XIXe', en: 'XIXth' },
+  'xxe': { fr: 'XXe', en: 'XXth' },
+  'contemporain': { fr: 'Contemporain', en: 'Contemporary' },
+}
   'Arts & culture': { fr: 'Arts & culture', en: 'Arts & culture' },
   'Sciences': { fr: 'Sciences', en: 'Sciences' },
   'Sport': { fr: 'Sport', en: 'Sport' },
@@ -109,7 +122,7 @@ console.log('label exact:', JSON.stringify(style.label), 'locale exact:', JSON.s
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingLeft: 70, marginTop: 10 }}>
         <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: style.bg, color: style.text }}>{categoryLabels[style.label]?.[locale as 'fr'|'en'] ?? style.label}</span>
-        {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{event.period}</span>}
+        {event.period && <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65' }}>{periodLabels[event.period]?.[locale.substring(0,2) as 'fr'|'en'] ?? event.period}</span>}
         <span style={{ fontSize: 12, color: '#1a1916', fontWeight: 600, marginLeft: 'auto' }}>{formatDate(event.event_date_raw)}</span>
       </div>
     </div>
