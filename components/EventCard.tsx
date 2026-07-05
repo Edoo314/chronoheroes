@@ -45,7 +45,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const locale = useLocale()
   const categoryLabels: Record<string, { fr: string, en: string }> = {
   'Arts & culture': { fr: 'Arts & culture', en: 'Arts & culture' },
-  'Sciences': { fr: 'Sciences', en: 'Sciences' },'Contemporain': { fr: 'Contemporain', en: 'Contemporary' },
+  'Sciences': { fr: 'Sciences', en: 'Sciences' },
   'Sport': { fr: 'Sport', en: 'Sport' },
   'Politique': { fr: 'Politique', en: 'Politics' },
   'Exploration': { fr: 'Exploration', en: 'Exploration' },
@@ -53,7 +53,8 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   'Spirituel': { fr: 'Spirituel', en: 'Spiritual' },
   'Architecture': { fr: 'Architecture', en: 'Architecture' },
   'Economie': { fr: 'Economie', en: 'Economy' },
-  'guerre': { fr: 'Guerre', en: 'War' },
+  'Guerre': { fr: 'Guerre', en: 'War' },
+  'Contemporain': { fr: 'Contemporain', en: 'Contemporary' },
 }
   const labelAutresEvents = locale === 'fr' ? 'Ses autres événements' : 'More events'
   const personnageUrl = event.wikipedia_slug
