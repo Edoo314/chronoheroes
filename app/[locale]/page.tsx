@@ -193,7 +193,7 @@ setExamples(shuffled)
       {/* Cards exemples */}
       {examples.length > 0 && (
  <div style={{ maxWidth: 680, margin: '24px auto 0', padding: '0 24px', marginBottom: 32 }}>
-    <div style={{ fontSize: 14, fontWeight: 400, color: '#1a1916', marginBottom: 20, textAlign: 'center' }}>
+    <div style={{ fontSize: isMobile ? 14 : 16, color: '#6b6a65', lineHeight: 1.75, maxWidth: 480, margin: '0 auto 32px' }}>
      {locale === 'fr' ? (
   <>Découvrez ce que faisaient les personnalités qui ont fait l'Histoire<br />quand ils avaient votre âge exact, au jour près.</>
 ) : (
