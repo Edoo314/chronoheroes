@@ -60,7 +60,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   const personnageUrl = event.wikipedia_slug
   ? `/${locale}/personnage/${event.wikipedia_slug}`
   : null
-
+console.log('locale:', locale, 'label:', style.label, 'traduction:', categoryLabels[style.label]?.[locale.substring(0,2) as 'fr'|'en'])
   return (
     <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 18px', marginBottom: 12 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 10 }}>
