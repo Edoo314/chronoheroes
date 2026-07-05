@@ -90,7 +90,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
               <a href={personnageUrl}
                 onClick={e => e.stopPropagation()}
                 style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap' }}>
-                {lang === 'fr' ? 'Ses autres événements' : 'More events'}
+                {lang === 'fr' ? 'Ses événements' : 'More events'}
               </a>
             )}
           </div>
