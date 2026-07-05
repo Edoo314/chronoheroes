@@ -69,7 +69,7 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
 <a href={`https://fr.wikipedia.org/wiki/${person.wikipedia_slug}`}
   target="_blank" rel="noopener noreferrer"
   style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap', display: 'inline-block', marginBottom: 8 }}>
-  Wikipedia
+  {locale === 'en' ? 'Learn more' : 'En savoir plus'}
 </a>
             <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 10 }}>
               {formatDate(person.birthdate_raw)}
