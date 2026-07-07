@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { data: person } = await supabase
     .from('persons')
     .select('name, bio_fr')
-    .eq('wikipedia_slug', slug)
+    .ilike('wikipedia_slug', slug)
     .single()
   if (!person) return { title: 'ChronoHeroes' }
   return {
@@ -36,7 +36,7 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
   const { data: person } = await supabase
     .from('persons')
     .select('*')
-    .eq('wikipedia_slug', slug)
+    .ilike('wikipedia_slug', slug)
     .single()
 
   if (!person) notFound()
