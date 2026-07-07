@@ -4,11 +4,13 @@ const SUPABASE_ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON)
 export type MatchEvent = {
   event_id: string; person_name: string; wikipedia_slug: string | null
-  image_url: string | null; bio_fr: string | null; birthdate_raw: string
+  image_url: string | null; bio_fr: string | null; bio_en: string | null
+  birthdate_raw: string
   deathdate_raw: string | null; period: string; geo: string; tags: string
   event_date_raw: string; person_age_days: number; age_years: number
   age_months: number; age_days_rem: number; age_label: string
-  description_fr: string; category: string; subcategory: string | null
+  description_fr: string; description_en: string | null
+  category: string; subcategory: string | null
   importance: number; gender: string | null; delta_days: number; delta_signed: number
 }
 export function computeUserDays(birthdate: string) {

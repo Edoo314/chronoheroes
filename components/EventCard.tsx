@@ -2,6 +2,7 @@
 import { MatchEvent, getCategoryStyle } from '@/lib/supabase'
 import { useState } from 'react'
 import { useLocale } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 
 function formatDate(raw: string): string {
   if (!raw) return ''
@@ -70,8 +71,11 @@ export default function EventCard({ event }: { event: MatchEvent }) {
   }
 
   const personnageUrl = event.wikipedia_slug
-    ? `/${locale}/personnage/${event.wikipedia_slug}`
+    ? { pathname: '/personnage/[slug]' as const, params: { slug: event.wikipedia_slug } }
     : null
+
+  const description = lang === 'en' ? (event.description_en ?? event.description_fr) : event.description_fr
+  const bio = lang === 'en' ? (event.bio_en ?? event.bio_fr) : event.bio_fr
 
   return (
     <div style={{ background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 18px', marginBottom: 12 }}>
@@ -87,11 +91,11 @@ export default function EventCard({ event }: { event: MatchEvent }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
             <div style={{ fontSize: 15, fontWeight: 600, color: '#1a1916' }}>{event.person_name}</div>
             {personnageUrl && (
-              <a href={personnageUrl}
+              <Link href={personnageUrl}
                 onClick={e => e.stopPropagation()}
                 style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap' }}>
                 {lang === 'fr' ? 'Ses événements' : 'More events'}
-              </a>
+              </Link>
             )}
           </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', lang, event.gender ?? '')}</div>
@@ -104,16 +108,16 @@ export default function EventCard({ event }: { event: MatchEvent }) {
         </div>
       </div>
 
-      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 4, paddingLeft: 70 }}>{event.description_fr}</div>
+      <div style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.65, marginBottom: 4, paddingLeft: 70 }}>{description}</div>
 
-      {event.bio_fr && (
+      {bio && (
         <div style={{ paddingLeft: 70 }}>
           <button onClick={e => { e.stopPropagation(); setOpen(!open) }} style={{ fontSize: 11, color: '#b8860b', background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 0', fontFamily: 'sans-serif' }}>
-            {open ? 'Réduire ▲' : 'Lire plus ▼'}
+            {open ? (lang === 'fr' ? 'Réduire ▲' : 'Collapse ▲') : (lang === 'fr' ? 'Lire plus ▼' : 'Read more ▼')}
           </button>
           {open && (
             <div style={{ fontSize: 13, color: '#6b6a65', lineHeight: 1.75, marginTop: 6, paddingBottom: 8, borderBottom: '0.5px solid #e8e6e0' }}>
-              {event.bio_fr}
+              {bio}
             </div>
           )}
         </div>
