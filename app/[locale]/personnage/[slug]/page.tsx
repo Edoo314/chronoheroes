@@ -91,7 +91,15 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
             </div>
           </div>
         </div>
-
+{person.bio_fr && (
+          <div style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 24 }}>
+            {person.bio_fr.split('\n\n').map((paragraph: string, i: number) => (
+              <p key={i} style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.75, margin: i === 0 ? '0 0 12px' : '0 0 12px' }}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        )}
         <h2 style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', margin: '0 0 12px' }}>Sa vie, au jour près</h2>
 
         {(events ?? []).map(ev => (
