@@ -17,25 +17,29 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: string }> }) {
-  const { slug } = await params
+  const { slug, locale } = await params
   const decodedSlug = decodeURIComponent(slug)
   const { data: person } = await supabase
     .from('persons')
-    .select('name, bio_fr')
+    .select('name, bio_fr, bio_en')
     .ilike('wikipedia_slug', decodedSlug)
     .single()
   if (!person) return { title: 'ChronoHeroes' }
+  const bio = locale === 'en' ? (person.bio_en ?? person.bio_fr) : person.bio_fr
   return {
     title: `${person.name} — ChronoHeroes`,
-    description: person.bio_fr
-      ? person.bio_fr.split('\n\n')[0].slice(0, 160)
-      : `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
+    description: bio
+      ? bio.split('\n\n')[0].slice(0, 160)
+      : locale === 'en'
+        ? `Discover the life of ${person.name}, day by day, on ChronoHeroes.`
+        : `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
   }
 }
 
 export default async function PersonnagePage({ params }: { params: Promise<{ slug: string, locale: string }> }) {
   const { slug, locale } = await params
   const decodedSlug = decodeURIComponent(slug)
+  const en = locale === 'en'
 
   const { data: person } = await supabase
     .from('persons')
@@ -57,8 +61,10 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
     const clean = bce ? raw.slice(1) : raw
     const parts = clean.split('-')
     if (parts.length < 3) return raw
-    const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc']
-    const suffix = bce ? (locale === 'en' ? ' BC' : ' av. J.-C.') : ''
+    const months = en
+      ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+      : ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc']
+    const suffix = bce ? (en ? ' BC' : ' av. J.-C.') : ''
     return `${parseInt(parts[2])} ${months[parseInt(parts[1]) - 1]} ${parseInt(parts[0])}${suffix}`
   }
 
@@ -77,19 +83,19 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
 <a href={`https://fr.wikipedia.org/wiki/${person.wikipedia_slug}`}
   target="_blank" rel="noopener noreferrer"
   style={{ fontSize: 11, color: '#b8860b', textDecoration: 'none', border: '0.5px solid #b8860b44', borderRadius: 99, padding: '1px 7px', whiteSpace: 'nowrap', display: 'inline-block', marginBottom: 8 }}>
-  {locale === 'en' ? 'Learn more' : 'En savoir plus'}
+  {en ? 'Learn more' : 'En savoir plus'}
 </a>
             <div style={{ fontSize: 13, color: '#a8a79f', marginBottom: 10 }}>
               {formatDate(person.birthdate_raw)}
               {person.deathdate_raw ? ` → ${formatDate(person.deathdate_raw)}` : ''}
               {' · '}{person.country}{' · '}{({
-  'antiquite': locale === 'en' ? 'Antiquity' : 'Antiquité',
-  'moyen-age': locale === 'en' ? 'Middle Ages' : 'Moyen Âge',
+  'antiquite': en ? 'Antiquity' : 'Antiquité',
+  'moyen-age': en ? 'Middle Ages' : 'Moyen Âge',
   'renaissance': 'Renaissance',
-  'xviie-xviiie': 'XVIIe-XVIIIe',
-  'xixe': 'XIXe',
-  'xxe': 'XXe',
-  'contemporain': locale === 'en' ? 'Contemporary' : 'Contemporain',
+  'xviie-xviiie': en ? '17th-18th c.' : 'XVIIe-XVIIIe',
+  'xixe': en ? '19th c.' : 'XIXe',
+  'xxe': en ? '20th c.' : 'XXe',
+  'contemporain': en ? 'Contemporary' : 'Contemporain',
 } as Record<string, string>)[person.period] ?? person.period}
             </div>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -99,16 +105,20 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
             </div>
           </div>
         </div>
-{(locale === 'en' ? person.bio_en : person.bio_fr) && (
+{(en ? (person.bio_en ?? person.bio_fr) : person.bio_fr) && (
           <div style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '20px 24px', marginBottom: 24 }}>
-            {(locale === 'en' ? person.bio_en : person.bio_fr).split('\n\n').map((paragraph: string, i: number) => (
+            {(en ? (person.bio_en ?? person.bio_fr) : person.bio_fr).split('\n\n').map((paragraph: string, i: number) => (
               <p key={i} style={{ fontSize: 14, color: '#1a1916', lineHeight: 1.75, margin: '0 0 12px' }}>
                 {paragraph}
               </p>
             ))}
           </div>
         )}
-        <h2 style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', margin: '0 0 12px' }}>Sa vie, au jour près</h2>
+        <h2 style={{ fontSize: 15, fontWeight: 600, color: '#1a1916', margin: '0 0 12px' }}>
+          {en
+            ? (person.gender === 'f' ? 'Her life, day by day' : 'His life, day by day')
+            : 'Sa vie, au jour près'}
+        </h2>
 
         {(events ?? []).map(ev => (
           <div key={ev.id} style={{ background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '16px 20px', marginBottom: 10 }}>
@@ -117,20 +127,28 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#b8860b' }}>{ev.age_label}</div>
                 <div style={{ fontSize: 11, color: '#a8a79f' }}>{formatDate(ev.event_date_raw)}</div>
               </div>
-              <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65', border: '0.5px solid #e8e6e0' }}>{ev.subcategory}</span>
+              {ev.subcategory && (
+                <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 99, background: '#F5F3EE', color: '#6b6a65', border: '0.5px solid #e8e6e0' }}>{ev.subcategory}</span>
+              )}
             </div>
-            <div style={{ fontSize: 13, color: '#1a1916', lineHeight: 1.65 }}>{ev.description_fr}</div>
+            <div style={{ fontSize: 13, color: '#1a1916', lineHeight: 1.65 }}>
+              {en ? (ev.description_en ?? ev.description_fr) : ev.description_fr}
+            </div>
           </div>
         ))}
 
         <div style={{ marginTop: 32, background: '#fff', border: '0.5px solid #e8e6e0', borderRadius: 14, padding: '24px', textAlign: 'center' }}>
-          <div style={{ fontSize: 16, fontWeight: 600, color: '#1a1916', marginBottom: 8 }}>Et vous, que faisiez-vous à cet âge ?</div>
+          <div style={{ fontSize: 16, fontWeight: 600, color: '#1a1916', marginBottom: 8 }}>
+            {en ? 'And you — what were you doing at that age?' : 'Et vous, que faisiez-vous à cet âge ?'}
+          </div>
           <div style={{ fontSize: 13, color: '#6b6a65', marginBottom: 20, lineHeight: 1.6 }}>
-            Entrez votre date de naissance pour découvrir les personnages historiques qui ont vécu quelque chose de remarquable à votre âge exact.
+            {en
+              ? 'Enter your date of birth to discover the historical figures who lived something remarkable at your exact age.'
+              : 'Entrez votre date de naissance pour découvrir les personnages historiques qui ont vécu quelque chose de remarquable à votre âge exact.'}
           </div>
           <a href={`/${locale}`}
             style={{ display: 'inline-block', padding: '12px 28px', background: '#1a1916', color: '#fff', borderRadius: 99, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
-            Découvrir mon miroir dans l'Histoire
+            {en ? 'Find my mirror in History' : "Découvrir mon miroir dans l'Histoire"}
           </a>
         </div>
 
