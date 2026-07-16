@@ -18,25 +18,29 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: string }> }) {
   const { slug } = await params
+  const decodedSlug = decodeURIComponent(slug)
   const { data: person } = await supabase
     .from('persons')
     .select('name, bio_fr')
-    .ilike('wikipedia_slug', slug)
+    .ilike('wikipedia_slug', decodedSlug)
     .single()
   if (!person) return { title: 'ChronoHeroes' }
   return {
     title: `${person.name} — ChronoHeroes`,
-    description: person.bio_fr ?? `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
+    description: person.bio_fr
+      ? person.bio_fr.split('\n\n')[0].slice(0, 160)
+      : `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
   }
 }
 
 export default async function PersonnagePage({ params }: { params: Promise<{ slug: string, locale: string }> }) {
   const { slug, locale } = await params
+  const decodedSlug = decodeURIComponent(slug)
 
   const { data: person } = await supabase
     .from('persons')
     .select('*')
-    .ilike('wikipedia_slug', slug)
+    .ilike('wikipedia_slug', decodedSlug)
     .single()
 
   if (!person) notFound()
@@ -49,9 +53,13 @@ export default async function PersonnagePage({ params }: { params: Promise<{ slu
 
   function formatDate(raw: string) {
     if (!raw) return ''
+    const bce = raw.startsWith('-')
+    const clean = bce ? raw.slice(1) : raw
+    const parts = clean.split('-')
+    if (parts.length < 3) return raw
     const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc']
-    const parts = raw.split('-')
-    return `${parseInt(parts[2])} ${months[parseInt(parts[1]) - 1]} ${parts[0]}`
+    const suffix = bce ? (locale === 'en' ? ' BC' : ' av. J.-C.') : ''
+    return `${parseInt(parts[2])} ${months[parseInt(parts[1]) - 1]} ${parseInt(parts[0])}${suffix}`
   }
 
   return (
