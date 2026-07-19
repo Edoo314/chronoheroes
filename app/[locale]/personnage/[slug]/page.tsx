@@ -19,12 +19,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: string }> }) {
   const { slug, locale } = await params
   const decodedSlug = decodeURIComponent(slug)
+
+  const base = 'https://chronoheroes.com'
+  const frUrl = `${base}/fr/personnage/${encodeURIComponent(decodedSlug)}`
+  const enUrl = `${base}/en/character/${encodeURIComponent(decodedSlug)}`
+  const alternates = {
+    canonical: locale === 'en' ? enUrl : frUrl,
+    languages: { fr: frUrl, en: enUrl, 'x-default': frUrl },
+  }
+
   const { data: person } = await supabase
     .from('persons')
     .select('name, bio_fr, bio_en')
     .ilike('wikipedia_slug', decodedSlug)
     .single()
-  if (!person) return { title: 'ChronoHeroes' }
+  if (!person) return { title: 'ChronoHeroes', alternates }
   const bio = locale === 'en' ? (person.bio_en ?? person.bio_fr) : person.bio_fr
   return {
     title: `${person.name} — ChronoHeroes`,
@@ -33,6 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       : locale === 'en'
         ? `Discover the life of ${person.name}, day by day, on ChronoHeroes.`
         : `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
+    alternates,
   }
 }
 
