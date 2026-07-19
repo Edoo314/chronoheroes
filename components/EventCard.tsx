@@ -101,7 +101,7 @@ export default function EventCard({ event }: { event: MatchEvent }) {
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', lang, event.gender ?? '')}</div>
           {event.birthdate_note && (
             <div style={{ fontSize: 10, color: '#b8860b', fontStyle: 'italic', marginBottom: 2 }}>
-              {event.birthdate_note} — âges donnés à titre indicatif
+              {event.birthdate_note}
             </div>
           )}
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
