@@ -20,7 +20,7 @@ function formatDate(raw: string): string {
 
 function formatBirthDeath(born: string, died: string, locale: string, gender: string): string {
   const b = formatDate(born)
-  const isF = gender === 'F'
+ const isF = gender?.toLowerCase() === 'f'
   if (locale === 'en') {
     if (!died) return 'Born ' + b
     return 'Born ' + b + ' · Died ' + formatDate(died)
@@ -99,6 +99,11 @@ export default function EventCard({ event }: { event: MatchEvent }) {
             )}
           </div>
           <div style={{ fontSize: 11, color: '#a8a79f', marginBottom: 2 }}>{formatBirthDeath(event.birthdate_raw, event.deathdate_raw ?? '', lang, event.gender ?? '')}</div>
+          {event.birthdate_note && (
+            <div style={{ fontSize: 10, color: '#b8860b', fontStyle: 'italic', marginBottom: 2 }}>
+              {event.birthdate_note} — âges donnés à titre indicatif
+            </div>
+          )}
           <div style={{ fontSize: 12, color: '#6b6a65', fontWeight: 500 }}>
             {lang === 'en' ? 'Their age that day:' : 'Son âge ce jour-là :'} <span style={{ color: '#1a1916', fontWeight: 600 }}>{event.age_label}</span>
           </div>
