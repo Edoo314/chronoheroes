@@ -7,6 +7,14 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 export const dynamic = 'force-dynamic'
+
+function metaDescription(text: string): string {
+  if (text.length <= 160) return text
+  const cut = text.slice(0, 160)
+  const lastSpace = cut.lastIndexOf(' ')
+  return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut) + '…'
+}
+
 export async function generateStaticParams() {
   const { data } = await supabase
     .from('persons')
@@ -38,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${person.name} — ChronoHeroes`,
     description: bio
-      ? bio.split('\n\n')[0].slice(0, 160)
+      ? metaDescription(bio.split('\n\n')[0])
       : locale === 'en'
         ? `Discover the life of ${person.name}, day by day, on ChronoHeroes.`
         : `Découvrez la vie de ${person.name} au jour près sur ChronoHeroes.`,
