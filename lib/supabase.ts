@@ -6,6 +6,7 @@ export type MatchEvent = {
   event_id: string; person_name: string; wikipedia_slug: string | null
   image_url: string | null; bio_fr: string | null; bio_en: string | null
   birthdate_raw: string
+  birthdate_note?: string | null
   deathdate_raw: string | null; period: string; geo: string; tags: string
   event_date_raw: string; person_age_days: number; age_years: number
   age_months: number; age_days_rem: number; age_label: string
