@@ -4,7 +4,7 @@ import { routing } from './i18n/routing'
 
 const intlMiddleware = createMiddleware(routing)
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Redirection 301 : anciennes URLs /en/personnage/* déjà indexées → /en/character/*
