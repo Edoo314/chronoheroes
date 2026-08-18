@@ -6,6 +6,13 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
+// Sans ça, Next.js met en cache le résultat de la requête Supabase de façon
+// persistante (le cache survit même aux redéploiements) et sert un sitemap
+// figé au lieu de refléter les personnes ajoutées depuis. Découvert le
+// 18/08/2026 : les 16 personnes du lot "histoire politique anglaise du 20e
+// siècle" étaient absentes du sitemap malgré plusieurs redéploiements.
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data: persons } = await supabase
     .from('persons')
