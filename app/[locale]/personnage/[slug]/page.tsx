@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const base = 'https://chronoheroes.com'
   const frUrl = `${base}/fr/personnage/${encodeURIComponent(decodedSlug)}`
-  const enUrl = `${base}/en/character/${encodeURIComponent(decodedSlug)}`
+  const enUrl = `${base}/en/personnage/${encodeURIComponent(decodedSlug)}`
   const alternates = {
     canonical: locale === 'en' ? enUrl : frUrl,
     languages: { fr: frUrl, en: enUrl, 'x-default': frUrl },
