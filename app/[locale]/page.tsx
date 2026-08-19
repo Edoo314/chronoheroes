@@ -143,7 +143,7 @@ setExamples(shuffled)
                   style={{ flex: 2, padding: '12px 8px', fontSize: 15, background: '#ffffff', border: '0.5px solid #e8e6e0', borderRadius: 8, outline: 'none', color: '#1a1916', fontFamily: 'sans-serif', boxSizing: 'border-box', minWidth: 0 }}
                 >
                   <option value="">{t('year')}</option>
-                  {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).filter(y => y <= new Date().getFullYear() - 10).map(y => (
+                  {Array.from({ length: new Date().getFullYear() - 1900 + 1 }, (_, i) => new Date().getFullYear() - i).filter(y => y <= new Date().getFullYear() - 7).map(y => (
                     <option key={y} value={String(y)}>{y}</option>
                   ))}
                 </select>
